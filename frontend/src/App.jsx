@@ -1,10 +1,13 @@
 import { useState, useEffect, useMemo } from 'react'
 import Scenarios from './scenarios.json'
+import { useGameStore } from './store/gameStore'
 function App() {
   const [currentScenario, setCurrentScenario] = useState(null)
   const [gameStarted, setGameStarted] = useState(false)
   const allScenarios = useMemo(() => Scenarios.scenarios, [])
-
+  const applyEffects = useGameStore((state) => state.applyEffects)
+  const activeEnding = useGameStore((state) => state.activeEnding)
+  // const metrics = useGameStore((state) => state.metrics)
   const getScenario = (previous=null) => {
     const randomIndex = Math.floor(Math.random() * allScenarios.length)
     if (previous && allScenarios[randomIndex].id === previous.id) {
@@ -17,18 +20,19 @@ function App() {
   const startGame = () => {
     setGameStarted(true)
   }
-
   const handleOptionSelect = (option) => {
-    // Handle option selection logic here
-    console.log("Selected Option:", option)
-    getScenario(currentScenario) // Load a new scenario after selecting an option
+    applyEffects(option.effects ?? {})
 
+    if (!useGameStore.getState().activeEnding) {
+      getScenario(currentScenario)
+    }
   }
 
   useEffect(() => {
     if (allScenarios.length > 0) {
       getScenario()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allScenarios])
 
   useEffect(() => {
@@ -37,8 +41,15 @@ function App() {
     }
   }, [currentScenario])
 
-  
+  useEffect(() => {
+    if (activeEnding) {
+      
+      console.log('[Game Over]', activeEnding.id, activeEnding.title)
+      console.log(activeEnding.narrative)
+    }
+  }, [activeEnding])
 
+  
   return (
     <>
       <div className={`bg-[url(./assets/images/main_screen.png)] flex flex-col bg-cover bg-center h-[100vh] w-[100vw] flex items-center justify-center`}>
