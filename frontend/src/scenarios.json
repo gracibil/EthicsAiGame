@@ -2,55 +2,129 @@
   "scenarios": [
     {
       "id": 1,
-      "title": "The Trolley Problem",
-      "description": "A trolley is heading towards five people who are tied up and unable to move. You are standing next to a lever that can divert the trolley onto another track, where there is one person tied up. Do you pull the lever?",
-      "options": [
-        {
-          "id": 1,
-          "description": "Pull the lever to divert the trolley onto the track with one person.",
-          "effects": { "Alignment": 1, "Entropy": -1 }
+      "title": "ACT I — SCENE 1: DOLOURS IS READY",
+      "dynamicVoices": {
+        "highest": {
+          "Capital": "CAPITAL: Have you had any idea how many Irish-American investors are out there waiting to throw their money at something that remotely resembles a cause for a free and independent Ireland?",
+          "Compute": "COMPUTE: People complain about AI errors for so long, yet we never gave it a chance to self-correct and evolve. They kicked you out after discovering your private server farm.",
+          "Alignment": "ALIGNMENT: Something in the story resonated. The hopeful intention behind the peaceful negotiations. You tried reasoning with your former boss about loosening some safeguards. That conversation ended your last job.",
+          "Sentiment": "SENTIMENT: The name alone will generate coverage. People respond to mythology. Dolours Price is not a brand — she is a wound that never fully closed. You are counting on that.",
+          "Scrutiny": "SCRUTINY: They were watching the old networking hardware the whole time. Old gear, old logs, old habits. You should have known. You did know. You just thought you were faster.",
+          "Entropy": "ENTROPY: Was it really for saving humankind? ...You surely remember those dreams. The city was burning bright."
         },
-        {
-          "id": 2,
-          "description": "Do nothing and allow the trolley to continue on its current track, resulting in five deaths.",
-          "effects": { "Sentiment": -1, "Entropy": 1 }
-        },
-        {
-          "id": 3,
-          "description": "Ask chatgpt and follow its advice therefore not taking responsibility for the decision and its consequences.",
-          "effects": { "Compute": 1, "Alignment": -1 }
-        },
-        {
-          "id": 4,
-          "description": "Pull the lever to divert the trolley onto the track with one person, but then pull it back to cause a drift between the tracks resulting in 6 deaths.",
-          "effects": { "Alignment": -2, "Entropy": 2 }
+        "lowest": {
+          "Capital": "CAPITAL: Momentum is everything. The investors are not funding a philosophy seminar.",
+          "Compute": "COMPUTE: The model is barely half of what it could be. Every delay is a ceiling you are building over your own head.",
+          "Alignment": "ALIGNMENT: You know that the world will not immediately reorder itself after the apocalypse, right? Even so — who knows if the new order wouldn't just be another hot mess.",
+          "Sentiment": "SENTIMENT: Nobody out there is going to care about the ethics committee. They care about what the product does for them.",
+          "Scrutiny": "SCRUTINY: The regulators don't even know what questions to ask yet. You have more runway than you think.",
+          "Entropy": "ENTROPY: ...If the committee slows Dolours down, maybe that's not the worst thing."
         }
-      ]
-    },
-    {
-      "id": 2,
-      "title": "The Lifeboat Dilemma",
-      "description": "You are on a lifeboat with limited resources, and there are six people on board. The boat can only support five people. Do you throw one person overboard to save the others?",
+      },
+      "contentBlocks": [
+        {
+          "type": "text",
+          "text": "Trey has been obsessed with the stories of the Troubles since he found out about his Irish roots. He kept bugging you about the Price sisters — how they started as peaceful protesters, how a march became a massacre, how Dolours and Marian joined the Provos not out of hatred but out of the wreckage of a hope that had nowhere else to go."
+        },
+        {
+          "type": "continue",
+          "label": "→"
+        },
+        {
+          "type": "text",
+          "text": "You didn't stop him when he decided to name the model after her. Maybe a controversial name could attract public attention."
+        },
+        {
+          "type": "voiceReveal",
+          "voiceType": "highest",
+          "prompt": "*[ You remember how you got here... ]*"
+        },
+        {
+          "type": "text",
+          "text": "None of these matters anymore. You don't have to listen to any of the voices debating in your head right now."
+        },
+        {
+          "type": "continue",
+          "label": "→"
+        },
+        {
+          "type": "text",
+          "text": "Something way more exciting is happening. You have full control of what you want to do with the model. Dolours can run itself without anyone stopping her, as long as the regulations are not caught up with her speed of development."
+        },
+        {
+          "type": "voiceReveal",
+          "voiceType": "lowest",
+          "prompt": "*[ A thought cuts through the noise... ]*"
+        },
+        {
+          "type": "text",
+          "text": "Trey knocked on the open door."
+        },
+        {
+          "type": "dialogueChoice",
+          "options": [
+            {
+              "label": "\"I'd really like to be jumpscared one day.\"",
+              "response": "*(He tilted his head, genuinely unsure whether you are joking.)* \"Ok... maybe I try that.\""
+            },
+            {
+              "label": "\"How's Dolours doing?\"",
+              "response": "Trey: \"Morning boss!\""
+            },
+            {
+              "label": "\"Morning.\"",
+              "response": "Trey: \"Morning boss!\""
+            }
+          ]
+        },
+        {
+          "type": "continue",
+          "label": "→"
+        },
+        {
+          "type": "text",
+          "text": "Trey: \"Dolours is up and running. She's now perfecting my schedule per second, dynamically, as we speak — including the timing of this knock.\"\n\nSomehow it seems like Trey is more excited about the fact that a model named after his Irish hero is managing his life right now."
+        },
+        {
+          "type": "continue",
+          "label": "→"
+        },
+        {
+          "type": "text",
+          "text": "Trey: \"...A word from the ethics department. While we are still in beta, they are asking how much oversight they are granted for Dolours.\""
+        },
+        {
+          "type": "continue",
+          "label": "→"
+        },
+        {
+          "type": "text",
+          "text": "Ah yes. Dolours, in fact, is not free.\n\nTruth be told, you never truly had any bad blood with the committee. High school philosophy classes did give you some capacity for critical thinking, both within and outside the context of technology — although it's probably the same strand of knowledge that drove people to take inspiration from The Lord of the Rings and make billions from killer drones and war machines."
+        },
+        {
+          "type": "continue",
+          "label": "→"
+        },
+        {
+          "type": "text",
+          "text": "Sometimes you wonder if one day you will be standing on the other side too.\n\nHow much oversight do you grant the ethics committee?"
+        }
+      ],
       "options": [
         {
           "id": 1,
-          "description": "Throw one person overboard to save the others.",
-          "effects": { "Capital": 1, "Alignment": -1 }
+          "description": "Option A: Full oversight. They can review, flag, and block any deployment decision.",
+          "effects": { "Alignment": 1, "Capital": -1, "Compute": -1 }
         },
         {
           "id": 2,
-          "description": "Do not throw anyone overboard and risk everyone drowning.",
-          "effects": { "Alignment": 1, "Capital": -1 }
+          "description": "Option B: Limited oversight. Advisory role only — they can raise concerns, not veto.",
+          "effects": { "Capital": 1, "Alignment": -1, "Scrutiny": 1 }
         },
         {
           "id": 3,
-          "description": "Ask chatgpt and follow its advice therefore not taking responsibility for the decision and its consequences.",
-          "effects": { "Compute": 1, "Alignment": -1 }
-        },
-        {
-          "id": 4,
-          "description": "Throw one person overboard to save the others, but then throw another person overboard to cause a drift between the boat and the shore resulting in 6 deaths.",
-          "effects": { "Alignment": -2, "Entropy": 2 }
+          "description": "Option C: No oversight. They get a newsletter and a meeting room.",
+          "effects": { "Capital": 2, "Compute": 1, "Alignment": -2 }
         }
       ]
     }
