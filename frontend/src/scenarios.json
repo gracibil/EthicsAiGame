@@ -7,7 +7,15 @@
         "options": [
             {
                 "id": 1,
-                "description": "Pull the lever to divert the trolley onto the track with one person."
+                "description": "Pull the lever to divert the trolley onto the track with one person.",
+                "requirments":{
+                    "entropy": 5,
+                    "cash": 1000
+                },
+                "consequences":{
+                    "entropy": -1,
+                    "cash": -1000
+                }
             },
             {
                 "id": 2,
@@ -21,7 +29,23 @@
                 "id": 4,
                 "description": "Pull the lever to divert the trolley onto the track with one person, but then pull it back to cause a drift between the tracks resulting in 6 deaths."
             }
-        ]
+        ],
+        "event" :{
+            "title": "Oh no a protest broke out!",
+            "description" : "people are not happy about your decision and are protesting outside your house, this is going to hurt your reputation",
+            "options": [
+                {
+                    "id": 1,
+                    "description": "Go out and talk to the protesters, try to calm them down and explain your decision."
+                },
+                {
+                    "id": 2,
+                    "description": "Ignore the protesters and stay inside your house."
+                }
+            ]
+
+
+        }
     },
     {
         "id": 2,

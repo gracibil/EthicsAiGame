@@ -1,8 +1,11 @@
 import { useState, useEffect, useMemo } from 'react'
 import Scenarios from './scenarios.json'
+import EventPopUp from './components/eventPopUp'
+
 function App() {
   const [currentScenario, setCurrentScenario] = useState(null)
   const [gameStarted, setGameStarted] = useState(false)
+  const [eventOpen, setEventOpen] = useState(true)
   const allScenarios = useMemo(() => Scenarios.scenarios, [])
 
   const getScenario = (previous=null) => {
@@ -92,6 +95,7 @@ function App() {
 
 
           }
+          <EventPopUp event={currentScenario} open={eventOpen} setOpen={setEventOpen} />
 
         </div>     
 
