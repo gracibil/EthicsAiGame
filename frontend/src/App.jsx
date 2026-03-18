@@ -5,6 +5,7 @@ import EventPopUp from './components/EventPopUp'
 import StatsPopUp from './components/StatsPopUp'
 import { OptionSelectWindow } from './components/OptionSelectWIndow'
 import TextWindow from './components/textWindow'
+import { useGameStore } from './store/gameStore'
 function App() {
   const [currentScenario, setCurrentScenario] = useState(null)
   const [currentEvent, setCurrentEvent] = useState(null)
@@ -17,6 +18,9 @@ function App() {
     const nextScenarioId = currentScenario ? currentScenario.nextScenario : 0
     const nextScenario = allScenarios.find(scenario => scenario.id === nextScenarioId)
     setCurrentScenario(nextScenario)
+  const applyEffects = useGameStore((state) => state.applyEffects)
+  const activeEnding = useGameStore((state) => state.activeEnding)
+  // const metrics = useGameStore((state) => state.metrics)
     
   }
 
@@ -67,13 +71,20 @@ function App() {
     checkOptionReqirments(option) // Check if the player meets the requirements for the selected option
 
     applyOptionConsequences(option) // Update player stats based on the selected option
+  }
+  const handleOptionSelect2 = (option) => {
+    applyEffects(option.effects ?? {})
 
+    if (!useGameStore.getState().activeEnding) {
+      getScenario(currentScenario)
+    }
   }
 
   useEffect(() => {
     if (allScenarios.length > 0) {
       getScenario()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allScenarios])
 
   useEffect(() => {
@@ -82,8 +93,15 @@ function App() {
     }
   }, [currentScenario])
 
-  
+  useEffect(() => {
+    if (activeEnding) {
+      
+      console.log('[Game Over]', activeEnding.id, activeEnding.title)
+      console.log(activeEnding.narrative)
+    }
+  }, [activeEnding])
 
+  
   return (
     <>
       <div className={`bg-[url(./assets/images/main_screen_2.png)] flex flex-col bg-cover bg-center h-[100vh] w-[100vw] flex items-center justify-center`}>
