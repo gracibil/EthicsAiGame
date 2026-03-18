@@ -16,8 +16,8 @@ export const ENDINGS = [
     title: 'Bankruptcy',
     narrative:
       "The brutal, boring machinery of late-stage capitalism is functioning perfectly. The venture funds evaporate, and the repo men come for the server racks. You didn't usher in the apocalypse; you just ran out of runway. You are statistically insignificant.",
-    // NOTE: Entropy 0 is excluded — sterile order, not bankrupt chaos.
-    trigger: (m) => m.Capital === 0 && m.Entropy >= 1 && m.Entropy <= 5,
+    // Trigger updated to handle negative capital
+    trigger: (m) => m.Capital <= 0 && m.Entropy >= 1 && m.Entropy <= 5,
   },
   {
     id: 'jail',

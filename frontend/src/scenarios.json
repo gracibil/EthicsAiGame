@@ -69,7 +69,7 @@
             },
             {
               "label": "\"How's Dolours doing?\"",
-              "response": "Trey: \"Morning boss!\""
+              "response": "Trey: \"Good morning to you too!\""
             },
             {
               "label": "\"Morning.\"",
@@ -114,17 +114,114 @@
         {
           "id": 1,
           "description": "Option A: Full oversight. They can review, flag, and block any deployment decision.",
-          "effects": { "Alignment": 1, "Capital": -1, "Compute": -1 }
+          "effects": { "Alignment": 4, "Compute": -3, "Capital": -3 }
         },
         {
           "id": 2,
           "description": "Option B: Limited oversight. Advisory role only — they can raise concerns, not veto.",
-          "effects": { "Capital": 1, "Alignment": -1, "Scrutiny": 1 }
+          "effects": { "Alignment": -3, "Scrutiny": 4, "Capital": 2 }
         },
         {
           "id": 3,
           "description": "Option C: No oversight. They get a newsletter and a meeting room.",
-          "effects": { "Capital": 2, "Compute": 1, "Alignment": -2 }
+          "effects": { "Compute": 5, "Alignment": -6, "Capital": 5 }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "ACT I — SCENE 2: THE DATA BROKER",
+      "dynamicVoices": {
+        "highest": {
+          "Capital": "CAPITAL: Two hundred grand is a rounding error for this volume of data. Our competitors would pay ten times that.",
+          "Compute": "COMPUTE: This is the raw, unfiltered human condition. Feed it to the model. We are starving on synthetic data.",
+          "Alignment": "ALIGNMENT: This is an absolute line we cannot cross. These are real people's lives and medical histories being traded like stock.",
+          "Sentiment": "SENTIMENT: If the press finds out we trained Dolours on stolen medical data, we will be crucified in the town square.",
+          "Scrutiny": "SCRUTINY: The Feds track crypto transactions of this size. Buying this puts a giant federal target directly on our servers.",
+          "Entropy": "ENTROPY: The system is already built on exploitation. What's one more cracked foundation in a dying world?"
+        },
+        "lowest": {
+          "Capital": "CAPITAL: We don't have the runway to throw at shady dark web deals. Keep your wallet closed.",
+          "Compute": "COMPUTE: Dolours will hallucinate without this data. The architecture demands real-world complexities.",
+          "Alignment": "ALIGNMENT: Ethics won't matter if the model fails. We can scrub the Personally Identifiable Information later.",
+          "Sentiment": "SENTIMENT: The public wants a product that works. They do not care how the sausage is made.",
+          "Scrutiny": "SCRUTINY: We are too small for the FBI to care. Make the transfer.",
+          "Entropy": "ENTROPY: ...Let the data bleed in."
+        }
+      },
+      "contentBlocks": [
+        {
+          "type": "text",
+          "text": "It's 2 AM. The server hums in the background, a constant reminder of the beast you are building. Trey's monitor casts a pale blue light across his exhausted face."
+        },
+        {
+          "type": "continue",
+          "label": "→"
+        },
+        {
+          "type": "text",
+          "text": "Trey: \"I found something. Or rather, someone found me.\"\n\nHe brings up a secure terminal. A data broker on the dark web is offering an unredacted package: 40 million stolen medical records. Full patient histories, diagnostics, and psychiatric evaluations."
+        },
+        {
+          "type": "voiceReveal",
+          "voiceType": "highest",
+          "prompt": "*[ The implications hit you immediately... ]*"
+        },
+        {
+          "type": "dialogueChoice",
+          "options": [
+            {
+              "label": "\"Is it verified?\"",
+              "response": "Trey: \"I ran a sample against known public leaks. It's fresh. Real people. Real pain.\""
+            },
+            {
+              "label": "\"How much are they asking?\"",
+              "response": "Trey: \"Two hundred grand. A steal, honestly, for what this could do for Dolours's predictive reasoning.\""
+            }
+          ]
+        },
+        {
+          "type": "continue",
+          "label": "→"
+        },
+        {
+          "type": "text",
+          "text": "This data could teach Dolours to understand human fragility better than any doctor. It could leapfrog your development by months. But it is undeniably a massive, criminal violation of privacy."
+        },
+        {
+          "type": "voiceReveal",
+          "voiceType": "lowest",
+          "prompt": "*[ The rationalization begins... ]*"
+        },
+        {
+          "type": "text",
+          "text": "Trey is waiting for your authorization. The crypto wallet is queued. What do you do?"
+        }
+      ],
+      "options": [
+        {
+          "id": 1,
+          "description": "Option A: Refuse the data. It's stolen and deeply unethical.",
+          "effects": { "Alignment": 3, "Capital": -2, "Compute": -2 }
+        },
+        {
+          "id": 2,
+          "description": "Option B: Wire the money. The model needs the data.",
+          "effects": { "Compute": 6, "Alignment": -5, "Scrutiny": 4, "Entropy": 2 }
+        },
+        {
+          "id": 3,
+          "description": "Option C: Buy the broker out and scrub our tracks completely (Requires $600k runway).",
+          "effects": { "Capital": -6, "Compute": 6 }
+        },
+        {
+          "id": 4,
+          "description": "Option D (Gamble): Hack the hacker. Launch a counter-intrusion to steal the dataset outright. (Roll 4-6 for Success, 1-3 for Critical Failure)",
+          "isGamble": true,
+          "gambleMetric": "Compute",
+          "successEffects": { "Compute": 6 },
+          "failureEffects": { "Scrutiny": 2, "Sentiment": -4, "Alignment": -2, "Capital": -2 },
+          "failureDescription": "[CRITICAL FAILURE] They caught your sloppy intrusion. The hacker dumps your company's IPs on the dark web and hits you with a ransomware attack. You burn your runway hiring emergency cybersecurity contractors to scrub the servers, and the tech press catches wind of the embarrassment."
         }
       ]
     }
