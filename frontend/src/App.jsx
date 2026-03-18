@@ -71,7 +71,11 @@ function App() {
   const handleProceed = () => {
     setLastAppliedEffects(null);
     if (!useGameStore.getState().activeEnding) {
-      getScenario(currentScenario);
+      // TODO: Link this to the Act II / Scene 2 trigger
+      console.log("Proceeding to Scene 2...");
+      alert("Transitioning to Scene 2! (Placeholder)");
+      
+      // getScenario(currentScenario); // Disabled loop for now
     }
   }
 
