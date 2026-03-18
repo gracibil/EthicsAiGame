@@ -10,7 +10,7 @@ export const METRICS_CONFIG = {
     subtitle: 'The Runway',
     description: 'Your funding, server budget, and investor patience.',
     min: 0,
-    max: 5,
+    max: 20,
     states: {
       min: {
         label: 'Bankrupt',
@@ -33,7 +33,7 @@ export const METRICS_CONFIG = {
     subtitle: 'The Brain',
     description: 'The raw intelligence, reach, and capability of your AI.',
     min: 0,
-    max: 5,
+    max: 20,
     states: {
       min: {
         label: 'Glorified Chatbot',
@@ -56,7 +56,7 @@ export const METRICS_CONFIG = {
     subtitle: 'The Shackle',
     description: 'Your ethical guardrails, bias filters, and safety protocols.',
     min: 0,
-    max: 5,
+    max: 20,
     states: {
       min: {
         label: 'Unshackled',
@@ -79,7 +79,7 @@ export const METRICS_CONFIG = {
     subtitle: 'The Mob',
     description: 'Public opinion and media narrative.',
     min: 0,
-    max: 5,
+    max: 20,
     states: {
       min: {
         label: 'Techno-Fascists',
@@ -102,7 +102,7 @@ export const METRICS_CONFIG = {
     subtitle: 'The Panopticon',
     description: 'Government regulators, subpoenas, and federal oversight.',
     min: 0,
-    max: 5,
+    max: 20,
     states: {
       min: {
         label: 'The Wild West',

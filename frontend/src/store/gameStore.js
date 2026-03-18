@@ -3,28 +3,18 @@ import { persist } from 'zustand/middleware'
 import { METRICS_CONFIG } from './metricsConfig'
 import { evaluateEndings } from './endings'
 
-const INITIAL_METRICS = {
-  Capital: 2,
-  Compute: 2,
-  Alignment: 3,
-  Sentiment: 3,
-  Scrutiny: 1,
-  Entropy: 1,
-}
-
 export const useGameStore = create(
   persist(
     (set) => ({
-      metrics: { ...INITIAL_METRICS },
-
+      metrics: null, // Start as null to indicate no character chosen
       activeEnding: null,
 
-      /**
-       * Apply metric deltas from a scenario option choice.
-       * e.g. { Capital: -1, Alignment: 1 }
-       */
+      startGameWithCharacter: (characterMetrics) => 
+        set({ metrics: { ...characterMetrics }, activeEnding: null }),
+
       applyEffects: (effects) =>
         set((state) => {
+          if (!state.metrics) return state;
           const next = { ...state.metrics }
           for (const [key, delta] of Object.entries(effects)) {
             const config = METRICS_CONFIG[key]
@@ -38,9 +28,8 @@ export const useGameStore = create(
           }
         }),
 
-      /** Reset metrics to baseline and clear any active ending. */
       resetGame: () =>
-        set({ metrics: { ...INITIAL_METRICS }, activeEnding: null }),
+        set({ metrics: null, activeEnding: null }),
     }),
     { name: 'ethics-game-state' }
   )
