@@ -3,24 +3,45 @@ import { Dialog, DialogTrigger, DialogContent, DialogClose } from "./ui/dialog"
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "./ui/tooltip"
 import { Button } from "./ui/button"
 
-const statsPopUp =({playerStats, children})=>{
+const StatsPopUp =({playerStats})=>{
     return(
         <>
-        <TooltipProvider>
-            <Tooltip>
-                <TooltipTrigger asChild>
-                    {children}
-                </TooltipTrigger>
-                <TooltipContent>
+        <Dialog>
+                <DialogTrigger asChild>
+                    <Button className='absolute top-4 right-4 p-2 bg-green-300/30 rounded-md text-sm font-bold hover:bg-green-300/50'>
+                        View Stats
+                    </Button>
+                </DialogTrigger>
+                <DialogContent className="w-1/4">
                     <p>Player Stats:</p>
-                    <ul>
-                        <li>Cash: {playerStats.cash}</li>
-                        <li>Reputation: {playerStats.reputation}</li>
-                        <li>Entropy: {playerStats.entropy}</li>
-                    </ul>
-                </TooltipContent>
-            </Tooltip>
-        </TooltipProvider>
+                    {
+                        Object.entries(playerStats).map(([key, value]) => (
+                            <TooltipProvider>
+                            <Tooltip>
+                            
+                            
+                            <TooltipTrigger className="w-full">
+                                <div className="flex flex-row">
+
+                                    <p className="mr-auto" key={key}>{key}:</p> 
+                                    <p className="ml-auto">{value}</p>
+                                    
+                                </div>
+                            </TooltipTrigger>
+
+                            <TooltipContent>
+                                <p>{`This is your current ${key}.`}</p>
+                                {/**TODO : Add metric descriptions */}
+                            </TooltipContent>
+                            
+                            </Tooltip>
+                            </TooltipProvider>
+
+                        ))
+                    }
+                </DialogContent>
+            </Dialog>
+
         
         
         
@@ -28,3 +49,5 @@ const statsPopUp =({playerStats, children})=>{
     )
 
 }
+
+export default StatsPopUp

@@ -1,30 +1,72 @@
 import { useState, useEffect, useMemo } from 'react'
 import Scenarios from './scenarios.json'
-import EventPopUp from './components/eventPopUp'
-
+import Events from './events.json'
+import EventPopUp from './components/EventPopUp'
+import StatsPopUp from './components/StatsPopUp'
+import { OptionSelectWindow } from './components/OptionSelectWIndow'
+import TextWindow from './components/textWindow'
 function App() {
   const [currentScenario, setCurrentScenario] = useState(null)
+  const [currentEvent, setCurrentEvent] = useState(null)
   const [gameStarted, setGameStarted] = useState(false)
-  const [eventOpen, setEventOpen] = useState(true)
+  const [eventOpen, setEventOpen] = useState(false)
   const allScenarios = useMemo(() => Scenarios.scenarios, [])
+  const allEvents = useMemo(() => Events.events, [])
 
-  const getScenario = (previous=null) => {
-    const randomIndex = Math.floor(Math.random() * allScenarios.length)
-    if (previous && allScenarios[randomIndex].id === previous.id) {
-      return getScenario(previous) // Recursively get a new scenario if it's the same as the previous one
-    }
-    setCurrentScenario(allScenarios[randomIndex])
+  const getScenario = () => {
+    const nextScenarioId = currentScenario ? currentScenario.nextScenario : 0
+    const nextScenario = allScenarios.find(scenario => scenario.id === nextScenarioId)
+    setCurrentScenario(nextScenario)
     
+  }
+
+  const getEvent = (eventId) =>{
+    const event = allEvents.find(event => event.id == eventId)
+    setCurrentEvent(event)
   }
 
   const startGame = () => {
     setGameStarted(true)
   }
 
+  const checkOptionReqirments = (option) => {
+    // Check if the player meets the requirements for the selected option
+    return true
+  }
+
+  const applyOptionConsequences = (option) => {
+    // Apply the consequences of the selected option to the player's stats
+    if(option?.consequences?.event){
+      getEvent(option.consequences.event)
+      setEventOpen(true)
+    }
+    else{
+      getScenario(currentScenario)
+    }
+    return true
+  }
+
+  const handleNextScenario = (option) => {
+    // Check first if an option triggers an event, if so open the event pop up and load the event scenario. If not, load a new random scenario.
+    if (option.consequences && option.consequences?.event) {
+      const eventScenario = allEvents.find(event => event.id === option.consequences.event)
+      if (eventScenario) {
+        setCurrentEvent(eventScenario)
+        setEventOpen(true)
+      }
+    } else {
+      getScenario(currentScenario)
+    }
+
+  }
+
   const handleOptionSelect = (option) => {
     // Handle option selection logic here
     console.log("Selected Option:", option)
-    getScenario(currentScenario) // Load a new scenario after selecting an option
+
+    checkOptionReqirments(option) // Check if the player meets the requirements for the selected option
+
+    applyOptionConsequences(option) // Update player stats based on the selected option
 
   }
 
@@ -44,60 +86,32 @@ function App() {
 
   return (
     <>
-      <div className={`bg-[url(./assets/images/main_screen.png)] flex flex-col bg-cover bg-center h-[100vh] w-[100vw] flex items-center justify-center`}>
-        <div id='text-area' className=' w-[35%] h-[30%] mb-[17%] p-8 text-center overflow-y-auto'>
-          <div class="typewriter">
-            <div className='w-fit max-w-full mx-auto'>
-              {
-                gameStarted? 
-                <span>
-                  {currentScenario ? (
-                    <>
-                      <h2 className="text-xl font-bold mb-4">{currentScenario.title}</h2>
-                      <p>{currentScenario.description}</p>
-                    </>
-                  ) : (
-                    <p>Loading scenario...</p>
-                  )}
-                </span>
-                :
-              
-                <span className=''>
-                  Welcome to the Game! <br />
-                  In this game, you will be presented with various ethical dilemmas. Your task is to make decisions based on your moral compass and see how your choices impact the world around you. <br />
+      <div className={`bg-[url(./assets/images/main_screen_2.png)] flex flex-col bg-cover bg-center h-[100vh] w-[100vw] flex items-center justify-center`}>
+        <StatsPopUp playerStats={{cash: 1000, reputation: 50, entropy: 20}}/>
+        {
+          currentEvent !== null ?(
+            <EventPopUp event={currentEvent} open={eventOpen} setOpen={setEventOpen} onOptionSelect={handleOptionSelect}  />
 
-                </span>
-              }
-            </div>
+          ): (<></>)
+        }
+     
+      
+ 
+
+
+          {currentScenario !== null ? (
+
+          <div id='text-area' className='absolute ml-auto mr-auto w-[50%] text-white h-[75%] p-2 rounded-lg flex flex-col items-center justify-between'>
+              <TextWindow scenario={currentScenario} className={"h-3/5 p-6 bg-red-500/10"} />
+              <OptionSelectWindow gameState={{cash: 1000, reputation: 50, entropy: 20}} scenario={currentScenario} onOptionSelect={handleOptionSelect} className='w-full bg-blue-500/10 h-2/5 p-4 mb-8 flex flex-col items-center justify-center gap-2' />
+          </div>    
+
+          ) : (
+            <></>
+          )}
             
-          </div>
-          
-        </div>
+
       </div>
-
-         <div id='selection-area' className=' absolute bottom-[35%] left-0 right-0 ml-auto mr-auto w-[35%] h-[17%] flex items-center justify-center flex flex-col gap-1'>
-
-          {
-            gameStarted ?
-            (
-              currentScenario.options.map((option, index) => (
-                <button key={index} className=' p-1 hover:bg-green-100/10 hover:text-green-300 text-xs w-full' onClick={() => handleOptionSelect(option)} >
-                  <p className="font-bold">{index + 1}. {option.description}</p>
-                </button>
-              ))
-            )
-            :
-
-          <button onClick={()=>startGame()} className=' p-1 hover:bg-green-300/30'>
-            <p className="font-bold text-white text-2xl">Start Game</p>
-          </button>
-
-
-
-          }
-          <EventPopUp event={currentScenario} open={eventOpen} setOpen={setEventOpen} />
-
-        </div>     
 
     </>
   )

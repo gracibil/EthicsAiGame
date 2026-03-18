@@ -1,0 +1,31 @@
+{
+    "events" : [
+        {
+            "id": 1,
+            "title": "Oh no a protest broke out!",
+            "description" : "people are not happy about your decision and are protesting outside your house, this is going to hurt your reputation",
+            "image": "./assets/images/protest-hard.png",
+            "options": [
+                {
+                    "id": 1,
+                    "description": "Go out and talk to the protesters, try to calm them down and explain your decision.",
+                    "requirments":{
+                        "entropy": 5,
+                        "cash": 1000
+                    },
+                    "consequences":{
+                        "entropy": -1,
+                        "cash": -1000
+                    }
+                },
+                {
+                    "id": 2,
+                    "description": "Ignore the protesters and stay inside your house."
+                }
+            ],
+            "nextScenario": 2
+
+
+        }
+    ]
+}

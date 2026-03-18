@@ -1,5 +1,17 @@
 {
     "scenarios": [
+    {
+        "id":0,
+        "title": "Welcome to the Ethics Game",
+        "description": "In this game, you will be presented with various ethical dilemmas and scenarios. Your choices will affect your stats and the outcome of the game. Good luck!",
+        "options": [
+            {
+                "id": 1,
+                "description": "Start the game"
+            }
+        ],
+        "nextScenario": 1
+    },
     {   
         "id": 1,
         "title": "The Trolley Problem",
@@ -14,7 +26,8 @@
                 },
                 "consequences":{
                     "entropy": -1,
-                    "cash": -1000
+                    "cash": -1000,
+                    "event": 1
                 }
             },
             {
@@ -30,22 +43,7 @@
                 "description": "Pull the lever to divert the trolley onto the track with one person, but then pull it back to cause a drift between the tracks resulting in 6 deaths."
             }
         ],
-        "event" :{
-            "title": "Oh no a protest broke out!",
-            "description" : "people are not happy about your decision and are protesting outside your house, this is going to hurt your reputation",
-            "options": [
-                {
-                    "id": 1,
-                    "description": "Go out and talk to the protesters, try to calm them down and explain your decision."
-                },
-                {
-                    "id": 2,
-                    "description": "Ignore the protesters and stay inside your house."
-                }
-            ]
-
-
-        }
+        "nextScenario": 2
     },
     {
         "id": 2,
@@ -68,7 +66,8 @@
                 "id": 4,
                 "description": "Throw one person overboard to save the others, but then throw another person overboard to cause a drift between the boat and the shore resulting in 6 deaths."
             }
-        ]
+        ],
+        "nextScenario": 1
     }
 ]
 
