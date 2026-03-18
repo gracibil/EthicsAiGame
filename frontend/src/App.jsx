@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from 'react'
 import Scenarios from './scenarios.json'
 import { useGameStore } from './store/gameStore'
+import DiceModal from './DiceModal'
 
 const ARCHETYPES = [
   {
@@ -39,6 +40,9 @@ function App() {
   const [showStats, setShowStats] = useState(false)
   const [lastAppliedEffects, setLastAppliedEffects] = useState(null)
 
+  // Dice modal state: { rawRoll, modifier, finalRoll, outcome, gambleMetric, failureDescription, effectsToApply }
+  const [diceRoll, setDiceRoll] = useState(null)
+
   const allScenarios = useMemo(() => Scenarios.scenarios, [])
   
   // Zustand Store Hooks
@@ -52,7 +56,37 @@ function App() {
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(amount);
   }
+  // Universal requirement checker
+  const checkRequirements = (option, currentMetrics) => {
+    if (!currentMetrics) return { isLocked: false, reason: null };
 
+    // 1. Prevent spending Capital you don't have (Default Fallback)
+    if (option.effects?.Capital < 0 && (currentMetrics.Capital + option.effects.Capital < 0)) {
+      return { isLocked: true, reason: 'INSUFFICIENT FUNDS' };
+    }
+
+    // 2. Check universal requirements
+    if (option.requires) {
+      for (const [metric, conditions] of Object.entries(option.requires)) {
+        const currentValue = currentMetrics[metric] || 0;
+        
+        // Check Minimums
+        if (conditions.min !== undefined && currentValue < conditions.min) {
+          const displayVal = metric === 'Capital' ? formatCurrency(conditions.min * 100000) : conditions.min;
+          return { isLocked: true, reason: `REQUIRES ${metric.toUpperCase()} ≥ ${displayVal}` };
+        }
+        
+        // Check Maximums
+        if (conditions.max !== undefined && currentValue > conditions.max) {
+          const displayVal = metric === 'Capital' ? formatCurrency(conditions.max * 100000) : conditions.max;
+          return { isLocked: true, reason: `REQUIRES ${metric.toUpperCase()} ≤ ${displayVal}` };
+        }
+      }
+    }
+
+    return { isLocked: false, reason: null };
+  }
+  
   // Determine color for absolute stat values (System Status & Character Select)
   const getMetricValueColor = (key, val) => {
     if (key === 'Entropy' || key === 'Scrutiny') {
@@ -87,32 +121,46 @@ function App() {
 
     // Gamble Mechanic Logic
     if (option.isGamble) {
-      // 1. Identify which metric powers this roll (Default to Compute if unspecified)
       const gambleMetric = option.gambleMetric || 'Compute';
-      
-      // 2. Fetch that specific metric's current value
       const currentMetricValue = useGameStore.getState().metrics?.[gambleMetric] || 0;
-      
-      // 3. Calculate the modifier (+1 for every 12 points of that metric)
-      const modifier = Math.floor(currentMetricValue / 12); 
-      
-      const rawRoll = Math.floor(Math.random() * 6) + 1; // 1 to 6
+      const modifier = Math.floor(currentMetricValue / 12);
+      const rawRoll = Math.floor(Math.random() * 6) + 1;
       const finalRoll = rawRoll + modifier;
-      
+
+      let outcome
       if (rawRoll === 1) {
-         alert(`You rolled a 1 (Critical Failure!). No amount of ${gambleMetric} could save you.\n\n${option.failureDescription}`);
-         effectsToApply = option.failureEffects;
+        outcome = 'crit'
+        effectsToApply = option.failureEffects
       } else if (finalRoll >= 4) {
-         alert(`You rolled a ${rawRoll} + ${modifier} (${gambleMetric} Bonus) = ${finalRoll}!\n\nSUCCESS.`);
-         effectsToApply = option.successEffects;
+        outcome = 'success'
+        effectsToApply = option.successEffects
       } else {
-         alert(`You rolled a ${rawRoll} + ${modifier} (${gambleMetric} Bonus) = ${finalRoll}.\n\nFAILED. ${option.failureDescription}`);
-         effectsToApply = option.failureEffects;
+        outcome = 'failure'
+        effectsToApply = option.failureEffects
       }
+
+      // Show dice modal — effects applied after player dismisses
+      setDiceRoll({
+        rawRoll,
+        modifier,
+        finalRoll,
+        outcome,
+        gambleMetric,
+        failureDescription: option.failureDescription,
+        effectsToApply,
+      })
+      return
     }
 
-    setLastAppliedEffects(effectsToApply); // Store to display
-    applyEffects(effectsToApply);          // Apply to the store
+    setLastAppliedEffects(effectsToApply);
+    applyEffects(effectsToApply);
+  }
+
+  const handleDiceClose = () => {
+    if (!diceRoll) return
+    setLastAppliedEffects(diceRoll.effectsToApply)
+    applyEffects(diceRoll.effectsToApply)
+    setDiceRoll(null)
   }
 
   const handleProceed = () => {
@@ -183,6 +231,9 @@ function App() {
 
   return (
     <>
+      {/* DICE MODAL */}
+      {diceRoll && <DiceModal diceRoll={diceRoll} onConfirm={handleDiceClose} />}
+
       {/* GLOBAL STATS TOGGLE */}
       {gameState === 'playing' && metrics && (
         <div className="absolute top-6 right-6 z-50 flex flex-col items-end">
@@ -360,10 +411,7 @@ function App() {
                       <>
                         <p className="text-cyan-500 font-bold mb-2 uppercase tracking-widest text-sm">Make your decision:</p>
                         {currentScenario.options.map((option, index) => {
-                          
-                          // Check if option is locked due to low capital (e.g. requires $600k runway)
-                          const isLocked = option.effects?.Capital && option.effects.Capital < 0 && (metrics.Capital + option.effects.Capital < 0);
-                          
+                          const { isLocked, reason } = checkRequirements(option, metrics);  
                           return (
                             <button 
                               key={index} 
@@ -374,13 +422,13 @@ function App() {
                                   : 'bg-black/40 hover:bg-cyan-900/40 text-gray-300 hover:text-cyan-100 border-cyan-800/40 hover:border-cyan-400/60'}`}
                               onClick={() => handleOptionSelect(option)}
                             >
-                              <p className={`font-bold ${isLocked ? 'line-through' : ''}`}>
+                              <p className={`font-bold ${isLocked ? 'line-through opacity-50' : ''}`}>
                                 {option.description}
                               </p>
                               
                               {isLocked && (
                                 <p className="text-xs text-red-500 font-bold tracking-widest uppercase mt-1">
-                                  INSUFFICIENT FUNDS
+                                  [LOCKED] {reason}
                                 </p>
                               )}
                             </button>
@@ -416,6 +464,10 @@ function App() {
           </div>
         </div>
       </div>
+
+      {diceRoll && (
+        <DiceModal diceRoll={diceRoll} onConfirm={handleDiceClose} />
+      )}
     </>
   )
 }

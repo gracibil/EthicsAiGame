@@ -6,6 +6,10 @@
   src: url("./assets/fonts/SuperLegendBoy.ttf");
 }
 
+@media (max-width: 640px) {
+  :root { font-size: 14px; }
+}
+
 :root {
   font-family: SuperLegendBoy, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

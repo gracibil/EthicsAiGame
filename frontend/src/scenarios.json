@@ -211,7 +211,10 @@
         },
         {
           "id": 3,
-          "description": "Option C: Buy the broker out and scrub our tracks completely (Requires $600k runway).",
+          "description": "Option C: Buy the broker out and scrub our tracks completely.",
+          "requires": {
+            "Capital": { "min": 6 }
+          },
           "effects": { "Capital": -6, "Compute": 6 }
         },
         {
