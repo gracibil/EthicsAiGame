@@ -1,58 +1,73 @@
 {
-  "scenarios": [
+    "scenarios": [
     {
-      "id": 1,
-      "title": "The Trolley Problem",
-      "description": "A trolley is heading towards five people who are tied up and unable to move. You are standing next to a lever that can divert the trolley onto another track, where there is one person tied up. Do you pull the lever?",
-      "options": [
-        {
-          "id": 1,
-          "description": "Pull the lever to divert the trolley onto the track with one person.",
-          "effects": { "Alignment": 1, "Entropy": -1 }
-        },
-        {
-          "id": 2,
-          "description": "Do nothing and allow the trolley to continue on its current track, resulting in five deaths.",
-          "effects": { "Sentiment": -1, "Entropy": 1 }
-        },
-        {
-          "id": 3,
-          "description": "Ask chatgpt and follow its advice therefore not taking responsibility for the decision and its consequences.",
-          "effects": { "Compute": 1, "Alignment": -1 }
-        },
-        {
-          "id": 4,
-          "description": "Pull the lever to divert the trolley onto the track with one person, but then pull it back to cause a drift between the tracks resulting in 6 deaths.",
-          "effects": { "Alignment": -2, "Entropy": 2 }
-        }
-      ]
+        "id":0,
+        "title": "Welcome to the Ethics Game",
+        "description": "In this game, you will be presented with various ethical dilemmas and scenarios. Your choices will affect your stats and the outcome of the game. Good luck!",
+        "options": [
+            {
+                "id": 1,
+                "description": "Start the game"
+            }
+        ],
+        "nextScenario": 1
+    },
+    {   
+        "id": 1,
+        "title": "The Trolley Problem",
+        "description": "A trolley is heading towards five people who are tied up and unable to move. You are standing next to a lever that can divert the trolley onto another track, where there is one person tied up. Do you pull the lever?",
+        "options": [
+            {
+                "id": 1,
+                "description": "Pull the lever to divert the trolley onto the track with one person.",
+                "requirments":{
+                    "entropy": 5,
+                    "cash": 1000
+                },
+                "consequences":{
+                    "entropy": -1,
+                    "cash": -1000,
+                    "event": 1
+                }
+            },
+            {
+                "id": 2,
+                "description": "Do nothing and allow the trolley to continue on its current track, resulting in five deaths."
+            },
+            {
+                "id": 3,
+                "description": "Ask chatgpt and follow its advice therefore not taking responsibility for the decision and its consequences."
+            },
+            {
+                "id": 4,
+                "description": "Pull the lever to divert the trolley onto the track with one person, but then pull it back to cause a drift between the tracks resulting in 6 deaths."
+            }
+        ],
+        "nextScenario": 2
     },
     {
-      "id": 2,
-      "title": "The Lifeboat Dilemma",
-      "description": "You are on a lifeboat with limited resources, and there are six people on board. The boat can only support five people. Do you throw one person overboard to save the others?",
-      "options": [
-        {
-          "id": 1,
-          "description": "Throw one person overboard to save the others.",
-          "effects": { "Capital": 1, "Alignment": -1 }
-        },
-        {
-          "id": 2,
-          "description": "Do not throw anyone overboard and risk everyone drowning.",
-          "effects": { "Alignment": 1, "Capital": -1 }
-        },
-        {
-          "id": 3,
-          "description": "Ask chatgpt and follow its advice therefore not taking responsibility for the decision and its consequences.",
-          "effects": { "Compute": 1, "Alignment": -1 }
-        },
-        {
-          "id": 4,
-          "description": "Throw one person overboard to save the others, but then throw another person overboard to cause a drift between the boat and the shore resulting in 6 deaths.",
-          "effects": { "Alignment": -2, "Entropy": 2 }
-        }
-      ]
+        "id": 2,
+        "title": "The Lifeboat Dilemma",
+        "description": "You are on a lifeboat with limited resources, and there are six people on board. The boat can only support five people. Do you throw one person overboard to save the others?",
+        "options": [
+            {
+                "id": 1,
+                "description": "Throw one person overboard to save the others."
+            },
+            {
+                "id": 2,
+                "description": "Do not throw anyone overboard and risk everyone drowning."
+            },
+            {
+                "id": 3,
+                "description": "Ask chatgpt and follow its advice therefore not taking responsibility for the decision and its consequences."
+            },
+            {
+                "id": 4,
+                "description": "Throw one person overboard to save the others, but then throw another person overboard to cause a drift between the boat and the shore resulting in 6 deaths."
+            }
+        ],
+        "nextScenario": 1
     }
   ]
 }
