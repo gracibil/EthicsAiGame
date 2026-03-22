@@ -2,6 +2,9 @@
     "events" : [
         {
             "id": 1,
+            "triggers": {
+                "entropy": 10
+            },
             "title": "Oh no a protest broke out!",
             "description" : "people are not happy about your decision and are protesting outside your house, this is going to hurt your reputation",
             "image": "./assets/images/protest-hard.png",
@@ -9,21 +12,30 @@
                 {
                     "id": 1,
                     "description": "Go out and talk to the protesters, try to calm them down and explain your decision.",
-                    "requirments":{
-                        "entropy": 5,
-                        "cash": 1000
+                    "requirements":{
+                        "capital": 1
                     },
                     "consequences":{
-                        "entropy": -1,
-                        "cash": -1000
+                        "stat_effects":{
+                            "entropy": -1,
+                            "capital": -1
+                        }
                     }
                 },
                 {
                     "id": 2,
-                    "description": "Ignore the protesters and stay inside your house."
+                    "description": "Ignore the protesters and stay inside your house.",
+                    "requirements":{
+                        "capital": 1
+                    },
+                    "consequences":{
+                        "stat_effects":{
+                        "entropy": 1,
+                        "capital": -1
+                        }
+                    }
                 }
-            ],
-            "nextScenario": 2
+            ]
 
 
         }
