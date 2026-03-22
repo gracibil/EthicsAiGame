@@ -1,19 +1,24 @@
 import { useState, useEffect } from "react"
-import { Dialog, DialogTrigger, DialogContent, DialogClose } from "./ui/dialog"
+import { Dialog, DialogTrigger, DialogContent, DialogClose, DialogTitle } from "./ui/dialog"
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "./ui/tooltip"
+import { VisuallyHidden } from "radix-ui"
 import { Button } from "./ui/button"
 
 const StatsPopUp =({playerStats})=>{
     return(
         <>
         <Dialog>
+
                 <DialogTrigger asChild>
                     <Button className='absolute top-4 right-4 p-2 bg-green-300/30 rounded-md text-sm font-bold hover:bg-green-300/50'>
                         View Stats
                     </Button>
                 </DialogTrigger>
+                
+
                 <DialogContent className="w-1/4">
-                    <p>Player Stats:</p>
+
+                    <DialogTitle>Player Stats</DialogTitle>
                     {
                         Object.entries(playerStats).map(([key, value]) => (
                             <TooltipProvider>

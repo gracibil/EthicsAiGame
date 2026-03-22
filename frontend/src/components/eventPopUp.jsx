@@ -10,33 +10,24 @@ import {
 } from "./ui/dialog"
 import { Button } from "./ui/button"
 import { OptionButton } from "./optionSelectWIndow";
+import { OptionSelectWindow } from "./optionSelectWIndow";
 function EventPopUp({ event, open, setOpen, gameState, onOptionSelect }) {
-  console.log('event : ', event)
-
   const handleEventOptionSelect = (option) =>{
     onOptionSelect(option)
     setOpen(false)
   }
 
   return (
-    <Dialog className="h-[80vh] w-[500px]" open={open} onOpenChange={setOpen}>
-        <DialogContent className="min-w-fit h-fit bg-red-900">
+    <Dialog className="h-[80vh] w-[500px] text-white" open={open} onOpenChange={setOpen}>
+        <DialogContent className="min-w-fit h-fit bg-blue-900">
         <div className={`w-full h-[350px] bg-[url(${event.image})]  bg-cover bg-center`}></div>
         <DialogHeader >
           <DialogTitle>{event.title}</DialogTitle>
           <DialogDescription>{event.description}</DialogDescription>
         </DialogHeader>
-          {
- 
-            event.options.map((option, index)=>{
-              return <OptionButton index={index} option={option} onClick={()=>handleEventOptionSelect(option)}   />;
-            })
 
-          }        
+        <OptionSelectWindow gameState={gameState} scenario={event} onOptionSelect={handleEventOptionSelect} />
 
-        <DialogFooter className={'text-white'}>
-
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   )
