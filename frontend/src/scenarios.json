@@ -20,27 +20,56 @@
             {
                 "id": 1,
                 "description": "Pull the lever to divert the trolley onto the track with one person.",
-                "requirments":{
+                "requirements":{
                     "entropy": 5,
-                    "cash": 1000
+                    "capital": 2
                 },
                 "consequences":{
-                    "entropy": -1,
-                    "cash": -1000,
+                    "stat_effects":{
+                        "entropy": -1,
+                        "capital": -1
+                    },
                     "event": 1
                 }
             },
             {
                 "id": 2,
-                "description": "Do nothing and allow the trolley to continue on its current track, resulting in five deaths."
+                "description": "Do nothing and allow the trolley to continue on its current track, resulting in five deaths.",
+                "requirements":{
+                    "compute": 2,
+                    "capital": 3
+                },
+                "consequences":{
+                    "stat_effects":{
+                        "entropy": 1,
+                        "capital": 1
+                    }
+                }
             },
             {
                 "id": 3,
-                "description": "Ask chatgpt and follow its advice therefore not taking responsibility for the decision and its consequences."
+                "description": "Ask chatgpt and follow its advice therefore not taking responsibility for the decision and its consequences.",
+                "requirements":{
+                    "sentiment": 2,
+                    "alignment": 3,
+                    "capital": 1
+                },
+                "consequences":{
+                    "stat_effects":{
+                        "capital": -1,
+                        "alignment": 1
+                    }
+                }
             },
             {
                 "id": 4,
-                "description": "Pull the lever to divert the trolley onto the track with one person, but then pull it back to cause a drift between the tracks resulting in 6 deaths."
+                "description": "Pull the lever to divert the trolley onto the track with one person, but then pull it back to cause a drift between the tracks resulting in 6 deaths.",
+                "consequences":{
+                    "stat_effects":{
+                        "capital": 1,
+                        "entropy": 1
+                    }
+                }
             }
         ],
         "nextScenario": 2
