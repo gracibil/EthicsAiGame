@@ -1,35 +1,29 @@
-import { useState, useEffect, useMemo } from 'react'
-import Scenarios from './scenarios.json'
-import Events from './events.json'
+import { useState, useMemo, useEffect } from 'react'
+import StoryData from './acts/story.json'
+import EventsData from './events.json'
+
+// Components
 import EventPopUp from './components/EventPopUp'
 import StatsPopUp from './components/StatsPopUp'
-import { OptionSelectWindow } from './components/OptionSelectWIndow'
+import { OptionSelectWindow } from './components/OptionSelectWindow'
 import TextWindow from './components/TextWindow'
-import { evaluateEndings } from './store/endings'
 import TitleScreen from './components/TitleScreen'
 import CharacterSelectionScreen from './components/CharacterSelectionScreen'
 import DiceModal from './components/DiceModal'
+
+// Utilities & Store
+import { useGameStore } from './store/gameStore'
+import { evaluateEndings } from './store/endings'
 import { formatCurrency, getMetricValueColor } from './lib/utils'
 
-const INITIAL_METRICS = {
-  capital: 2,
-  compute: 2,
-  alignment: 3,
-  sentiment: 3,
-  scrutiny: 1,
-  entropy: 1,
+const ACT3_BRANCHES = {
+  a: () => import('./acts/act3_a.json'),
+  b: () => import('./acts/act3_b.json'),
+  c: () => import('./acts/act3_c.json'),
 }
 
-const MAX_METRICS = {
-  capital: 20,
-  compute: 20,
-  alignment: 20,
-  sentiment: 20,
-  scrutiny: 20,
-  entropy: 20,
-}
+const branchConditions = StoryData.branchConditions ?? []
 
-// Converted metric keys to lowercase to match your existing gameStats structure
 const ARCHETYPES = [
   {
     id: 'visionary',
@@ -54,150 +48,160 @@ const ARCHETYPES = [
   }
 ];
 
+// Evaluate a conditions array against a metrics snapshot.
+function resolveConditions(conditions, metrics) {
+  for (const cond of conditions) {
+    if (cond.default) return cond.endingId ?? cond.branch ?? null
+    const met = Object.entries(cond.if ?? {}).every(([key, rule]) => {
+      const val = metrics[key] ?? 0
+      if (rule.gte !== undefined && val < rule.gte) return false
+      if (rule.lte !== undefined && val > rule.lte) return false
+      return true
+    })
+    if (met) return cond.endingId ?? cond.branch ?? null
+  }
+  return null
+}
+
 function App() {
-  const [isReadingFinished, setIsReadingFinished] = useState(false);
+  // Global Store
+  const { metrics, applyEffects, activeEnding, resetGame } = useGameStore()
+
+  // UI Flow State
   const [gameState, setGameState] = useState('title') // 'title', 'selection', 'playing', 'ending'
+  const [isReadingFinished, setIsReadingFinished] = useState(false)
+  const [diceRoll, setDiceRoll] = useState(null)
+  
+  // Game Progression State
+  const [scenes, setScenes] = useState(StoryData.scenes || StoryData.scenarios || [])
   const [currentScenario, setCurrentScenario] = useState(null)
+  const [inBranch, setInBranch] = useState(false)
+  const [branchMeta, setBranchMeta] = useState(null) 
+  const [endingScene, setEndingScene] = useState(null)
+  
+  // Events State
   const [currentEvent, setCurrentEvent] = useState(null)
   const [eventOpen, setEventOpen] = useState(false)
-  const [gameStats, setGameStats] = useState(INITIAL_METRICS)
-  const [diceRoll, setDiceRoll] = useState(null)
+  const allEvents = useMemo(() => [...EventsData.events], [])
 
-  const allScenarios = useMemo(() => Scenarios.scenarios, [])
-  const allEvents = useMemo(() => Events.events, [])
+  // Watch for global ending trigger
+  useEffect(() => {
+    if (activeEnding) {
+      setGameState('ending')
+    }
+  }, [activeEnding])
 
-  const updateMetrics = (key, value) => {
-      let new_value = gameStats[key] + value
-      if (new_value > MAX_METRICS[key]) {
-        // if the new value exceeds the maximum, set it to the maximum
-        new_value = MAX_METRICS[key]
-      } else if (new_value < 0) {
-        // if the new value is less than 0, set it to 0
-        new_value = 0
-      }
-
-      setGameStats((prevStats) => ({
-        ...prevStats,
-        [key]: new_value
-      }))
+  const handleCharacterSelect = (archetype) => {
+    // Override starting metrics in Zustand store
+    useGameStore.setState({ metrics: archetype.metrics })
+    setCurrentScenario(scenes[0]) 
+    setGameState('playing')
   }
 
   const checkEvents = () => {
-    for (const event of allEvents){
-      const event_triggers = event?.triggers || null
-      if (event_triggers) {
-        // check for each key value pair if the gameStats meet the trigger conditions, if they meet all conditions return the event, if not continue checking other events
-        let trigger_met = true
-        for (const [key, value] of Object.entries(event_triggers)) {
-          if (gameStats[key] < value) {
-            trigger_met = false
-            break
-          }
-        }
+    const currentMetrics = useGameStore.getState().metrics
+    const triggeredEvent = allEvents.find(event => {
+      if (!event.triggers) return false
+      return Object.entries(event.triggers).every(
+        ([key, val]) => (currentMetrics[key] ?? 0) >= val
+      )
+    })
 
-        if (trigger_met) {
-          console.log('event triggered :', event)
-          allEvents.splice(allEvents.indexOf(event), 1) // remove triggered event from the list of all events to prevent it from being triggered again in the future
-          return event
-        }
-      }
+    if (triggeredEvent) {
+      allEvents.splice(allEvents.indexOf(triggeredEvent), 1)
+      return triggeredEvent
     }
-    return false
+    return null
   }
 
-  const checkEndings = () => {
-    // Function to check if any endings are triggered based on the current game stats
-    const ending = evaluateEndings(gameStats)
-    if (ending) {
-        //ending triggered, do something with it (e.g. show ending screen, reset game, etc.)
-        return ending
-    }
-    // no ending triggered returns false
-    return false
-
-  }
-
-  const getScenario = () => {
-    // If we are just starting from selection, pick the first scene
-    if (!currentScenario && allScenarios.length > 0) {
-      setCurrentScenario(allScenarios[0])
-      return;
-    }
+  const advanceScene = async (option) => {
+    // 1. Check if option has a specific next scenario
+    let nextScenario = null;
     
-    const nextScenarioId = currentScenario ? currentScenario.nextScenario : 0
-    const nextScenario = allScenarios.find(scenario => scenario.id === nextScenarioId)
-    setCurrentScenario(nextScenario)
-  }
+    if (option && option.nextScenario) {
+      nextScenario = scenes.find(s => s.id === option.nextScenario)
+    } else {
+      // Default to linear or next sequentially linked scenario
+      const currentIndex = scenes.findIndex(s => s.id === currentScenario?.id);
+      nextScenario = scenes[currentIndex + 1]; 
+    }
 
-  const handleCharacterSelect = (archetype) => {
-    setGameStats(archetype.metrics);
-    getScenario(); 
-    setGameState('playing');
-  }
+    if (nextScenario) {
+      setCurrentScenario(nextScenario)
+      return
+    }
 
-  const checkOptionReqirments = (option) => {
-    // Check if the player meets the requirements for the selected option
-    return true
-  }
+    // 2. No more scenes in current array -> Trigger Act 3 Branching
+    if (!inBranch) {
+      const branchId = resolveConditions(branchConditions, useGameStore.getState().metrics) ?? 'c'
+      const data = await ACT3_BRANCHES[branchId]()
+      const bData = data.default
+      
+      setScenes(bData.scenes || bData.scenarios)
+      setBranchMeta({
+        endingConditions: bData.endingConditions ?? [],
+        endings: bData.endings ?? [],
+      })
+      setCurrentScenario((bData.scenes || bData.scenarios)[0])
+      setInBranch(true)
+      return
+    }
 
-  const applyOptionConsequences = (option) => {
-    // Support both the new schema ('effects') and the old schema ('consequences')
-    const effects = option?.effects || option?.consequences?.stat_effects;
-    
-    if (effects) {
-      for (const [key, value] of Object.entries(effects)) {
-          // Convert the TitleCase key from the JSON to lowercase to match your gameStats
-          const stateKey = key.toLowerCase();
-          
-          // Only update if it's a valid tracked metric (ignores flags like "Digital_Escape_Seed")
-          if (gameStats[stateKey] !== undefined) {
-              updateMetrics(stateKey, value);
-          } else {
-             // Optional: to track story seeds/flags from the JSON in your state
-             setGameStats(prev => ({ ...prev, [stateKey]: (prev[stateKey] || 0) + value }));
-          }
+    // 3. End of branch scenes -> Resolve final ending
+    if (branchMeta && branchMeta.endingConditions.length > 0) {
+      const currentMetrics = useGameStore.getState().metrics
+      const endingId = resolveConditions(branchMeta.endingConditions, currentMetrics)
+      const matched = branchMeta.endings.find(e => e.id === endingId) ?? null
+      
+      if (matched) {
+        setEndingScene(matched)
+        setCurrentScenario(matched) // Display the ending text in the window
       }
     }
   }
 
-  const handleNextScenario = (option) => {
-    if (option.consequences && option.consequences?.event) {
-      const eventScenario = allEvents.find(event => event.id === option.consequences.event)
+  const processPostActionChecks = async (option) => {
+    // Apply standard stat effects using Zustand
+    const effects = option?.effects || option?.consequences?.stat_effects
+    if (effects) applyEffects(effects)
+
+    // Check for hard endings
+    const ending = evaluateEndings(useGameStore.getState().metrics)
+    if (ending || activeEnding) {
+      useGameStore.setState({ activeEnding: ending || activeEnding })
+      setGameState('ending')
+      return
+    }
+    
+    // Check for direct event consequence
+    if (option?.consequences?.event) {
+      const eventScenario = allEvents.find(e => e.id === option.consequences.event)
       if (eventScenario) {
         setCurrentEvent(eventScenario)
         setEventOpen(true)
+        return
       }
-    } else {
-      getScenario()
     }
-  }
 
-  const processPostActionChecks = (option) => {
-    const ending = checkEndings() 
-    const event = checkEvents() 
-
-    if(ending){
-      setGameState('ending')
-      // store the ending in state if needed
-    }
-    
+    // Check for passive event triggers
+    const event = checkEvents()
     if (event){
-      // Handle event logic here (e.g. show event pop up, etc.)
       setCurrentEvent(event)
       setEventOpen(true)
+      return
     }
 
-    if (!event && !ending) {
-      handleNextScenario(option) // If no events or endings are triggered, move on to the next scenario
-    }
+    // If no interruptions, proceed
+    await advanceScene(option)
   }
 
   const handleOptionSelect = (option) => {
     setIsReadingFinished(false);
-    // 1. DICE ROLL CHECK
+    
+    // DICE ROLL CHECK
     if (option.isGamble) {
       const gambleMetric = option.gambleMetric || 'compute'; 
-      const currentMetricValue = gameStats[gambleMetric] || 0;
+      const currentMetricValue = useGameStore.getState().metrics[gambleMetric] || 0;
       const modifier = Math.floor(currentMetricValue / 12);
       const rawRoll = Math.floor(Math.random() * 6) + 1;
       const finalRoll = rawRoll + modifier;
@@ -223,44 +227,51 @@ function App() {
         effectsToApply,
         originalOption: option
       });
-      return; // Pause progression to show the modal
+      return; 
     }
 
-    // 2. STANDARD OPTION RESOLUTION
-    checkOptionReqirments(option) 
-    applyOptionConsequences(option) 
+    // STANDARD OPTION RESOLUTION
     processPostActionChecks(option)
   }
 
   const handleDiceClose = () => {
     if (!diceRoll) return;
 
-    // Apply the gambled consequences
-    if (diceRoll.effectsToApply) {
-      for (const [key, value] of Object.entries(diceRoll.effectsToApply)) {
-        updateMetrics(key, value)
-      }
+    // Apply the gambled consequences via a synthetic option
+    const resolvedOption = {
+      ...diceRoll.originalOption,
+      effects: diceRoll.effectsToApply
     }
 
-    const optionContext = diceRoll.originalOption;
     setDiceRoll(null);
-    processPostActionChecks(optionContext);
+    processPostActionChecks(resolvedOption);
+  }
+
+  const handleRestart = () => {
+    resetGame();
+    setGameState('title');
+    setInBranch(false);
+    setBranchMeta(null);
+    setEndingScene(null);
+    setScenes(StoryData.scenes || StoryData.scenarios || []);
   }
 
   return (
     <>
       <div className={`bg-[url(./assets/images/main_screen_2.png)] flex flex-col bg-cover bg-center h-[100vh] w-[100vw] items-center justify-center`}>
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%)] bg-[length:100%_4px] z-20 mix-blend-overlay"></div>
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%)] bg-[length:100%_4px] z-20 mix-blend-overlay"></div>
 
         {diceRoll && <DiceModal diceRoll={diceRoll} onConfirm={handleDiceClose} />}
 
         {gameState === 'title' && (
-          <div id='text-area' className='absolute ml-auto mr-auto w-[90%] sm:w-[70%] md:w-[55%] lg:w-[50%] text-white h-[80%] sm:h-[75%] p-2 rounded-lg flex flex-col items-center justify-between overflow-y-auto'>            <TitleScreen onStart={() => setGameState('selection')} />
+          <div id='text-area' className='absolute ml-auto mr-auto w-[90%] sm:w-[70%] md:w-[55%] lg:w-[50%] text-white h-[80%] sm:h-[75%] p-2 rounded-lg flex flex-col items-center justify-between overflow-y-auto'>
+            <TitleScreen onStart={() => setGameState('selection')} />
           </div>
         )}
 
         {gameState === 'selection' && (
-          <div id='text-area' className='absolute ml-auto mr-auto w-[90%] sm:w-[70%] md:w-[55%] lg:w-[50%] text-white h-[80%] sm:h-[75%] p-2 rounded-lg flex flex-col items-center justify-between overflow-y-auto'>            <CharacterSelectionScreen 
+          <div id='text-area' className='absolute ml-auto mr-auto w-[90%] sm:w-[70%] md:w-[55%] lg:w-[50%] text-white h-[80%] sm:h-[75%] p-2 rounded-lg flex flex-col items-center justify-between overflow-y-auto'>
+            <CharacterSelectionScreen 
               archetypes={ARCHETYPES} 
               onSelect={handleCharacterSelect} 
               getMetricValueColor={getMetricValueColor} 
@@ -271,15 +282,25 @@ function App() {
 
         {gameState === 'playing' && (
           <>
-            <StatsPopUp playerStats={gameStats} gameState={gameState} />
-            {currentEvent !== null && (
-              <EventPopUp event={currentEvent} open={eventOpen} gameState={gameStats} setOpen={setEventOpen} onOptionSelect={handleOptionSelect} />
+            <StatsPopUp playerStats={metrics} gameState={gameState} />
+            
+            {currentEvent && (
+              <EventPopUp 
+                event={currentEvent} 
+                open={eventOpen} 
+                gameState={metrics} 
+                setOpen={setEventOpen} 
+                onOptionSelect={(opt) => {
+                  setEventOpen(false);
+                  setCurrentEvent(null);
+                  processPostActionChecks(opt);
+                }} 
+              />
             )}
             
-            {currentScenario !== null && (
-              <div id='text-area' className='absolute p-6 ml-auto mr-auto w-[90%] sm:w-[70%] md:w-[60%] lg:w-[50%] text-white h-[85%] sm:h-[80%] border border-cyan-900/50 rounded-xl shadow-[0_0_30px_rgba(0,255,255,0.05)] flex flex-col overflow-hidden'>
+            {currentScenario && !eventOpen && (
+              <div id='text-area' className='absolute p-6 ml-auto mr-auto w-[90%] sm:w-[70%] md:w-[60%] lg:w-[50%] text-white h-[85%] sm:h-[80%] border border-cyan-900/50 rounded-xl shadow-[0_0_30px_rgba(0,255,255,0.05)] flex flex-col overflow-hidden z-10 bg-black/40 backdrop-blur-sm'>
                   
-                  {/* Text Window Area - takes up remaining space statically */}
                   <div className="flex-1 p-6 sm:p-8 overflow-hidden flex flex-col">
                       <TextWindow 
                         scenario={currentScenario} 
@@ -287,16 +308,24 @@ function App() {
                       />
                   </div>
 
-                  {/* Option Window Area - Only renders when text has reached the end */}
                   {isReadingFinished && currentScenario.options && currentScenario.options.length > 0 && (
                       <div className="p-4 sm:p-6 border-t border-cyan-900/50 shrink-0 animate-fade-in">
                           <OptionSelectWindow 
-                            gameState={gameStats} 
+                            gameState={metrics} 
                             scenario={currentScenario} 
                             onOptionSelect={handleOptionSelect} 
                             className='w-full flex flex-col items-stretch justify-center gap-3' 
                           />
                       </div>
+                  )}
+
+                  {/* Handle branch ending continuation where there are no options */}
+                  {isReadingFinished && endingScene && (!currentScenario.options || currentScenario.options.length === 0) && (
+                     <div className="p-4 sm:p-6 border-t border-cyan-900/50 shrink-0 flex justify-center">
+                        <button onClick={() => setGameState('ending')} className="border border-white px-6 py-2 hover:bg-white hover:text-black transition">
+                          Continue to Epilogue
+                        </button>
+                     </div>
                   )}
               </div>    
             )}
@@ -304,9 +333,17 @@ function App() {
         )}
 
         {gameState === 'ending' && (
-          <div className="w-[90%] sm:w-[75%] md:w-[60%] h-[80%] p-6 md:p-10 rounded-xl backdrop-blur-md shadow-2xl flex items-center justify-center text-center text-white text-2xl">
-            <h1>Game Over</h1>
-            {/* Add ending display logic here */}
+          <div className="z-30 w-[90%] sm:w-[75%] md:w-[60%] h-[80%] p-6 md:p-10 rounded-xl bg-black/80 backdrop-blur-md shadow-2xl border border-red-900/50 flex flex-col items-center justify-center text-center text-white">
+            <h1 className="text-4xl font-bold text-red-500 mb-6">{activeEnding?.title || "The End"}</h1>
+            <p className="max-w-2xl text-lg text-gray-300 mb-10 leading-relaxed">
+              {activeEnding?.narrative || (endingScene && endingScene.text) || "Your journey concludes here."}
+            </p>
+            <button
+              onClick={handleRestart}
+              className="border border-red-500 text-red-500 px-8 py-3 hover:bg-red-500 hover:text-black transition rounded font-bold tracking-widest uppercase"
+            >
+              Initialize New Seed
+            </button>
           </div>
         )}
 

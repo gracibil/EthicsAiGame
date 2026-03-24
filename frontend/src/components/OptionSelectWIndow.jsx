@@ -2,8 +2,11 @@ import { Button } from "./ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip"
 import { useState } from "react"
 import { formatCurrency, getEffectColor } from "../lib/utils"
+import { useGameStore } from "../store/gameStore"
 
-const OptionSelectWindow = ({ gameState, scenario, onOptionSelect, className }) => {
+const OptionSelectWindow = ({ scenario, onOptionSelect, className }) => {
+    // Pull state directly from Zustand store
+    const metrics = useGameStore((state) => state.metrics)
     const [selectedOption, setSelectedOption] = useState(null)
 
     const handleOptionClick = (option) => {
@@ -13,10 +16,9 @@ const OptionSelectWindow = ({ gameState, scenario, onOptionSelect, className }) 
         } else {
             setSelectedOption(null)
             onOptionSelect(option)
-
         }
-
     }
+
     return (
         <div className={className}>
             {
@@ -53,7 +55,13 @@ const OptionSelectWindow = ({ gameState, scenario, onOptionSelect, className }) 
                 ) : (
                     <>
                         {scenario.options.map((option, index) => (
-                            <OptionButton key={index} index={index} gameState={gameState} option={option} onClick={() => handleOptionClick(option)} />
+                            <OptionButton 
+                                key={index} 
+                                index={index} 
+                                gameState={metrics} 
+                                option={option} 
+                                onClick={() => handleOptionClick(option)} 
+                            />
                         ))}
                     </>
                 )
@@ -64,6 +72,7 @@ const OptionSelectWindow = ({ gameState, scenario, onOptionSelect, className }) 
 
 const OptionButton = ({ index, gameState, option, onClick }) => {
     let failedRequirements = []
+    
     const checkOptionRequirements = () => {
         // Handle new schema: "requires": { "Capital": { "min": 6, "max": 10 } }
         if (option.requires) {
