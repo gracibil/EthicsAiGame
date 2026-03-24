@@ -1,7 +1,10 @@
 import { Button } from "./ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip"
 import { useState } from "react"
-const OptionSelectWindow = ({ gameState, scenario, onOptionSelect, className }) => {
+import { useGameStore } from "../store/gameStore"
+
+const OptionSelectWindow = ({ scenario, onOptionSelect, className }) => {
+    const metrics = useGameStore((state) => state.metrics)
     const [selectedOption, setSelectedOption] = useState(null)
 
     const handleOptionClick = (option) => {
@@ -36,7 +39,7 @@ const OptionSelectWindow = ({ gameState, scenario, onOptionSelect, className }) 
 
                     <>
                         {scenario.options.map((option, index) => (
-                            <OptionButton key={index} index={index} gameState={gameState} option={option} onClick={() => handleOptionClick(option)} />
+                            <OptionButton key={index} index={index} gameState={metrics} option={option} onClick={() => handleOptionClick(option)} />
                         ))}
                     </>
                 )

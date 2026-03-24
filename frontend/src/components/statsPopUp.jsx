@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react"
-import { Dialog, DialogTrigger, DialogContent, DialogClose, DialogTitle } from "./ui/dialog"
+import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "./ui/dialog"
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "./ui/tooltip"
-import { VisuallyHidden } from "radix-ui"
 import { Button } from "./ui/button"
+import { useGameStore } from "../store/gameStore"
 
-const StatsPopUp =({playerStats})=>{
+const StatsPopUp = () => {
+    const metrics = useGameStore((state) => state.metrics)
     return(
         <>
         <Dialog>
@@ -20,7 +20,7 @@ const StatsPopUp =({playerStats})=>{
 
                     <DialogTitle>Player Stats</DialogTitle>
                     {
-                        Object.entries(playerStats).map(([key, value]) => (
+                        Object.entries(metrics).map(([key, value]) => (
                             <TooltipProvider>
                             <Tooltip>
                             

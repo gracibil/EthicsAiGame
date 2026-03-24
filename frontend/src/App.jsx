@@ -8,26 +8,6 @@ import TextWindow from './components/textWindow'
 import { evaluateEndings } from './store/endings'
 import { useGameStore } from './store/gameStore'
 
-const INITIAL_METRICS = {
-  capital: 2,
-  compute: 2,
-  alignment: 3,
-  sentiment: 3,
-  scrutiny: 1,
-  entropy: 1,
-}
-
-const MAX_METRICS = {
-  capital: 20,
-  compute: 20,
-  alignment: 20,
-  sentiment: 20,
-  scrutiny: 20,
-  entropy: 20,
-}
-
-const METRICS_LIST = Object.keys(INITIAL_METRICS)
-
 function App() {
   const [currentScenario, setCurrentScenario] = useState(null)
   const [currentEvent, setCurrentEvent] = useState(null)
@@ -35,33 +15,18 @@ function App() {
   const [eventOpen, setEventOpen] = useState(false)
   const allScenarios = useMemo(() => Scenarios.scenarios, [])
   const allEvents = useMemo(() => Events.events, [])
-  const [gameStats, setGameStats] = useState(INITIAL_METRICS)
 
-  const updateMetrics = (key, value) => {
-      let new_value = gameStats[key] + value
-      if (new_value > MAX_METRICS[key]) {
-        // if the new value exceeds the maximum, set it to the maximum
-        new_value = MAX_METRICS[key]
-      }else if (new_value < 0) {
-        // if the new value is less than 0, set it to 0
-        new_value = 0
-      }
-
-      setGameStats((prevStats) => ({
-        ...prevStats,
-        [key]: new_value
-      }))
-  }
+  const { metrics, applyEffects } = useGameStore()
 
   const checkEvents = () => {
     for (const event of allEvents){
       const event_triggers = event?.triggers || null
       if (event_triggers) {
-        // check for each key value pair if the gameStats meet the trigger conditions, if they meet all conditions return the event, if not continue checking other events
+        // check for each key value pair if the metrics meet the trigger conditions, if they meet all conditions return the event, if not continue checking other events
         let trigger_met = true
 
         for (const [key, value] of Object.entries(event_triggers)) {
-          if (gameStats[key] < value) {
+          if (metrics[key] < value) {
             trigger_met = false
             break
           }
@@ -81,15 +46,7 @@ function App() {
   }
 
   const checkEndings = () => {
-    // Function to check if any endings are triggered based on the current game stats
-    const ending = evaluateEndings(gameStats)
-    if (ending) {
-        //ending triggered, do something with it (e.g. show ending screen, reset game, etc.)
-        return ending
-    }
-    // no ending triggered returns false
-    return false
-
+    return evaluateEndings(useGameStore.getState().metrics) ?? false
   }
 
   const getScenario = () => {
@@ -113,12 +70,8 @@ function App() {
   }
 
   const applyOptionConsequences = (option) => {
-    // Apply the consequences of the selected option to the player's stats
-    if (option?.consequences?.stat_effects){
-      // Apply consequences of a selected action
-      for (const [key, value] of Object.entries(option.consequences.stat_effects)) {
-          updateMetrics(key, value)
-      }
+    if (option?.consequences?.stat_effects) {
+      applyEffects(option.consequences.stat_effects)
     }
   }
 
@@ -177,10 +130,10 @@ function App() {
   return (
     <>
       <div className={`bg-[url(./assets/images/main_screen_2.png)] flex flex-col bg-cover bg-center h-[100vh] w-[100vw] flex items-center justify-center`}>
-        <StatsPopUp playerStats={gameStats}/>
+        <StatsPopUp />
         {
           currentEvent !== null ?(
-            <EventPopUp event={currentEvent} open={eventOpen} gameState={gameStats} setOpen={setEventOpen} onOptionSelect={handleOptionSelect}  />
+            <EventPopUp event={currentEvent} open={eventOpen} gameState={metrics} setOpen={setEventOpen} onOptionSelect={handleOptionSelect}  />
 
           ): (<></>)
         }
@@ -188,7 +141,7 @@ function App() {
 
           <div id='text-area' className='absolute ml-auto mr-auto w-[50%] text-white h-[75%] p-2 rounded-lg flex flex-col items-center justify-between'>
               <TextWindow scenario={currentScenario} className={"h-3/5 p-6"} />
-              <OptionSelectWindow gameState={gameStats} scenario={currentScenario} onOptionSelect={handleOptionSelect} className='w-full h-2/5 p-4 mb-8 flex flex-col items-center justify-center gap-2' />
+              <OptionSelectWindow scenario={currentScenario} onOptionSelect={handleOptionSelect} className='w-full h-2/5 p-4 mb-8 flex flex-col items-center justify-center gap-2' />
           </div>    
 
           ) : (
