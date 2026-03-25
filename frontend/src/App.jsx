@@ -5,8 +5,7 @@ import EventsData from './events.json'
 // Components
 import EventPopUp from './components/EventPopUp'
 import StatsPopUp from './components/StatsPopUp'
-import { OptionSelectWindow } from './components/OptionSelectWindow'
-import TextWindow from './components/TextWindow'
+import { SceneRenderer } from './components/SceneRenderer'
 import TitleScreen from './components/TitleScreen'
 import CharacterSelectionScreen from './components/CharacterSelectionScreen'
 import DiceModal from './components/DiceModal'
@@ -69,7 +68,6 @@ function App() {
 
   // UI Flow State
   const [gameState, setGameState] = useState('title') // 'title', 'selection', 'playing', 'ending'
-  const [isReadingFinished, setIsReadingFinished] = useState(false)
   const [diceRoll, setDiceRoll] = useState(null)
   
   // Game Progression State
@@ -196,8 +194,6 @@ function App() {
   }
 
   const handleOptionSelect = (option) => {
-    setIsReadingFinished(false);
-    
     // DICE ROLL CHECK
     if (option.isGamble) {
       const gambleMetric = option.gambleMetric || 'compute'; 
@@ -299,29 +295,18 @@ function App() {
             )}
             
             {currentScenario && !eventOpen && (
-              <div id='text-area' className='absolute p-6 ml-auto mr-auto w-[90%] sm:w-[70%] md:w-[60%] lg:w-[50%] text-white h-[85%] sm:h-[80%] border border-cyan-900/50 rounded-xl shadow-[0_0_30px_rgba(0,255,255,0.05)] flex flex-col overflow-hidden z-10 bg-black/40 backdrop-blur-sm'>
+              <div className="absolute w-[90%] sm:w-[70%] md:w-[60%] lg:w-[50%] h-[85%] sm:h-[80%] p-2 rounded-lg flex flex-col z-10 bg-black/40 backdrop-blur-sm shadow-[0_0_30px_rgba(0,255,255,0.05)] border border-cyan-900/50">
                   
-                  <div className="flex-1 p-6 sm:p-8 overflow-hidden flex flex-col">
-                      <TextWindow 
-                        scenario={currentScenario} 
-                        onFinish={setIsReadingFinished} 
-                      />
-                  </div>
-
-                  {isReadingFinished && currentScenario.options && currentScenario.options.length > 0 && (
-                      <div className="p-4 sm:p-6 border-t border-cyan-900/50 shrink-0 animate-fade-in">
-                          <OptionSelectWindow 
-                            gameState={metrics} 
-                            scenario={currentScenario} 
-                            onOptionSelect={handleOptionSelect} 
-                            className='w-full flex flex-col items-stretch justify-center gap-3' 
-                          />
-                      </div>
-                  )}
+                  {/* Pass currentScenario into the original scene prop */}
+                  <SceneRenderer 
+                    key={currentScenario.id || 'current-scene'} 
+                    scene={currentScenario} 
+                    onOptionSelect={handleOptionSelect} 
+                  />
 
                   {/* Handle branch ending continuation where there are no options */}
-                  {isReadingFinished && endingScene && (!currentScenario.options || currentScenario.options.length === 0) && (
-                     <div className="p-4 sm:p-6 border-t border-cyan-900/50 shrink-0 flex justify-center">
+                  {endingScene && (!currentScenario.options || currentScenario.options.length === 0) && (
+                     <div className="p-4 sm:p-6 shrink-0 flex justify-center mt-auto">
                         <button onClick={() => setGameState('ending')} className="border border-white px-6 py-2 hover:bg-white hover:text-black transition">
                           Continue to Epilogue
                         </button>
