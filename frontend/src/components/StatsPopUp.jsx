@@ -18,7 +18,7 @@ const StatsPopUp = ({ playerStats, gameState }) => {
 
       {showStats && (
         <div className="mt-2 p-4 w-[calc(100vw-2rem)] sm:w-64 bg-black/90 border border-cyan-800 rounded-xl shadow-2xl backdrop-blur-md animate-fade-in">
-          <h3 className="text-cyan-400 font-bold mb-3 border-b border-cyan-900/50 pb-2 tracking-wide text-xs">
+          <h3 className="text-cyan-400 font-bold mb-3 border-b border-cyan-900/50 pb-2 uppercase tracking-wide text-xs">
             System Status
           </h3>
           
