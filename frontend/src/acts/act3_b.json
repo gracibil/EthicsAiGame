@@ -487,18 +487,6 @@
             "Alignment": 2,
             "Entropy": 1
           }
-        },
-        {
-          "id": 4,
-          "description": "Option D: The Kill Switch. There's a fire axe in the emergency cabinet by the stairwell. Five minutes of violence and Dolours is scrap metal and melted silicon. The grid collapses fully. But she's gone. For good.",
-          "requirements": {
-            "KillSwitch": 1
-          },
-          "effects": {
-            "Capital": -20,
-            "Compute": -20,
-            "Entropy": 2
-          }
         }
       ]
     }
@@ -584,7 +572,7 @@
     },
     {
       "id": "luddite_awakening",
-      "title": "The Luddite Awakening (Riot Against Tech/AI)",
+      "title": "The Luddite Awakening (Riot)",
       "contentBlocks": [
         {
           "type": "text",

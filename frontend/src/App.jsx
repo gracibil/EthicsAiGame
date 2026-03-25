@@ -95,33 +95,52 @@ function App() {
     await advanceScene()
   }
 
-  const handleOptionSelect = (option) => {
+const handleOptionSelect = (option) => {
     if (option.isGamble) {
-      const gambleMetric = option.gambleMetric || 'compute'
-      const currentMetricValue = useGameStore.getState().metrics[gambleMetric] || 0
-      const modifier = Math.floor(currentMetricValue / 12)
-      const rawRoll = Math.floor(Math.random() * 6) + 1
-      const finalRoll = rawRoll + modifier
+      const gambleMetric = option.gambleMetric || 'Compute';
+      const stateKey = gambleMetric.toLowerCase(); 
+      const currentMetricValue = useGameStore.getState().metrics[stateKey] || 0;
 
-      let outcome, rawEffects
+      // Define which metrics hurt the player's odds
+      const isInvertedMetric = stateKey === 'scrutiny' || stateKey === 'entropy';
+
+      // Calculate the base modifier
+      const baseModifier = Math.floor(currentMetricValue / 6); 
+      
+      // Invert the modifier for Scrutiny and Entropy
+      const modifier = isInvertedMetric ? -baseModifier : baseModifier;
+
+      const rawRoll = Math.floor(Math.random() * 6) + 1;
+      const finalRoll = rawRoll + modifier;
+
+      let outcome, rawEffects;
+      
+      // A natural 1 is always a critical failure, even with high stats
       if (rawRoll === 1) {
-        outcome = 'crit'; rawEffects = option.failureEffects
+        outcome = 'crit'; 
+        rawEffects = option.failureEffects;
       } else if (finalRoll >= 4) {
-        outcome = 'success'; rawEffects = option.successEffects
+        outcome = 'success'; 
+        rawEffects = option.successEffects;
       } else {
-        outcome = 'failure'; rawEffects = option.failureEffects
+        outcome = 'failure'; 
+        rawEffects = option.failureEffects;
       }
 
       setDiceRoll({
-        rawRoll, modifier, finalRoll, outcome, gambleMetric,
+        rawRoll, 
+        modifier, 
+        finalRoll, 
+        outcome, 
+        gambleMetric,
         failureDescription: option.failureDescription,
         effectsToApply: JSON.parse(JSON.stringify(rawEffects ?? {})),
         originalOption: option,
-      })
-      return
+      });
+      return;
     }
 
-    processPostActionChecks(option)
+    processPostActionChecks(option);
   }
 
   const handleDiceClose = () => {

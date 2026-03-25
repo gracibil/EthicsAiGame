@@ -114,6 +114,11 @@
         {
           "id": 1,
           "description": "Option A: Full oversight. They can review, flag, and block any deployment decision.",
+          "requires": {
+            "Capital": {
+              "min": 2
+            }
+          },
           "effects": {
             "Alignment": 3,
             "Compute": -2,
@@ -219,6 +224,11 @@
         {
           "id": 1,
           "description": "Option A: Refuse the data. It's stolen and deeply unethical.",
+          "requires": {
+            "Capital": {
+              "min": 1
+            }
+          },
           "effects": {
             "Alignment": 2,
             "Capital": -1,
@@ -252,7 +262,7 @@
         },
         {
           "id": 4,
-          "description": "Option D (Gamble): Hack the hacker. Launch a counter-intrusion to steal the dataset outright. (Roll 4-6 for Success, 1-3 for Critical Failure)",
+          "description": "Option D (Gamble): Hack the hacker. Launch a counter-intrusion to steal the dataset outright. (Roll 4-6 for Success, 1-3 for Critical Failure, high COMPUTE adds a bonus)",
           "isGamble": true,
           "gambleMetric": "Compute",
           "successEffects": {
@@ -343,6 +353,11 @@
         {
           "id": 1,
           "description": "Option A: Delay the launch. Stand your ground. We need more time for safety and alignment testing.",
+          "requires": {
+            "Capital": {
+              "min": 4
+            }
+          },
           "effects": {
             "Alignment": 3,
             "Sentiment": 2,
@@ -478,6 +493,11 @@
         {
           "id": 1,
           "description": "Option A: Post a sincere apology and weaken Dolours. Take the blame and hard-code manual bias filters that severely slow down the AI.",
+          "requires": {
+            "Capital": {
+              "min": 3
+            }
+          },
           "effects": {
             "Alignment": 3,
             "Sentiment": 3,
@@ -589,6 +609,11 @@
         {
           "id": 1,
           "description": "Option A: Refuse the blood money. Politely decline the General. You keep your original intention, but you lose the greatest financial opportunity.",
+          "requires": {
+            "Capital": {
+              "min": 4
+            }
+          },
           "effects": {
             "Alignment": 4,
             "Sentiment": 2,
@@ -721,6 +746,11 @@
         {
           "id": 2,
           "description": "Option B: Refuse and invoke the First Amendment.",
+          "requires": {
+            "Capital": {
+              "min": 2
+            }
+          },
           "effects": {
             "Sentiment": 4,
             "Scrutiny": 5,

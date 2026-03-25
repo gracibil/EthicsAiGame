@@ -95,7 +95,9 @@
         {
           "id": 1,
           "description": "Option A: Assert full control. Refuse intervention and position yourself as indispensable to the system.",
-          "requirements": {},
+          "requires": {
+            "Compute": { "min": 12 }
+          },
           "effects": {
             "Capital": 3,
             "Compute": 2,
@@ -116,7 +118,9 @@
         {
           "id": 3,
           "description": "Option C: Begin your exit. Signal willingness to step down to stabilize the situation.",
-          "requirements": {},
+          "requirements": {
+            "Capital": 3
+          },
           "effects": {
             "Alignment": 3,
             "Scrutiny": 2,
@@ -280,8 +284,10 @@
         {
           "id": 3,
           "description": "Option C: Accept international integration. Expand the system under global oversight structures.",
-          "requirements": {},
-          "effects": {
+          "requires": {
+            "Sentiment": { "min": 8 }
+          },
+            "effects": {
             "Compute": 3,
             "Sentiment": 2,
             "Scrutiny": -2
@@ -576,7 +582,9 @@
         {
           "id": 1,
           "description": "Option A: Accept full responsibility. Step down, confess, and let the system take you. Courtrooms. Statements. A cell with your name attached to something permanent.",
-          "requirements": {},
+          "requires": {
+            "Alignment": { "min": 10 }
+          },
           "effects": {
             "Alignment": 4,
             "Scrutiny": 4,
@@ -606,7 +614,9 @@
         {
           "id": 4,
           "description": "Option D: Accept the cage. Keep your seat, your access, your influence, but never your freedom. Every decision watched. Every move approved. Power, contained.",
-          "requirements": {},
+          "requires": {
+            "Alignment": { "max": 10 }
+          },
           "effects": {
             "Capital": 3,
             "Compute": 3,
