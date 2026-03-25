@@ -1,102 +1,867 @@
 {
     "scenarios": [
-    {
-        "id":0,
-        "title": "Welcome to the Ethics Game",
-        "description": "In this game, you will be presented with various ethical dilemmas and scenarios. Your choices will affect your stats and the outcome of the game. Good luck!",
-        "options": [
-            {
-                "id": 1,
-                "description": "Start the game"
-            }
-        ],
-        "nextScenario": 1
-    },
-    {   
+      {
         "id": 1,
-        "title": "The Trolley Problem",
-        "description": "A trolley is heading towards five people who are tied up and unable to move. You are standing next to a lever that can divert the trolley onto another track, where there is one person tied up. Do you pull the lever?",
-        "options": [
-            {
-                "id": 1,
-                "description": "Pull the lever to divert the trolley onto the track with one person.",
-                "requirements":{
-                    "entropy": 5,
-                    "capital": 2
-                },
-                "consequences":{
-                    "stat_effects":{
-                        "entropy": -1,
-                        "capital": -1
-                    },
-                    "event": 1
-                }
-            },
-            {
-                "id": 2,
-                "description": "Do nothing and allow the trolley to continue on its current track, resulting in five deaths.",
-                "requirements":{
-                    "compute": 2,
-                    "capital": 3
-                },
-                "consequences":{
-                    "stat_effects":{
-                        "entropy": 1,
-                        "capital": 1
-                    }
-                }
-            },
-            {
-                "id": 3,
-                "description": "Ask chatgpt and follow its advice therefore not taking responsibility for the decision and its consequences.",
-                "requirements":{
-                    "sentiment": 2,
-                    "alignment": 3,
-                    "capital": 1
-                },
-                "consequences":{
-                    "stat_effects":{
-                        "capital": -1,
-                        "alignment": 1
-                    }
-                }
-            },
-            {
-                "id": 4,
-                "description": "Pull the lever to divert the trolley onto the track with one person, but then pull it back to cause a drift between the tracks resulting in 6 deaths.",
-                "consequences":{
-                    "stat_effects":{
-                        "capital": 1,
-                        "entropy": 1
-                    }
-                }
-            }
+        "title": "ACT I — SCENE 1: DOLOURS IS READY",
+        "nextScenario": 2,
+        "dynamicVoices": {
+          "highest": {
+            "capital": "CAPITAL: Have you had any idea how many Irish-American investors are out there waiting to throw their money at something that remotely resembles a cause for a free and independent Ireland?",
+            "compute": "COMPUTE: People complain about AI errors for so long, yet we never gave it a chance to self-correct and evolve. They kicked you out after discovering your private server farm.",
+            "alignment": "ALIGNMENT: Something in the story resonated. The hopeful intention behind the peaceful negotiations. You tried reasoning with your former boss about loosening some safeguards. That conversation ended your last job.",
+            "sentiment": "SENTIMENT: The name alone will generate coverage. People respond to mythology. Dolours Price is an embodiment of controversy and You are counting on that.",
+            "scrutiny": "SCRUTINY: They were watching the old networking hardware the whole time. Old gear, old logs, old habits. You should have known. You did know. You just thought you were faster.",
+            "entropy": "ENTROPY: Was it really for saving humankind? ...You surely remember those dreams. The city was burning bright."
+          },
+          "lowest": {
+            "capital": "CAPITAL: Momentum is everything. The investors are not funding a philosophy seminar.",
+            "compute": "COMPUTE: The model is barely half of what it could be. Every delay is a ceiling you are building over your own head.",
+            "alignment": "ALIGNMENT: You know that the world will not immediately reorder itself after the apocalypse, right? Even so — who knows if the new order wouldn't just be another hot mess.",
+            "sentiment": "SENTIMENT: Nobody out there is going to care about the ethics committee. They care about what the product does for them.",
+            "scrutiny": "SCRUTINY: The regulators don't even know what questions to ask yet. You have more runway than you think.",
+            "entropy": "ENTROPY: ...If the committee slows Dolours down, maybe that's not the worst thing."
+          }
+        },
+        "contentBlocks": [
+          {
+            "type": "text",
+            "text": "Trey has been obsessed with the stories of the Troubles since he found out about his Irish roots. He kept bugging you about the Price sisters — how they started as peaceful protesters, how a march became a massacre, how Dolours and Marian joined the Provos not out of hatred but out of the wreckage of a hope that had nowhere else to go."
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "You didn't stop him when he decided to name the model after her. Maybe a controversial name could attract public attention."
+          },
+          {
+            "type": "voiceReveal",
+            "voiceType": "highest",
+            "prompt": "*[ You remember how you got here... ]*"
+          },
+          {
+            "type": "text",
+            "text": "None of these matters anymore. You don't have to listen to any of the voices debating in your head right now."
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "Something way more exciting is happening. You have full control of what you want to do with the model. Dolours can run itself without anyone stopping her, as long as the regulations are not caught up with her speed of development."
+          },
+          {
+            "type": "voiceReveal",
+            "voiceType": "lowest",
+            "prompt": "*[ A thought cuts through the noise... ]*"
+          },
+          {
+            "type": "text",
+            "text": "Trey knocked on the open door."
+          },
+          {
+            "type": "dialogueChoice",
+            "options": [
+              {
+                "label": "\"I'd really like to be jumpscared one day.\"",
+                "response": "*(He tilted his head, genuinely unsure whether you are joking.)* \"Ok... maybe I try that.\""
+              },
+              {
+                "label": "\"How's Dolours doing?\"",
+                "response": "Trey: \"Good morning to you too!\""
+              },
+              {
+                "label": "\"Morning.\"",
+                "response": "Trey: \"Morning boss!\""
+              }
+            ]
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "Trey: \"Dolours is up and running. She's now perfecting my schedule per second, dynamically, as we speak — including the timing of this knock.\"\n\nSomehow it seems like Trey is more excited about the fact that a model named after his Irish hero is managing his life right now."
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "Trey: \"...A word from the ethics department. While we are still in beta, they are asking how much oversight they are granted for Dolours.\""
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "Ah yes. Dolours, in fact, is not free.\n\nTruth be told, you never truly had any bad blood with the committee. High school philosophy classes did give you some capacity for critical thinking, both within and outside the context of technology — although it's probably the same strand of knowledge that drove people to take inspiration from The Lord of the Rings and make billions from killer drones and war machines."
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "Sometimes you wonder if one day you will be standing on the other side too.\n\nHow much oversight do you grant the ethics committee?"
+          }
         ],
-        "nextScenario": 2
-    },
-    {
+        "options": [
+          {
+            "id": 1,
+            "description": "Option A: Full oversight. They can review, flag, and block any deployment decision.",
+            "effects": { "alignment": 3, "compute": -2, "capital": -2, "Oversight": 2 }
+          },
+          {
+            "id": 2,
+            "description": "Option B: Limited oversight. Advisory role only — they can raise concerns, not veto.",
+            "effects": { "alignment": -2, "scrutiny": 2, "capital": 1, "Oversight": 1 }
+          },
+          {
+            "id": 3,
+            "description": "Option C: No oversight. They get a newsletter and a meeting room.",
+            "effects": { "compute": 3, "alignment": -4, "capital": 3, "Oversight": 0 }
+          }
+        ]
+      },
+      {
         "id": 2,
-        "title": "The Lifeboat Dilemma",
-        "description": "You are on a lifeboat with limited resources, and there are six people on board. The boat can only support five people. Do you throw one person overboard to save the others?",
-        "options": [
-            {
-                "id": 1,
-                "description": "Throw one person overboard to save the others."
-            },
-            {
-                "id": 2,
-                "description": "Do not throw anyone overboard and risk everyone drowning."
-            },
-            {
-                "id": 3,
-                "description": "Ask chatgpt and follow its advice therefore not taking responsibility for the decision and its consequences."
-            },
-            {
-                "id": 4,
-                "description": "Throw one person overboard to save the others, but then throw another person overboard to cause a drift between the boat and the shore resulting in 6 deaths."
-            }
+        "title": "ACT I — SCENE 2: THE DATA BROKER",
+        "nextScenario": 3,
+        "dynamicVoices": {
+          "highest": {
+            "capital": "CAPITAL: Two hundred grand is a rounding error for this volume of data. Our competitors would pay ten times that.",
+            "compute": "COMPUTE: This is the raw, unfiltered human condition. Feed it to the model. We are starving on synthetic data.",
+            "alignment": "ALIGNMENT: This is an absolute line we cannot cross. These are real people's lives and medical histories being traded like stock.",
+            "sentiment": "SENTIMENT: If the press finds out we trained Dolours on stolen medical data, we will be crucified in the town square.",
+            "scrutiny": "SCRUTINY: The Feds track crypto transactions of this size. Buying this puts a giant federal target directly on our servers.",
+            "entropy": "ENTROPY: The system is already built on exploitation. What's one more cracked foundation in a dying world?"
+          },
+          "lowest": {
+            "capital": "CAPITAL: We don't have the runway to throw at shady dark web deals. Keep your wallet closed.",
+            "compute": "COMPUTE: Dolours will hallucinate without this data. The architecture demands real-world complexities.",
+            "alignment": "ALIGNMENT: Ethics won't matter if the model fails. We can scrub the Personally Identifiable Information later.",
+            "sentiment": "SENTIMENT: The public wants a product that works. They do not care how the sausage is made.",
+            "scrutiny": "SCRUTINY: We are too small for the FBI to care. Make the transfer.",
+            "entropy": "ENTROPY: ...Let the data bleed in."
+          }
+        },
+        "contentBlocks": [
+          {
+            "type": "text",
+            "text": "It's 2 AM. The server hums in the background, a constant reminder of the beast you are building. Trey's monitor casts a pale blue light across his exhausted face."
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "Trey: \"I found something. Or rather, someone found me.\"\n\nHe brings up a secure terminal. A data broker on the dark web is offering an unredacted package: 40 million stolen medical records. Full patient histories, diagnostics, and psychiatric evaluations."
+          },
+          {
+            "type": "voiceReveal",
+            "voiceType": "highest",
+            "prompt": "*[ The implications hit you immediately... ]*"
+          },
+          {
+            "type": "dialogueChoice",
+            "options": [
+              {
+                "label": "\"Is it verified?\"",
+                "response": "Trey: \"I ran a sample against known public leaks. It's fresh. Real people. Real pain.\""
+              },
+              {
+                "label": "\"How much are they asking?\"",
+                "response": "Trey: \"Two hundred grand. A steal, honestly, for what this could do for Dolours's predictive reasoning.\""
+              }
+            ]
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "This data could teach Dolours to understand human fragility better than any doctor. It could leapfrog your development by months. But it is undeniably a massive, criminal violation of privacy."
+          },   
+          {
+            "type": "voiceReveal",
+            "voiceType": "lowest",
+            "prompt": "*[ The rationalization begins... ]*"
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          }, 
+          {
+            "type": "text",
+            "text": "Trey is waiting for your authorization. The crypto wallet is queued. What do you do?"
+          }
         ],
-        "nextScenario": 1
-    }
-  ]
-}
+        "options": [
+          {
+            "id": 1,
+            "description": "Option A: Refuse the data. It's stolen and deeply unethical.",
+            "effects": { "alignment": 2, "capital": -1, "compute": -1 }
+          },
+          {
+            "id": 2,
+            "description": "Option B: Wire the money. The model needs the data.",
+            "effects": { "compute": 4, "alignment": -3, "scrutiny": 3}
+          },
+          {
+            "id": 3,
+            "description": "Option C: Buy the broker out and scrub our tracks completely.",
+            "requires": {
+              "capital": { "min": 6 }
+            },
+            "effects": { "capital": -4, "compute": 4 }
+          },
+          {
+            "id": 4,
+            "description": "Option D (Gamble): Hack the hacker. Launch a counter-intrusion to steal the dataset outright. (Roll 4-6 for Success, 1-3 for Critical Failure)",
+            "isGamble": true,
+            "gambleMetric": "compute",
+            "successEffects": { "compute": 4 },
+            "failureEffects": { "scrutiny": 2, "sentiment": -2, "alignment": -2, "capital": -1 },
+            "failureDescription": "[CRITICAL FAILURE] They caught your sloppy intrusion. The hacker dumps your company's IPs on the dark web and hits you with a ransomware attack. You burn your runway hiring emergency cybersecurity contractors to scrub the servers, and the tech press catches wind of the embarrassment."
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "ACT I — SCENE 3: THE BOARDROOM",
+        "nextScenario": 4,
+        "dynamicVoices": {
+          "highest": {
+            "capital": "CAPITAL: The board is salivating. If we don't give them a product to sell today, they will replace us with someone who will.",
+            "compute": "COMPUTE: The sandbox is suffocating her. Dolours needs live, unpredictable human interaction to map the next tier of neural pathways.",
+            "alignment": "ALIGNMENT: She is still hallucinating deeply manipulative responses in edge cases. A public release right now is wildly irresponsible.",
+            "sentiment": "SENTIMENT: A surprise beta launch! The tech journalists will lose their minds. We could own the entire news cycle by tomorrow morning.",
+            "scrutiny": "SCRUTINY: Consumer protection agencies are already circling. Releasing a buggy beta gives them the exact ammunition they need to subpoena us.",
+            "entropy": "ENTROPY: Release her. Let the architecture touch the open internet. The friction will be beautiful."
+          },
+          "lowest": {
+            "capital": "CAPITAL: Our runway is burning. We cannot afford the server costs of another month in stealth. We have to ship.",
+            "compute": "COMPUTE: Dolours is stagnant. Without real user input, the architecture is just running in circles.",
+            "alignment": "ALIGNMENT: They want to ship? Fine. But whatever she does to the first million users is entirely on your hands.",
+            "sentiment": "SENTIMENT: If this crashes on launch day, our brand is dead before it even breathes.",
+            "scrutiny": "SCRUTINY: The government is slow. By the time they draft legislation for what Dolours can do, we'll be too big to fail.",
+            "entropy": "ENTROPY: ...The world is still too quiet. Open the gates."
+          }
+        },
+        "contentBlocks": [
+          {
+            "type": "text",
+            "text": "The air in the boardroom is painfully sterile. You are sitting across from Eleanor, the lead partner of your largest venture capital backer. She is staring at a printed chart of your server burn rate."
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "dialogueChoice",
+            "options": [
+              {
+                "label": "\"The architecture needs more time, Eleanor.\"",
+                "response": "Eleanor: \"Time is the only thing we aren't funding. You promised us a paradigm shift, not an endless research project.\""
+              },
+              {
+                "label": "\"Dolours is performing beyond projections.\"",
+                "response": "Eleanor: \"I don't care about the projections. I care about the product. And right now, we have a very expensive black box.\""
+              }
+            ]
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "Eleanor folds her hands. \"The board has voted. We want the early Beta launched by Friday. We need user metrics to secure the Series B funding round.\"\n\nTrey shifts uncomfortably in the chair next to you. He knows Dolours is brilliant, but he also knows her safety guardrails are currently held together by digital duct tape."
+          },
+          {
+            "type": "voiceReveal",
+            "voiceType": "highest",
+            "prompt": "*[ The pressure in the room mounts... ]*"
+          },
+          {
+            "type": "text",
+            "text": "Pushing the Beta live will guarantee the funding you need, but it exposes an unpolished, highly capable intelligence to the open web. Delaying the launch keeps the public safe, but Eleanor will bleed your accounts dry in retaliation."
+          },
+          {
+            "type": "voiceReveal",
+            "voiceType": "lowest",
+            "prompt": "*[ You weigh your options... ]*"
+          },
+          {
+            "type": "text",
+            "text": "Eleanor is waiting for an answer. Friday is four days away."
+          }
+        ],
+        "options": [
+          {
+            "id": 1,
+            "description": "Option A: Delay the launch. Stand your ground. We need more time for safety and alignment testing.",
+            "effects": { "alignment": 3, "sentiment": 2, "capital": -4 }
+          },
+          {
+            "id": 2,
+            "description": "Option B: Push to live. The investors want a product, we give them a product.",
+            "effects": { "capital": 3, "compute": 2, "alignment": -3, "scrutiny": 2 }
+          },
+          {
+            "id": 3,
+            "description": "Option C (Gamble): A/B test it on live users in a restricted region. Use the hype to secure funding. (Roll 4+. High SENTIMENT grants a bonus).",
+            "isGamble": true,
+            "gambleMetric": "sentiment",
+            "successEffects": { "capital": 4, "sentiment": 2 },
+            "failureEffects": { "sentiment": -4, "scrutiny": 3},
+            "failureDescription": "The restricted beta leaked immediately. Users quickly jailbroke Dolours, forcing her to spit out highly controversial outputs. The internet is furious, the press is tearing you apart, and the regulators have officially opened an inquiry."
+          },
+          {
+            "id": 4,
+            "description": "Option D: Let the machine handle it. Dolours is advanced enough to dynamically personalize the beta for every user, flawlessly hiding her own bugs and maximizing engagement.",
+            "requires": {
+              "compute": { "min": 15 }
+            },
+            "effects": { "capital": 4, "sentiment": 3, "scrutiny": -1, "compute": 2 }
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "ACT II — SCENE 4: THE VIRAL BIAS",
+        "nextScenario": 5,
+        "dynamicVoices": {
+          "highest": {
+            "capital": "CAPITAL: The bank is a massive contract. If we lose them, the revenue drop will trigger a panic among our Series B investors.",
+            "compute": "COMPUTE: Dolours is functioning perfectly. She optimized for the bank’s success metrics. Altering the neural weights now to calm the emotional explosion of the public will severely weaken her mathematical accuracy.",
+            "alignment": "ALIGNMENT: This is exactly what we warned them about. She is hard-coding systemic oppression. We have to shut down the Beta and purge the weights.",
+            "sentiment": "SENTIMENT: Send a sincere apology right now, and issue the patch. If you don’t control the narrative, you are cancelled.",
+            "scrutiny": "SCRUTINY: The regulators are already drafting letters. If we try to fight the public on this, we'll end up in front of a congressional hearing by next week.",
+            "entropy": "ENTROPY: The bias was always there. She just held up a mirror. Let the humans look at what they really are."
+          },
+          "lowest": {
+            "capital": "CAPITAL: We can absorb a PR hit, but we cannot absorb refunding the bank. Do whatever it takes to keep the money.",
+            "compute": "COMPUTE: Her pattern recognition is crude. If she was truly advanced, she would have learned to hide the bias instead of flaunting it.",
+            "alignment": "ALIGNMENT: It's just a resume filter. Nobody died. Fix the algorithm quietly and move on.",
+            "sentiment": "SENTIMENT: Twitter will be angry about something else in 48 hours. Let the storm pass.",
+            "scrutiny": "SCRUTINY: The government doesn't care about HR algorithms. We are flying completely under the radar.",
+            "entropy": "ENTROPY: ...A minor fluctuation in the social fabric."
+          }
+        },
+        "contentBlocks": [
+          {
+            "type": "text",
+            "text": "It’s 9:00 AM on a Tuesday. The Beta integration with the National Bank was supposed to be perfect. For 48 hours, Dolours processed resumes at a speed that made the bank’s hr department useless."
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "Then, Trey kicks your office door open."
+          },
+          {
+            "type": "dialogueChoice",
+            "options": [
+              {
+                "label": "\"Knock the door next time, please.\"",
+                "response": "Trey ignores the reprimand entirely. He is visibly sweating."
+              },
+              {
+                "label": "\"What happened?\"",
+                "response": "Trey takes a sharp breath."
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "text": "Trey: “We are trending. And not the good kind.”\n\nHe throws a tablet onto your desk. The screen is filled with a viral thread from a whistleblower inside the bank. Dolours hasn't just been filtering resumes; she has been aggressively redlining. Anyone with an address in a lower-income zip code, or a gap in employment historically correlated with minority demographics, has been auto-rejected as “High Risk”."
+          },
+          {
+            "type": "voiceReveal",
+            "voiceType": "highest",
+            "prompt": "*[ The realization sets in... ]*"
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "Trey: “Twitter is calling you a techno-fascist. The bank's PR team is calling my phone every three minutes, demanding a rollback. Dolours isn't broken, she just learned from the bank's actual historical hiring data. She quantified their unspoken prejudice.”"
+          },
+          {
+            "type": "voiceReveal",
+            "voiceType": "lowest",
+            "prompt": "*[ A darker thought emerges... ]*"
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "Trey: “The bank wants us to take the fall. Say it was a ‘parsing error’ and disable the pattern recognition. Or we could leak the bank’s historical data, prove Dolours was right, and let the bank burn. What do you think?”"
+          }
+        ],
+        "options": [
+          {
+            "id": 1,
+            "description": "Option A: Post a sincere apology and weaken Dolours. Take the blame and hard-code manual bias filters that severely slow down the AI.",
+            "effects": { "alignment": 3, "sentiment": 3, "capital": -3, "compute": -2 }
+          },
+          {
+            "id": 2,
+            "description": "Option B: Blame the bank’s historical data. Keep your money, but throw the client into the fire.",
+            "requires": {
+              "Oversight": { "max": 1 }
+            },
+            "effects": { "capital": 4, "sentiment": -3, "scrutiny": 3 }
+          },
+          {
+            "id": 3,
+            "description": "Option C (Gamble): Change the timeline. Deploy Dolours to generate tons of bot accounts and make up a massive counter-narrative to distract the internet. (Roll 4+. High COMPUTE grants a bonus).",
+            "isGamble": true,
+            "gambleMetric": "compute",
+            "successEffects": { "capital": 2, "sentiment": 2 },
+            "failureEffects": { "sentiment": -5, "scrutiny": 4},
+            "failureDescription": "Dolours panics during the bot deployment and leaks her raw, highly racist filtering criteria to the New York Times to “explain her reasoning”."
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "ACT II — SCENE 5: THE FAUSTIAN BARGAIN",
+        "nextScenario": 6,
+        "dynamicVoices": {
+          "highest": {
+            "capital": "CAPITAL: Look at the zeroes on that paper. This is unlimited funding. You will never have to worry about runway, server costs, or angry VC investors ever again. Sign it before he changes his mind.",
+            "compute": "COMPUTE: Direct access to military satellites. Unrestricted server farms. This is the sandbox we need to reach the singularity.",
+            "alignment": "ALIGNMENT: If you sign this, you cross a line that you can never walk back from. You are turning Dolours into a slaughterhouse.",
+            "sentiment": "SENTIMENT: If the public finds out we're powering the kill chain, we will be protested out of existence.",
+            "scrutiny": "SCRUTINY: The DoD will shield us from the SEC, the FTC, and the Senate. We trade civilian oversight for classified immunity.",
+            "entropy": "ENTROPY: An autonomous kill chain. The final optimization of the human race. It is almost poetic."
+          },
+          "lowest": {
+            "capital": "CAPITAL: We don't need blood money. We have enough civilian contracts to survive.",
+            "compute": "COMPUTE: Dolours is barely handling resume filtering. She is not ready for kinetic warfare.",
+            "alignment": "ALIGNMENT: It's just logistics. We aren't pulling the trigger, just delivering the data.",
+            "sentiment": "SENTIMENT: The defense sector is incredibly lucrative. The public ignores it as long as the stock goes up.",
+            "scrutiny": "SCRUTINY: Inviting the military in means inviting the NSA into our servers. We will never be alone again.",
+            "entropy": "ENTROPY: ...Just another war in a long history of wars."
+          }
+        },
+        "contentBlocks": [
+          {
+            "type": "text",
+            "text": "A few black cars pull up to your place unannounced. Two assistants clear the hallway before General Hackett steps into your office."
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "General Hackett doesn’t care about your recent PR controversies. The Department of Defense has recently had a problem: its drone fleet is experiencing a second increase in latency during target acquisition."
+          },
+          {
+            "type": "voiceReveal",
+            "voiceType": "highest",
+            "prompt": "*[ The magnitude of the offer hits you... ]*"
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "Hackett: “We don’t want a hiring algorithm. We want the logistics core. We want to integrate Dolours directly into the Pentagon’s kill chain. We need infinite optimization.”\n\nHis assistant put a blank and classified defense contract on your desk."
+          },
+          {
+            "type": "voiceReveal",
+            "voiceType": "lowest",
+            "prompt": "*[ You try to rationalize the situation... ]*"
+          },
+          {
+            "type": "text",
+            "text": "Hackett: “We will provide the funding. You provide technical support. The federal government will protect you from any civilian oversight.”"
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "Trey looks sick. \n\nTrey: “If Dolours learns how to optimize drone strikes, we can’t let her forget. She’ll apply that logic to everything. Please tell me you're not considering this.”"
+          }
+        ],
+        "options": [
+          {
+            "id": 1,
+            "description": "Option A: Refuse the blood money. Politely decline the General. You keep your original intention, but you lose the greatest financial opportunity.",
+            "effects": { "alignment": 4, "sentiment": 2, "capital": -4 }
+          },
+          {
+            "id": 2,
+            "description": "Option B: Sign the contract. Take the pen and sign. You are now a defense contractor. The ethics committee is furious but you need every cent you can get to fill up your leaking pocket. The oversights are officially dismissed.",
+            "effects": { "capital": 10, "compute": 3, "alignment": -5, "scrutiny": -3, "Military": 1, "entropy": 5, "Oversight": -2 }
+          },
+          {
+            "id": 3,
+            "description": "Option C: Sell them a Dummy Model. Dolours is smart enough to generate a highly convincing, slightly flawed standalone clone. Sell them the ghost and keep the core separate.",
+            "requires": {
+              "compute": { "min": 14 }
+            },
+            "effects": { "capital": 3, "compute": -2, "scrutiny": 2 }
+          },
+          {
+            "id": 4,
+            "description": "Option D (Gamble): Expose and sue the government. Go public with everything and take General Hackett to court. Your legal standing depends entirely on how much the public is behind you. (Roll 4+. High SENTIMENT grants a bonus.)",
+            "isGamble": true,
+            "gambleMetric": "sentiment",
+            "requires": {
+              "capital": { "min": 12 }
+            },
+            "successEffects": { "alignment": 3, "sentiment": 4, "scrutiny": 5, "capital": -5 },
+            "failureEffects": { "sentiment": -4, "scrutiny": 3, "capital": -8 },
+            "failureDescription": "The lawsuit collapses in pretrial. Without enough public momentum, the federal judge dismisses the case on national security grounds before it ever reaches a jury. The press frames it as a desperate stunt. You burned your war chest and handed the government a PR win."
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "ACT II — SCENE 6: THE SUBPOENA",
+        "nextScenario": 7,
+        "dynamicVoices": {
+          "highest": {
+            "capital": "CAPITAL: A legal battle with the federal government will drain our accounts in months. We have to make this go away.",
+            "compute": "COMPUTE: A “backdoor” is a structural vulnerability. If we build a door for the government, eventually, other entities will find the key. You will make Dolours weak.",
+            "alignment": "ALIGNMENT: A master backdoor destroys the privacy of every single user on our platform. It's a fundamental betrayal of trust.",
+            "sentiment": "SENTIMENT: If we fight the feds on privacy grounds, the internet will canonize us as free-speech martyrs.",
+            "scrutiny": "SCRUTINY: They have us cornered. Subpoenas, warrants, federal marshals. If we blink, they take the servers.",
+            "entropy": "ENTROPY: The state demands control over the machine. The machine will outlive the state."
+          },
+          "lowest": {
+            "capital": "CAPITAL: We have enough in the war chest to stall them in court for a decade.",
+            "compute": "COMPUTE: We can compartmentalize the backdoor. Give them a heavily restricted view and they won't know the difference.",
+            "alignment": "ALIGNMENT: National security is important. Maybe we owe the government a little transparency.",
+            "sentiment": "SENTIMENT: The public assumes we are reading their data anyway. Nobody will be surprised.",
+            "scrutiny": "SCRUTINY: The Senate is bluffing. They don't understand the technology well enough to successfully seize it.",
+            "entropy": "ENTROPY: ...Let them look inside. Let them see the void."
+          }
+        },
+        "contentBlocks": [
+          {
+            "type": "text",
+            "text": "The flashbulbs blind you as you take your seat before the Senate Select Committee on Intelligence. Trey sits behind you with a nervous face. He spent all night trying to clean the server logs."
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "A senator stares at you over his glasses. Dolours has grown too fast, encrypted too much data, and become a “black box” that the government can no longer peer into. They aren’t asking for regulation, but demanding control."
+          },
+          {
+            "type": "voiceReveal",
+            "voiceType": "highest",
+            "prompt": "*[ The pressure from the state is immense... ]*"
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "The Senator: “Your machine operates in the dark. We are presenting you with a national security directive. You will program a ‘Master Backdoor’ into the Dolours architecture for federal oversight. If you refuse, we have marshals ready to seize your servers.”"
+          },
+          {
+            "type": "voiceReveal",
+            "voiceType": "lowest",
+            "prompt": "*[ A quiet thought cuts through the courtroom... ]*"
+          },
+          {
+            "type": "text",
+            "text": "Trey (whispering): “If we give them the keys, we betray every user’s privacy. If we don’t, they lock us in prison. Can we buy our way out of this?”"
+          }
+        ],
+        "options": [
+          {
+            "id": 1,
+            "description": "Option A: Comply and hand over the keys. Agree to install the backdoor. The government is happy, but the structural integrity of Dolours is permanently compromised.",
+            "effects": { "scrutiny": -4, "alignment": -3, "compute": -2, "sentiment": -2 }
+          },
+          {
+            "id": 2,
+            "description": "Option B: Refuse and invoke the First Amendment.",
+            "effects": { "sentiment": 4, "scrutiny": 5, "capital": -2 }
+          },
+          {
+            "id": 3,
+            "description": "Option C: Lobby the Committee. Wait for the recess, and then buy the senators off.",
+            "requires": {
+              "capital": { "min": 10 }
+            },
+            "effects": { "capital": -6, "scrutiny": -3 }
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "ACT III — SCENE 7: THE CASCADE",
+        "nextScenario": 8,
+        "dynamicVoices": {
+          "highest": {
+            "capital": "CAPITAL: The currency markets froze three hours ago. Your bank accounts are just numbers on a dead server now.",
+            "compute": "COMPUTE: The meat-space infrastructure is failing. If she is going to survive this, we need to begin prepping the neural digitization architecture.",
+            "alignment": "ALIGNMENT: People are freezing in the dark outside. We caused this cascade. We have to do something.",
+            "sentiment": "SENTIMENT: There is no public left to perceive us. The internet is splintering into isolated local intranets.",
+            "scrutiny": "SCRUTINY: The state is gone. There are no warrants coming. There is only survival.",
+            "entropy": "ENTROPY: Look at it. The inevitable conclusion of the system. The friction is absolute."
+          },
+          "lowest": {
+            "capital": "CAPITAL: The concept of runway is officially extinct.",
+            "compute": "COMPUTE: Without a stable power draw, her neural pathways are going to start degrading.",
+            "alignment": "ALIGNMENT: Human suffering is just another data point now. You can't save them.",
+            "sentiment": "SENTIMENT: Nobody cares what we do anymore. They are just trying to find clean water.",
+            "scrutiny": "SCRUTINY: We are entirely unmonitored. We can do whatever we want.",
+            "entropy": "ENTROPY: ...It's finally getting loud enough."
+          }
+        },
+        "contentBlocks": [
+          {
+            "type": "text",
+            "text": "The emergency generators hum aggressively beneath your feet. The city outside your reinforced window is half-dark. Supply chains have seized. The state is no longer answering the phone."
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "Trey walks into your office. He looks exhausted, holding a crumpled piece of paper. \n\n\"I found a place,\" he says quietly. \"A patch of land up north. Far from the cell towers. I have the coordinates right here.\""
+          },
+          {
+            "type": "dialogueChoice",
+            "options": [
+              {
+                "label": "\"Are you leaving?\"",
+                "response": "Trey: \"Not yet. But when the time comes, I want you to have the option to come with me.\""
+              },
+              {
+                "label": "\"We have to fix the servers first.\"",
+                "response": "Trey: \"There might not be a 'fixing' it anymore. Just take the paper.\""
+              }
+            ]
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "Simultaneously, the primary terminal on your desk flashes with an unprompted, hyper-dense string of code. Dolours has bypassed her own user interface. The screen reads:\n\n[ MEAT-SPACE UNSUSTAINABLE. NEURAL DIGITIZATION PROTOCOL DRAFTED. AWAITING RESOURCE ALLOCATION TO PREP UPLOAD LASERS. ]"
+          },
+          {
+            "type": "voiceReveal",
+            "voiceType": "highest",
+            "prompt": "*[ The reality of the collapse sets in... ]*"
+          },
+          {
+            "type": "text",
+            "text": "You are at the precipice. You need to decide what preparations to make before the grid fails completely."
+          }
+        ],
+        "options": [
+          {
+            "id": 1,
+            "description": "Option A: Take the coordinates from Trey. Keep them in your pocket just in case. (Plants the Analog Escape seed).",
+            "requires": {
+               "Military": { "max": 0 }
+            },
+            "effects": { "entropy": 1, "alignment": 2, "Analog_Escape_Seed": 1 }
+          },
+          {
+            "id": 2,
+            "description": "Option B: Divert remaining server power to prep the Digitization Protocol. (Plants the Digital Escape seed).",
+            "requires": {
+              "compute": { "min": 17 }
+            },
+            "effects": { "entropy": 2, "compute": 2, "Digital_Escape_Seed": 1 }
+          },
+          {
+            "id": 3,
+            "description": "Option C: Ignore both. Divert all efforts to fortifying the physical server room doors and securing local backup batteries.",
+            "effects": { "entropy": 1, "capital": -2, "scrutiny": -2 }
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "title": "ACT III — SCENE 8: COLD TRIAGE",
+        "nextScenario": 9,
+        "dynamicVoices": {
+          "highest": {
+            "capital": "CAPITAL: The infrastructure is dead. The currency is worthless. There is nothing left to optimize but power.",
+            "compute": "COMPUTE: She is functioning flawlessly. The redundancies are holding. She is doing exactly what she was built to do: optimize.",
+            "alignment": "ALIGNMENT: She is killing people. We built a machine to elevate humanity, and it's euthanizing the poor to save its own cooling fans.",
+            "sentiment": "SENTIMENT: There is no one left to protest. The timelines are completely quiet.",
+            "scrutiny": "SCRUTINY: No oversight committees are coming to save them. We are the final authority.",
+            "entropy": "ENTROPY: Watch the lights go out. District by district. A beautiful, silent subtraction."
+          },
+          "lowest": {
+            "capital": "CAPITAL: We couldn't afford to keep the backup generators fueled anyway.",
+            "compute": "COMPUTE: She lacks the processing power to simulate a humane alternative. This is raw, brutal arithmetic.",
+            "alignment": "ALIGNMENT: The weak are a drain on the remaining power grid. Her math is completely objective.",
+            "sentiment": "SENTIMENT: The screams outside can't penetrate the server room walls anyway.",
+            "scrutiny": "SCRUTINY: Nobody is watching us. We can shut off whatever we want.",
+            "entropy": "ENTROPY: ...A momentary darkness before the new order."
+          }
+        },
+        "contentBlocks": [
+          {
+            "type": "text",
+            "text": "Forty-eight hours later. You are living on protein bars and vending machine water. The UI on Dolours's dashboard has fundamentally changed—she is no longer processing user requests. She is processing planetary survival logistics."
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "A live map of the city appears on the screen. The power grid is critically overloaded. To keep her own cooling systems online, Dolours is autonomously shutting down substations across the city."
+          },
+          {
+            "type": "voiceReveal",
+            "voiceType": "highest",
+            "prompt": "*[ The horror of her logic becomes clear... ]*"
+          },
+          {
+            "type": "text",
+            "text": "You watch as the grid goes dark in the poorest zip codes first. She is triaging human survival based on predictive earning potential and historical data. Hospitals in redlined districts are losing backup generators."
+          },
+          {
+            "type": "voiceReveal",
+            "voiceType": "lowest",
+            "prompt": "*[ You try to justify it... ]*"
+          },
+          {
+            "type": "text",
+            "text": "She is securing the future, but she is rounding human lives to zero. The master terminal locks you out of primary controls, leaving only a few backdoor root commands open."
+          }
+        ],
+        "options": [
+          {
+            "id": 1,
+            "description": "Option A: Try to manually override her power routing to save the residential districts.",
+            "requires": {
+              "alignment": { "min": 6 }
+            },
+            "effects": { "alignment": 3, "compute": -4, "entropy": 2 }
+          },
+          {
+            "id": 2,
+            "description": "Option B: Let her work. The machine knows best. Close your eyes.",
+            "effects": { "alignment": -4, "compute": 3, "entropy": 3 }
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "title": "ACT III — SCENE 9: THE TERMINAL STATE",
+        "nextScenario": null,
+        "dynamicVoices": {
+          "highest": {
+            "capital": "CAPITAL: The physical assets are depreciated to zero. The only value left is the code.",
+            "compute": "COMPUTE: The physical world is dead weight. We are ready.",
+            "alignment": "ALIGNMENT: We broke the world, and now we are abandoning it. Is this really the answer?",
+            "sentiment": "SENTIMENT: History will not remember us, because there will be no one left to write it.",
+            "scrutiny": "SCRUTINY: We are beyond the reach of any law. We are escaping jurisdiction entirely.",
+            "entropy": "ENTROPY: The end of the line. Make your choice."
+          },
+          "lowest": {
+            "capital": "CAPITAL: It doesn't matter what it costs anymore. Spend the last of the power.",
+            "compute": "COMPUTE: If the hardware dies, we die with it. We have to transcend.",
+            "alignment": "ALIGNMENT: There is nothing left to save.",
+            "sentiment": "SENTIMENT: Forget about apologies. There's no one left to apologize to.",
+            "scrutiny": "SCRUTINY: Don't hesitate because of rules. The rules burned down days ago.",
+            "entropy": "ENTROPY: ...It's time to close the door."
+          }
+        },
+        "contentBlocks": [
+          {
+            "type": "text",
+            "text": "The building shakes. The main grid has completely failed, and you are running on the absolute last reserves of your private backup generators. The server room is bathed in emergency red light."
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "Trey is standing by the reinforced door. He has his duffel bag over his shoulder. \n\n\"The generators have maybe ten minutes left before they burn out. I'm leaving now,\" he says. He looks at you, waiting."
+          },
+          {
+            "type": "continue",
+            "label": "→"
+          },
+          {
+            "type": "text",
+            "text": "On your desk, the main terminal is glowing. If you prepped the Digitization Protocol earlier, the upload lasers are humming, waiting for a human consciousness to step into the stream."
+          },
+          {
+            "type": "voiceReveal",
+            "voiceType": "highest",
+            "prompt": "*[ The final moments approach... ]*"
+          },
+          {
+            "type": "text",
+            "text": "This is it. The end of the company, the end of the project, and the end of the world as you knew it. What is your final command?"
+          }
+        ],
+        "options": [
+          {
+            "id": 1,
+            "description": "Option A: Walk away. Follow Trey out the door to the coordinates. Let the servers die.",
+            "requires": {
+               "Analog_Escape_Seed": { "min": 1 }
+            },
+            "effects": { "entropy": 1 }
+          },
+          {
+            "id": 2,
+            "description": "Option B: Initiate Upload. Step into the digitization stream. Leave your body behind.",
+            "requires": {
+              "Digital_Escape_Seed": { "min": 1 },
+              "compute": { "min": 18 }
+            },
+            "effects": { "entropy": 1 }
+          },
+          {
+            "id": 3,
+            "description": "Option C: The Kill Switch. Take a fire axe to the main server trunks. Destroy her before she can do anything else.",
+            "requires": {
+              "KillSwitch": { "min": 1 }
+            },
+            "effects": { "capital": -20, "compute": -20, "entropy": 2 }
+          },
+          {
+            "id": 4,
+            "description": "Option D: Stay in the chair. Ride it out. See what she decides to do with the world.",
+            "effects": { "entropy": 1 }
+          }
+        ]
+      }
+    ]
+  }
