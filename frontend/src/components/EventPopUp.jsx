@@ -9,8 +9,8 @@ import {
   DialogTitle,
 } from "./ui/dialog"
 import { Button } from "./ui/button"
-import { OptionButton } from "./optionSelectWIndow";
-import { OptionSelectWindow } from "./optionSelectWIndow";
+import { OptionButton } from "./OptionSelectWIndow";
+import { OptionSelectWindow } from "./OptionSelectWIndow";
 function EventPopUp({ event, open, setOpen, gameState, onOptionSelect }) {
   const handleEventOptionSelect = (option) =>{
     onOptionSelect(option)
