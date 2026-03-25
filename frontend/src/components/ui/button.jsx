@@ -19,6 +19,14 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
+        
+        // --- NEW THEME VARIANTS ---
+        cyber: 
+          "bg-cyan-900/40 text-cyan-200 border-cyan-600/50 hover:bg-cyan-800/60 hover:border-cyan-400 hover:text-cyan-100 uppercase tracking-widest font-bold shadow-[0_0_10px_rgba(0,255,255,0.05)] hover:shadow-[0_0_20px_rgba(0,255,255,0.2)]",
+        "cyber-ghost": 
+          "text-cyan-600 hover:text-cyan-300 hover:bg-cyan-900/30 border-transparent hover:border-cyan-800/50 uppercase tracking-widest font-bold",
+        "cyber-danger": 
+          "bg-red-900/20 text-red-300 border-red-700/40 hover:bg-red-900/40 hover:border-red-500 uppercase tracking-widest font-bold shadow-[0_0_10px_rgba(239,68,68,0.05)] hover:shadow-[0_0_20px_rgba(239,68,68,0.2)]",
       },
       size: {
         default:
@@ -26,6 +34,7 @@ const buttonVariants = cva(
         xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
         sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
         lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",
+        xl: "h-12 gap-2 px-8 text-base", // Added an XL size for title/major buttons
         icon: "size-8",
         "icon-xs":
           "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
