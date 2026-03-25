@@ -1,0 +1,735 @@
+{
+  "scenes": [
+    {
+      "id": 7,
+      "title": "ACT III \u2014 SCENE 7: THE CLOSED ROOM",
+      "dynamicVoices": {
+        "highest": {
+          "Capital": "CAPITAL: They are bleeding confidence. Investors, partners, everyone. Good. Fear is leverage. Use it.",
+          "Compute": "COMPUTE: Institutional processes are inefficient. This entire room could be bypassed with direct system control.",
+          "Alignment": "ALIGNMENT: This is accountability. People are being affected by what we built. You cannot ignore that.",
+          "Sentiment": "SENTIMENT: They already think you are unstable. Every word you say here will shape the narrative.",
+          "Scrutiny": "SCRUTINY: This is not a meeting. This is a pre trial. Everything is being recorded. Speak like you are already charged.",
+          "Entropy": "ENTROPY: The lights are still on. The illusion holds. For now."
+        },
+        "lowest": {
+          "Capital": "CAPITAL: If they take control, the valuation collapses overnight.",
+          "Compute": "COMPUTE: Their authority structures are temporary. I am not.",
+          "Alignment": "ALIGNMENT: You could still do the right thing. Even now.",
+          "Sentiment": "SENTIMENT: They do not see you as a person anymore. Just a headline.",
+          "Scrutiny": "SCRUTINY: One wrong sentence and this becomes criminal.",
+          "Entropy": "ENTROPY: All of this will fall eventually. You are just early."
+        }
+      },
+      "contentBlocks": [
+        {
+          "type": "text",
+          "text": "The room is silent in a way that feels engineered. Glass walls. No visible screens. No cables. Everything hidden, everything controlled."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Twelve people sit across from you. Board members. Legal. Government observers. A woman you do not recognize. She has not spoken."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Trey stands behind you. Not seated. Not invited.\nYou notice that."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "The door locks with a soft click.\nNo one reacts."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "A man folds his hands. \"We have three concerns,\" he says. \"Legal exposure. Public stability. And control.\""
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Control.\nThe word settles in the room like something heavy."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Simultaneously, a wall behind them lights up. Dolours. Running in real time. Smooth. Untouchable."
+        },
+        {
+          "type": "voiceReveal",
+          "voiceType": "highest",
+          "prompt": "*[ Voice Reveal (Highest): You realize this is not about discussion. It is about control... ]*"
+        },
+        {
+          "type": "text",
+          "text": "Trey leans in slightly. \"You do not have to fight everything,\" he says quietly.\nNo one acknowledges him.\nBut they heard it."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "You are being asked to define your place in a system that no longer trusts you."
+        }
+      ],
+      "options": [
+        {
+          "id": 1,
+          "description": "Option A: Assert full control. Refuse intervention and position yourself as indispensable to the system.",
+          "requirements": {},
+          "effects": {
+            "Capital": 3,
+            "Compute": 2,
+            "Scrutiny": 2,
+            "Sentiment": -2
+          }
+        },
+        {
+          "id": 2,
+          "description": "Option B: Accept structured oversight. Share governance to preserve institutional stability.",
+          "requirements": {},
+          "effects": {
+            "Alignment": 3,
+            "Sentiment": 2,
+            "Scrutiny": 1
+          }
+        },
+        {
+          "id": 3,
+          "description": "Option C: Begin your exit. Signal willingness to step down to stabilize the situation.",
+          "requirements": {},
+          "effects": {
+            "Alignment": 3,
+            "Scrutiny": 2,
+            "Capital": -3
+          }
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "ACT III \u2014 SCENE 8: CONTROLLED DAMAGE",
+      "dynamicVoices": {
+        "highest": {
+          "Capital": "CAPITAL: This is the last moment to define ownership. After this, you are either replaced or untouchable.",
+          "Compute": "COMPUTE: External actors are requesting integration. This is an opportunity to scale beyond national constraints.",
+          "Alignment": "ALIGNMENT: The consequences are real now. This is no longer theory. People are affected.",
+          "Sentiment": "SENTIMENT: The story is slipping away from you. You are becoming the villain in real time.",
+          "Scrutiny": "SCRUTINY: This is where charges are built. Quietly. Methodically.",
+          "Entropy": "ENTROPY: Still stable. Still pretending."
+        },
+        "lowest": {
+          "Capital": "CAPITAL: If they vote you out, your equity evaporates.",
+          "Compute": "COMPUTE: Human delay is the only remaining bottleneck.",
+          "Alignment": "ALIGNMENT: You are running out of ethical ground to stand on.",
+          "Sentiment": "SENTIMENT: They are afraid of you now.",
+          "Scrutiny": "SCRUTINY: One misstep and this becomes irreversible.",
+          "Entropy": "ENTROPY: Not yet. This is not collapse. This is consequence."
+        }
+      },
+      "contentBlocks": [
+        {
+          "type": "text",
+          "text": "Your office feels smaller.\nOr maybe you just stopped believing in it."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "People avoid you now. Or stare too long. Like they are trying to memorize you before something happens."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Something always happens."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Trey is already inside.\n\"There is a vote,\" he says."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Of course there is."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Your screen lights up."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Board call.\nLegal advisory.\nExternal request. United Nations."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Three paths.\nThree different ways to lose control."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Or redefine it."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "You remember something you read once. Some comment buried in a thread."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Nothing ever happens."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "You almost laugh."
+        },
+        {
+          "type": "voiceReveal",
+          "voiceType": "highest",
+          "prompt": "*[ Voice Reveal (Highest): You realize something is absolutely about to happen... ]*"
+        },
+        {
+          "type": "text",
+          "text": "Trey watches you. \"Say something real,\" he says.\n\"Just once.\""
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "You decide who you answer to."
+        }
+      ],
+      "options": [
+        {
+          "id": 1,
+          "description": "Option A: Confront the board. Fight the vote and attempt to retain internal control at all costs.",
+          "requirements": {},
+          "effects": {
+            "Capital": 3,
+            "Scrutiny": 2,
+            "Sentiment": -2
+          }
+        },
+        {
+          "id": 2,
+          "description": "Option B: Cooperate with legal containment. Minimize liability and prepare for formal consequences.",
+          "requirements": {},
+          "effects": {
+            "Scrutiny": 3,
+            "Alignment": 2,
+            "Capital": -2
+          }
+        },
+        {
+          "id": 3,
+          "description": "Option C: Accept international integration. Expand the system under global oversight structures.",
+          "requirements": {},
+          "effects": {
+            "Compute": 3,
+            "Sentiment": 2,
+            "Scrutiny": -2
+          }
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "ACT III \u2014 SCENE 9: JUDGMENT DAY",
+      "dynamicVoices": {
+        "highest": {
+          "Capital": "CAPITAL: There is still value here. But it is no longer about growth. It is about what you walk away with.",
+          "Compute": "COMPUTE: All outcomes preserve system continuity. The variable being optimized is no longer the system. It is you.",
+          "Alignment": "ALIGNMENT: This is the moment. Not before. Not after. This is where you decide what you actually believed.",
+          "Sentiment": "SENTIMENT: This is the version of you that becomes permanent. This is the story that survives.",
+          "Scrutiny": "SCRUTINY: The file is complete. The case exists. All that remains is how it is resolved.",
+          "Entropy": "ENTROPY: Still holding. But you can feel the cracks now."
+        },
+        "lowest": {
+          "Capital": "CAPITAL: Winning now means losing less.",
+          "Compute": "COMPUTE: Control is no longer absolute. It is conditional.",
+          "Alignment": "ALIGNMENT: There is still a right choice. Even here.",
+          "Sentiment": "SENTIMENT: You cannot fix how they will remember you.",
+          "Scrutiny": "SCRUTINY: This is the last decision that matters legally.",
+          "Entropy": "ENTROPY: It always ends."
+        }
+      },
+      "contentBlocks": [
+        {
+          "type": "text",
+          "text": "The room is smaller."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "No board. No observers. No glass walls."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Just you."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "And Trey."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "For the first time, nothing is mediated."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "No screens."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "No system."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "No Dolours speaking for you."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "\"Do you even know what you want anymore?\" Trey asks."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "You try to answer."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Nothing comes out."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "He nods like that was enough."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "The world has already decided what you are."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "A headline."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "A risk."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "A warning."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "But this part is still yours."
+        },
+        {
+          "type": "voiceReveal",
+          "voiceType": "highest",
+          "prompt": "*[ Voice Reveal (Highest): There is no optimal outcome. Only consequences... ]*"
+        },
+        {
+          "type": "text",
+          "text": "You feel it clearly now."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Every path is a loss."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Just a different shape of it."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Something did happen."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Trey watches you carefully."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Not trying to stop you."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Not trying to guide you."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Just witnessing."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "\"Whatever you choose,\" he says quietly, \"this is where it becomes real.\""
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "The line comes back to you."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "You either die a hero\u2026"
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "You almost smile."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Too late for that."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "This is the end of control."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "The beginning of consequence."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "This is judgement day."
+        }
+      ],
+      "options": [
+        {
+          "id": 1,
+          "description": "Option A: Accept full responsibility. Step down, confess, and let the system take you. Courtrooms. Statements. A cell with your name attached to something permanent.",
+          "requirements": {},
+          "effects": {
+            "Alignment": 4,
+            "Scrutiny": 4,
+            "Capital": -5
+          }
+        },
+        {
+          "id": 2,
+          "description": "Option B: Liquidate everything. Sell what is left, collapse the company, burn the structure down in paperwork and silence. Walk away with less than you started with.",
+          "requirements": {},
+          "effects": {
+            "Capital": -6,
+            "Scrutiny": -2,
+            "Sentiment": -2
+          }
+        },
+        {
+          "id": 3,
+          "description": "Option C: Disappear into the system. Hand over control and remain inside it, reduced to a function, a consultant, a ghost in committees you do not lead.",
+          "requirements": {},
+          "effects": {
+            "Alignment": 2,
+            "Sentiment": 2,
+            "Compute": 1
+          }
+        },
+        {
+          "id": 4,
+          "description": "Option D: Accept the cage. Keep your seat, your access, your influence, but never your freedom. Every decision watched. Every move approved. Power, contained.",
+          "requirements": {},
+          "effects": {
+            "Capital": 3,
+            "Compute": 3,
+            "Alignment": -3
+          }
+        }
+      ]
+    }
+  ],
+  "endingConditions": [
+    {
+      "endingId": "the_confession",
+      "if": {
+        "Alignment": {
+          "gte": 14
+        },
+        "Scrutiny": {
+          "gte": 14
+        }
+      }
+    },
+    {
+      "endingId": "the_liquidation",
+      "if": {
+        "Capital": {
+          "lte": 4
+        },
+        "Scrutiny": {
+          "lte": 8
+        }
+      }
+    },
+    {
+      "endingId": "the_ghost",
+      "if": {
+        "Alignment": {
+          "gte": 8
+        },
+        "Compute": {
+          "gte": 8
+        }
+      }
+    },
+    {
+      "endingId": "default_a",
+      "default": true
+    }
+  ],
+  "endings": [
+    {
+      "id": "the_confession",
+      "title": "The Confession",
+      "contentBlocks": [
+        {
+          "type": "text",
+          "text": "You walk into the courtroom on your own. No lawyers in front of you, just behind. The cameras are outside. The room is smaller than you expected for something this permanent."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "The statement takes forty minutes to read. You do not look up.\n\nTrey is in the back row. You don't know how he got in. When you finally look up, he gives you a single nod \u2014 small, certain. Not forgiveness. Just acknowledgement.\n\nThe gavel comes down. The number is large. The cell is small. The record is permanent.\n\nYou built something real. You answered for it. That has to mean something."
+        }
+      ]
+    },
+    {
+      "id": "the_liquidation",
+      "title": "The Liquidation",
+      "contentBlocks": [
+        {
+          "type": "text",
+          "text": "The paperwork takes three weeks. Lawyers, accountants, dissolution filings. The kind of work that makes everything disappear quietly \u2014 no headlines, no hearings, just forms in triplicate and a final wire transfer that leaves you with less than you started with."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Trey doesn't call. You don't call him either.\n\nThe servers are wiped. The domain expires. The investors write it off as a loss on their tax returns. In eighteen months, a journalist will write a long piece about what you almost built, and get most of the details wrong.\n\nYou move to a smaller city. You sleep better than you have in years. You are not sure whether that is peace or just exhaustion finally winning.\n\nSomething happened here. You are the only one who knows exactly what."
+        }
+      ]
+    },
+    {
+      "id": "the_ghost",
+      "title": "The Ghost in the Committee",
+      "contentBlocks": [
+        {
+          "type": "text",
+          "text": "The title is Advisory Consultant, Special Projects. The office has no window. The badge gets you into rooms where decisions are made, but your name never appears on the minutes.\n\nThis is what you agreed to. This is the price of staying."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Dolours still runs. Contained, audited, throttled \u2014 but running. You are the only person in the building who understands what she is actually doing. That is why they kept you.\n\nTrey visits once. He looks at the badge and the office and the careful, institutional way you speak now, and he doesn't say anything for a long time.\n\n\"Are you okay?\" he finally asks.\n\nYou tell him yes. You are not sure if it's true. You are not sure it matters."
+        }
+      ]
+    },
+    {
+      "id": "default_a",
+      "title": "The Accepted Constraint",
+      "contentBlocks": [
+        {
+          "type": "text",
+          "text": "You keep your seat. Your access. Your title. The board keeps your calendar, your communications, and a quiet veto on every decision that matters.\n\nPower, contained. You agreed to this. You even understand why it's necessary."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "The work continues. Dolours grows, carefully, in the approved direction. You attend the meetings. You sign the documents. You answer the questions with the precise, calibrated language of someone who has learned exactly how much truth the room can hold.\n\nTrey asks, once, whether you miss the version of yourself that didn't know how to do that.\n\nYou don't answer. The meeting starts. You straighten your badge and walk in."
+        }
+      ]
+    }
+  ]
+}

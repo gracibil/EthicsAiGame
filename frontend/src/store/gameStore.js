@@ -4,12 +4,17 @@ import { METRICS_CONFIG } from './metricsConfig'
 import { evaluateEndings } from './endings'
 
 const INITIAL_METRICS = {
-  Capital: 2,
+  Capital: 10,
   Compute: 2,
   Alignment: 3,
   Sentiment: 3,
   Scrutiny: 1,
   Entropy: 1,
+  // Hidden flags — not displayed in UI
+  Oversight: 1,
+  Military: 0,
+  Analog_Escape_Seed: 0,
+  Digital_Escape_Seed: 0,
 }
 
 export const useGameStore = create(

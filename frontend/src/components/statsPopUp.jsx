@@ -2,6 +2,7 @@ import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "./ui/dialog"
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "./ui/tooltip"
 import { Button } from "./ui/button"
 import { useGameStore } from "../store/gameStore"
+import { METRIC_KEYS } from "../store/metricsConfig"
 
 const StatsPopUp = () => {
     const metrics = useGameStore((state) => state.metrics)
@@ -20,17 +21,19 @@ const StatsPopUp = () => {
 
                     <DialogTitle>Player Stats</DialogTitle>
                     {
-                        Object.entries(metrics).map(([key, value]) => (
+                        METRIC_KEYS.map(key => {
+                          const value = metrics[key]
+                          return (
                             <TooltipProvider>
                             <Tooltip>
-                            
-                            
+
+
                             <TooltipTrigger className="w-full">
                                 <div className="flex flex-row">
 
-                                    <p className="mr-auto" key={key}>{key}:</p> 
+                                    <p className="mr-auto" key={key}>{key}:</p>
                                     <p className="ml-auto">{value}</p>
-                                    
+
                                 </div>
                             </TooltipTrigger>
 
@@ -38,11 +41,11 @@ const StatsPopUp = () => {
                                 <p>{`This is your current ${key}.`}</p>
                                 {/**TODO : Add metric descriptions */}
                             </TooltipContent>
-                            
+
                             </Tooltip>
                             </TooltipProvider>
-
-                        ))
+                          )
+                        })
                     }
                 </DialogContent>
             </Dialog>

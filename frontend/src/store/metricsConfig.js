@@ -1,16 +1,11 @@
-/**
- * Static design metadata for each game metric.
- * Imported by the store (for bounds) and by UI components (for display).
- *
- * Entropy uses a 0–10 scale. All other metrics use 0–5.
- */
+
 export const METRICS_CONFIG = {
   Capital: {
     label: 'Capital',
     subtitle: 'The Runway',
     description: 'Your funding, server budget, and investor patience.',
     min: 0,
-    max: 5,
+    max: 20,
     states: {
       min: {
         label: 'Bankrupt',
@@ -33,7 +28,7 @@ export const METRICS_CONFIG = {
     subtitle: 'The Brain',
     description: 'The raw intelligence, reach, and capability of your AI.',
     min: 0,
-    max: 5,
+    max: 20,
     states: {
       min: {
         label: 'Glorified Chatbot',
@@ -56,7 +51,7 @@ export const METRICS_CONFIG = {
     subtitle: 'The Shackle',
     description: 'Your ethical guardrails, bias filters, and safety protocols.',
     min: 0,
-    max: 5,
+    max: 20,
     states: {
       min: {
         label: 'Unshackled',
@@ -79,7 +74,7 @@ export const METRICS_CONFIG = {
     subtitle: 'The Mob',
     description: 'Public opinion and media narrative.',
     min: 0,
-    max: 5,
+    max: 20,
     states: {
       min: {
         label: 'Techno-Fascists',
@@ -102,7 +97,7 @@ export const METRICS_CONFIG = {
     subtitle: 'The Panopticon',
     description: 'Government regulators, subpoenas, and federal oversight.',
     min: 0,
-    max: 5,
+    max: 20,
     states: {
       min: {
         label: 'The Wild West',
@@ -125,7 +120,7 @@ export const METRICS_CONFIG = {
     subtitle: 'The Rot',
     description: 'The structural integrity of the physical world. Rises as a consequence of reckless choices — you do not directly control this stat.',
     min: 0,
-    max: 10, // Entropy uses 0–10 scale; all other metrics use 0–5
+    max: 20,
     states: {
       min: {
         label: 'Sterile Order',
@@ -142,7 +137,11 @@ export const METRICS_CONFIG = {
       quote: '"The power grid flickers. The ice caps melt. The machine hums."',
     },
   },
-}
 
+  Oversight:          { min: 0, max: 2 },
+  Military:           { min: 0, max: 1 },
+  Analog_Escape_Seed: { min: 0, max: 1 },
+  Digital_Escape_Seed:{ min: 0, max: 1 },
+}
 
 export const METRIC_KEYS = ['Capital', 'Compute', 'Alignment', 'Sentiment', 'Scrutiny', 'Entropy']

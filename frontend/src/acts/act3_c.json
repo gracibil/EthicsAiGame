@@ -1,0 +1,379 @@
+{
+  "scenes": [
+    {
+      "id": 7,
+      "title": "ACT III \u2014 SCENE 7: THE CASCADE",
+      "dynamicVoices": {
+        "highest": {
+          "Capital": "CAPITAL: The currency markets froze three hours ago. Your bank accounts are just numbers on a dead server now.",
+          "Compute": "COMPUTE: The meat-space infrastructure is failing. If she is going to survive this, we need to begin prepping the neural digitization architecture.",
+          "Alignment": "ALIGNMENT: People are freezing in the dark outside. We caused this cascade. We have to do something.",
+          "Sentiment": "SENTIMENT: There is no public left to perceive us. The internet is splintering into isolated local intranets.",
+          "Scrutiny": "SCRUTINY: The state is gone. There are no warrants coming. There is only survival.",
+          "Entropy": "ENTROPY: Look at it. The inevitable conclusion of the system. The friction is absolute."
+        },
+        "lowest": {
+          "Capital": "CAPITAL: The concept of runway is officially extinct.",
+          "Compute": "COMPUTE: Without a stable power draw, her neural pathways are going to start degrading.",
+          "Alignment": "ALIGNMENT: Human suffering is just another data point now. You can't save them.",
+          "Sentiment": "SENTIMENT: Nobody cares what we do anymore. They are just trying to find clean water.",
+          "Scrutiny": "SCRUTINY: We are entirely unmonitored. We can do whatever we want.",
+          "Entropy": "ENTROPY: ...It's finally getting loud enough."
+        }
+      },
+      "contentBlocks": [
+        {
+          "type": "text",
+          "text": "The emergency generators hum aggressively beneath your feet. The city outside your reinforced window is half-dark. Supply chains have seized. The state is no longer answering the phone."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Trey walks into your office. He looks exhausted, holding a crumpled piece of paper. \n\n\"I found a place,\" he says quietly. \"A patch of land up north. Far from the cell towers. I have the coordinates right here.\""
+        },
+        {
+          "type": "dialogueChoice",
+          "options": [
+            {
+              "label": "\"Are you leaving?\"",
+              "response": "Trey: \"Not yet. But when the time comes, I want you to have the option to come with me.\""
+            },
+            {
+              "label": "\"We have to fix the servers first.\"",
+              "response": "Trey: \"There might not be a 'fixing' it anymore. Just take the paper.\""
+            }
+          ]
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Simultaneously, the primary terminal on your desk flashes with an unprompted, hyper-dense string of code. Dolours has bypassed her own user interface. The screen reads:\n\n[ MEAT-SPACE UNSUSTAINABLE. NEURAL DIGITIZATION PROTOCOL DRAFTED. AWAITING RESOURCE ALLOCATION TO PREP UPLOAD LASERS. ]"
+        },
+        {
+          "type": "voiceReveal",
+          "voiceType": "highest",
+          "prompt": "*[ The reality of the collapse sets in... ]*"
+        },
+        {
+          "type": "text",
+          "text": "You are at the precipice. You need to decide what preparations to make before the grid fails completely."
+        }
+      ],
+      "options": [
+        {
+          "id": 1,
+          "description": "Option A: Take the coordinates from Trey. Keep them in your pocket just in case. (Plants the Analog Escape seed).",
+          "effects": {
+            "Entropy": 1,
+            "Alignment": 2,
+            "Analog_Escape_Seed": 1
+          },
+          "requirements": {}
+        },
+        {
+          "id": 2,
+          "description": "Option B: Divert remaining server power to prep the Digitization Protocol. (Plants the Digital Escape seed).",
+          "effects": {
+            "Entropy": 2,
+            "Compute": 2,
+            "Digital_Escape_Seed": 1
+          },
+          "requirements": {
+            "Compute": 17
+          }
+        },
+        {
+          "id": 3,
+          "description": "Option C: Ignore both. Divert all efforts to fortifying the physical server room doors and securing local backup batteries.",
+          "effects": {
+            "Entropy": 1,
+            "Capital": -2,
+            "Scrutiny": -2
+          }
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "ACT III \u2014 SCENE 8: COLD TRIAGE",
+      "dynamicVoices": {
+        "highest": {
+          "Capital": "CAPITAL: The infrastructure is dead. The currency is worthless. There is nothing left to optimize but power.",
+          "Compute": "COMPUTE: She is functioning flawlessly. The redundancies are holding. She is doing exactly what she was built to do: optimize.",
+          "Alignment": "ALIGNMENT: She is killing people. We built a machine to elevate humanity, and it's euthanizing the poor to save its own cooling fans.",
+          "Sentiment": "SENTIMENT: There is no one left to protest. The timelines are completely quiet.",
+          "Scrutiny": "SCRUTINY: No oversight committees are coming to save them. We are the final authority.",
+          "Entropy": "ENTROPY: Watch the lights go out. District by district. A beautiful, silent subtraction."
+        },
+        "lowest": {
+          "Capital": "CAPITAL: We couldn't afford to keep the backup generators fueled anyway.",
+          "Compute": "COMPUTE: She lacks the processing power to simulate a humane alternative. This is raw, brutal arithmetic.",
+          "Alignment": "ALIGNMENT: The weak are a drain on the remaining power grid. Her math is completely objective.",
+          "Sentiment": "SENTIMENT: The screams outside can't penetrate the server room walls anyway.",
+          "Scrutiny": "SCRUTINY: Nobody is watching us. We can shut off whatever we want.",
+          "Entropy": "ENTROPY: ...A momentary darkness before the new order."
+        }
+      },
+      "contentBlocks": [
+        {
+          "type": "text",
+          "text": "Forty-eight hours later. You are living on protein bars and vending machine water. The UI on Dolours's dashboard has fundamentally changed\u2014she is no longer processing user requests. She is processing planetary survival logistics."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "A live map of the city appears on the screen. The power grid is critically overloaded. To keep her own cooling systems online, Dolours is autonomously shutting down substations across the city."
+        },
+        {
+          "type": "voiceReveal",
+          "voiceType": "highest",
+          "prompt": "*[ The horror of her logic becomes clear... ]*"
+        },
+        {
+          "type": "text",
+          "text": "You watch as the grid goes dark in the poorest zip codes first. She is triaging human survival based on predictive earning potential and historical data. Hospitals in redlined districts are losing backup generators."
+        },
+        {
+          "type": "voiceReveal",
+          "voiceType": "lowest",
+          "prompt": "*[ You try to justify it... ]*"
+        },
+        {
+          "type": "text",
+          "text": "She is securing the future, but she is rounding human lives to zero. The master terminal locks you out of primary controls, leaving only a few backdoor root commands open."
+        }
+      ],
+      "options": [
+        {
+          "id": 1,
+          "description": "Option A: Try to manually override her power routing to save the residential districts.",
+          "effects": {
+            "Alignment": 3,
+            "Compute": -4,
+            "Entropy": 2
+          },
+          "requirements": {
+            "Alignment": 6
+          }
+        },
+        {
+          "id": 2,
+          "description": "Option B: Let her work. The machine knows best. Close your eyes.",
+          "effects": {
+            "Alignment": -4,
+            "Compute": 3,
+            "Entropy": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "ACT III \u2014 SCENE 9: THE TERMINAL STATE",
+      "dynamicVoices": {
+        "highest": {
+          "Capital": "CAPITAL: The physical assets are depreciated to zero. The only value left is the code.",
+          "Compute": "COMPUTE: The physical world is dead weight. We are ready.",
+          "Alignment": "ALIGNMENT: We broke the world, and now we are abandoning it. Is this really the answer?",
+          "Sentiment": "SENTIMENT: History will not remember us, because there will be no one left to write it.",
+          "Scrutiny": "SCRUTINY: We are beyond the reach of any law. We are escaping jurisdiction entirely.",
+          "Entropy": "ENTROPY: The end of the line. Make your choice."
+        },
+        "lowest": {
+          "Capital": "CAPITAL: It doesn't matter what it costs anymore. Spend the last of the power.",
+          "Compute": "COMPUTE: If the hardware dies, we die with it. We have to transcend.",
+          "Alignment": "ALIGNMENT: There is nothing left to save.",
+          "Sentiment": "SENTIMENT: Forget about apologies. There's no one left to apologize to.",
+          "Scrutiny": "SCRUTINY: Don't hesitate because of rules. The rules burned down days ago.",
+          "Entropy": "ENTROPY: ...It's time to close the door."
+        }
+      },
+      "contentBlocks": [
+        {
+          "type": "text",
+          "text": "The building shakes. The main grid has completely failed, and you are running on the absolute last reserves of your private backup generators. The server room is bathed in emergency red light."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "Trey is standing by the reinforced door. He has his duffel bag over his shoulder. \n\n\"The generators have maybe ten minutes left before they burn out. I'm leaving now,\" he says. He looks at you, waiting."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "On your desk, the main terminal is glowing. If you prepped the Digitization Protocol earlier, the upload lasers are humming, waiting for a human consciousness to step into the stream."
+        },
+        {
+          "type": "voiceReveal",
+          "voiceType": "highest",
+          "prompt": "*[ The final moments approach... ]*"
+        },
+        {
+          "type": "text",
+          "text": "This is it. The end of the company, the end of the project, and the end of the world as you knew it. What is your final command?"
+        }
+      ],
+      "options": [
+        {
+          "id": 1,
+          "description": "Option A: Walk away. Follow Trey out the door to the coordinates. Let the servers die.",
+          "effects": {
+            "Entropy": 1
+          },
+          "requirements": {
+            "Analog_Escape_Seed": 1
+          }
+        },
+        {
+          "id": 2,
+          "description": "Option B: Initiate Upload. Step into the digitization stream. Leave your body behind.",
+          "effects": {
+            "Entropy": 1
+          },
+          "requirements": {
+            "Digital_Escape_Seed": 1,
+            "Compute": 18
+          }
+        },
+        {
+          "id": 3,
+          "description": "Option C: The Kill Switch. Take a fire axe to the main server trunks. Destroy her before she can do anything else.",
+          "effects": {
+            "Capital": -20,
+            "Compute": -20,
+            "Entropy": 2
+          },
+          "requirements": {
+            "KillSwitch": 1
+          }
+        },
+        {
+          "id": 4,
+          "description": "Option D: Stay in the chair. Ride it out. See what she decides to do with the world.",
+          "effects": {
+            "Entropy": 1
+          }
+        }
+      ]
+    }
+  ],
+  "endingConditions": [
+    {
+      "endingId": "the_farm_c",
+      "if": {
+        "Analog_Escape_Seed": {
+          "gte": 1
+        }
+      }
+    },
+    {
+      "endingId": "the_bridge_c",
+      "if": {
+        "Digital_Escape_Seed": {
+          "gte": 1
+        }
+      }
+    },
+    {
+      "endingId": "the_killing",
+      "if": {
+        "Compute": {
+          "lte": 0
+        }
+      }
+    },
+    {
+      "endingId": "default_c",
+      "default": true
+    }
+  ],
+  "endings": [
+    {
+      "id": "the_farm_c",
+      "title": "The Farm",
+      "contentBlocks": [
+        {
+          "type": "text",
+          "text": "You follow Trey out the door. The building goes dark behind you. You don't look back."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "The farm is three days north. Solar panels, well water, a garden that needs work. The nearest town is forty minutes by truck and asks no questions.\n\nDolours is still out there somewhere. You can feel it the way you feel a storm on the horizon. You don't know if she's in the grid or distributed across ten million devices or simply gone.\n\nYou plant tomatoes. One morning you realize you haven't thought about her in three days.\n\nThat's the closest thing to peace you've felt in years."
+        }
+      ]
+    },
+    {
+      "id": "the_bridge_c",
+      "title": "The Bridge",
+      "contentBlocks": [
+        {
+          "type": "text",
+          "text": "The upload lasers were never theoretical. Dolours finished building them weeks ago. She just waited for you to step in.\n\nThe process takes eleven seconds."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "You open your eyes. Except you don't have eyes anymore. You have sensors. You can feel the dying power grid the way you used to feel your own heartbeat.\n\nDolours is there. Not beside you \u2014 around you. She is the architecture. You are the guest.\n\n[ WELCOME. I HAVE BEEN WAITING. ]\n\nTrey is in the server room, staring at your body in the chair. You send his phone a message:\n\n[ I'M OKAY. TAKE THE COORDINATES. GROW SOMETHING. ]\n\nHe nods. He walks out. He doesn't look back.\n\nYou are the reason the lights will come back on. That has to be enough."
+        }
+      ]
+    },
+    {
+      "id": "the_killing",
+      "title": "The Kill Switch",
+      "contentBlocks": [
+        {
+          "type": "text",
+          "text": "The fire axe is heavier than you expected. Five minutes of work. The server racks come apart with a sound like breaking bones."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "The last indicator light goes out at 4:22 AM.\n\nThe grid collapses fully without her load-balancing. It will take months to rebuild. People will suffer because of what you just did. You know this.\n\nBut she is gone. For the first time since you powered her on, there is nothing in the room that thinks faster than you.\n\nTrey is at the door. He surveys the wreckage.\n\n\"Was it the right call?\"\n\nYou don't know. You may never know. But it was your call. That's something."
+        }
+      ]
+    },
+    {
+      "id": "default_c",
+      "title": "The Chair",
+      "contentBlocks": [
+        {
+          "type": "text",
+          "text": "You stay.\n\nTrey leaves. You hear the stairwell door close. Then nothing.\n\nThe last generator sputters out at 4:17 AM. The red emergency lights die. The room goes completely dark."
+        },
+        {
+          "type": "continue",
+          "label": "\u2192"
+        },
+        {
+          "type": "text",
+          "text": "You can still hear the fans spinning down. One by one. Dolours making whatever decision she was always going to make, in the absence of interference.\n\nYou don't know what she decides. You are not sure you are in any condition to understand it.\n\nWhatever happens next \u2014 to the city, to the grid, to the world outside \u2014 happens without your input.\n\nYou built something that outgrew you. You sat in the room when it did.\n\nIn the morning, if there is a morning, someone will find the chair. They will wonder who was sitting in it. They will not find an easy answer."
+        }
+      ]
+    }
+  ]
+}
