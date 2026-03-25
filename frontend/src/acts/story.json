@@ -725,15 +725,12 @@
       ]
     }
   ],
-  "branchConditions": [
+"branchConditions": [
     {
       "branch": "a",
       "if": {
-        "Capital": {
-          "gte": 4
-        },
-        "Alignment": {
-          "gte": 3
+        "Entropy": {
+          "lte": 10
         }
       }
     },
@@ -741,12 +738,18 @@
       "branch": "b",
       "if": {
         "Entropy": {
-          "gte": 7
+          "gte": 11,
+          "lte": 15
         }
       }
     },
     {
       "branch": "c",
+      "if": {
+        "Entropy": {
+          "gte": 16
+        }
+      },
       "default": true
     }
   ]

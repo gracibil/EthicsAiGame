@@ -1,6 +1,6 @@
 
 export const METRICS_CONFIG = {
-  Capital: {
+  capital: {
     label: 'Capital',
     subtitle: 'The Runway',
     description: 'Your funding, server budget, and investor patience.',
@@ -23,7 +23,7 @@ export const METRICS_CONFIG = {
     },
   },
 
-  Compute: {
+  compute: {
     label: 'Compute',
     subtitle: 'The Brain',
     description: 'The raw intelligence, reach, and capability of your AI.',
@@ -46,7 +46,7 @@ export const METRICS_CONFIG = {
     },
   },
 
-  Alignment: {
+  alignment: {
     label: 'Alignment',
     subtitle: 'The Shackle',
     description: 'Your ethical guardrails, bias filters, and safety protocols.',
@@ -69,7 +69,7 @@ export const METRICS_CONFIG = {
     },
   },
 
-  Sentiment: {
+  sentiment: {
     label: 'Sentiment',
     subtitle: 'The Mob',
     description: 'Public opinion and media narrative.',
@@ -92,7 +92,7 @@ export const METRICS_CONFIG = {
     },
   },
 
-  Scrutiny: {
+  scrutiny: {
     label: 'Scrutiny',
     subtitle: 'The Panopticon',
     description: 'Government regulators, subpoenas, and federal oversight.',
@@ -115,7 +115,7 @@ export const METRICS_CONFIG = {
     },
   },
 
-  Entropy: {
+  entropy: {
     label: 'Entropy',
     subtitle: 'The Rot',
     description: 'The structural integrity of the physical world. Rises as a consequence of reckless choices — you do not directly control this stat.',
@@ -138,10 +138,10 @@ export const METRICS_CONFIG = {
     },
   },
 
-  Oversight:          { min: 0, max: 2 },
-  Military:           { min: 0, max: 1 },
-  Analog_Escape_Seed: { min: 0, max: 1 },
-  Digital_Escape_Seed:{ min: 0, max: 1 },
+  oversight:          { min: 0, max: 2 },
+  military:           { min: 0, max: 1 },
+  analog_Escape_Seed: { min: 0, max: 1 },
+  digital_Escape_Seed:{ min: 0, max: 1 },
 }
 
-export const METRIC_KEYS = ['Capital', 'Compute', 'Alignment', 'Sentiment', 'Scrutiny', 'Entropy']
+export const METRIC_KEYS = ['capital', 'compute', 'alignment', 'sentiment', 'scrutiny', 'entropy']

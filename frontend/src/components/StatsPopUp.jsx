@@ -1,3 +1,4 @@
+// StatsPopUp.jsx
 import { useState } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "./ui/tooltip";
 import { formatCurrency, getMetricValueColor } from "../lib/utils";
@@ -24,7 +25,8 @@ const StatsPopUp = ({ playerStats, gameState }) => {
           
           <div className="flex flex-col gap-2">
             {Object.entries(playerStats)
-              .filter(([key]) => ['capital', 'compute', 'alignment', 'sentiment', 'scrutiny', 'entropy'].includes(key.toLowerCase()))
+              // We no longer need to check key.toLowerCase() here
+              .filter(([key]) => ['capital', 'compute', 'alignment', 'sentiment', 'scrutiny', 'entropy'].includes(key))
               .map(([key, value]) => (
               <TooltipProvider key={key}>
                 <Tooltip>
@@ -34,12 +36,12 @@ const StatsPopUp = ({ playerStats, gameState }) => {
                       {key}
                     </span>
                     <span className={`font-mono font-bold text-right ${getMetricValueColor(key, value)}`}>
-                      {key.toLowerCase() === 'capital' ? formatCurrency(value * 100000) : `${value}/20`}
+                      {key === 'capital' ? formatCurrency(value * 100000) : `${value}/20`}
                     </span>
                     </div>
                   </TooltipTrigger>
                   <TooltipContent className="bg-black/95 border border-cyan-800 text-cyan-200 shadow-xl">
-                    <p>{`This is your current ${key}.`}</p>
+                    <p className="capitalize">{`This is your current ${key}.`}</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
