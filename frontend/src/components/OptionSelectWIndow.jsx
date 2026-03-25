@@ -1,15 +1,16 @@
 import { Button } from "./ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip"
 import { useState } from "react"
+import { formatCurrency, getEffectColor } from "../lib/utils"
+
 const OptionSelectWindow = ({ gameState, scenario, onOptionSelect, className }) => {
     const [selectedOption, setSelectedOption] = useState(null)
 
     const handleOptionClick = (option) => {
-        const hasConsequences = 'consequences' in option
-
+        const hasConsequences = ('effects' in option) || ('consequences' in option)
         if (hasConsequences && (selectedOption === null)){
             setSelectedOption(option)
-        }else{
+        } else {
             setSelectedOption(null)
             onOptionSelect(option)
 
@@ -20,20 +21,36 @@ const OptionSelectWindow = ({ gameState, scenario, onOptionSelect, className }) 
         <div className={className}>
             {
                 selectedOption !== null ? (
-                    <div className="p-4 rounded-md w-full flex flex-col bg-gray-800/90">
-                        <h3 className="text-lg font-bold mb-2">Consequences of your choice:</h3>
-                        {
-                            Object.entries(selectedOption?.consequences?.stat_effects || {}).map(([key, value]) => (
-                                <p key={key}>{`${key}: ${value > 0 ? '+' : ''}${value}`}</p>
-                            ))
-                        }
-                        <Button variant="outline" className="ml-auto mr-auto text-gray-500" onClick={() => handleOptionClick(selectedOption)}>
-                                Continue
-                        </Button>
-                        
+                    <div className="flex flex-col gap-6 animate-fade-in w-full mb-4">
+                        <div className="p-6 bg-cyan-950/40 border border-cyan-500/50 rounded-lg text-center shadow-[inset_0_0_20px_rgba(0,255,255,0.05)]">
+                            <h3 className="text-cyan-300 font-bold mb-6 uppercase tracking-widest">Projected Consequences</h3>
+                            <div className="flex flex-wrap justify-center gap-6 mb-8">
+                                {Object.entries(selectedOption?.effects || selectedOption?.consequences?.stat_effects || {})
+                                .filter(([key]) => ['Capital', 'Compute', 'Alignment', 'Sentiment', 'Scrutiny', 'Entropy', 'capital', 'compute', 'alignment', 'sentiment', 'scrutiny', 'entropy'].includes(key))
+                                .map(([key, val]) => {
+                                    // Ensure the key is TitleCase for display
+                                    const formattedKey = key.charAt(0).toUpperCase() + key.slice(1).toLowerCase();
+                                    return (
+                                        <span key={key} className={`font-mono text-lg font-bold ${getEffectColor(formattedKey, val)}`}>
+                                            {formattedKey.toLowerCase() === 'capital' ? (
+                                                <>Capital {val > 0 ? '+' : ''}{formatCurrency(val * 100000)}</>
+                                            ) : (
+                                                <>{formattedKey} {val > 0 ? '+' : ''}{val}</>
+                                            )}
+                                        </span>
+                                    )
+                                })}
+                            </div>
+                            
+                            <Button 
+                                className="bg-cyan-900/40 text-cyan-200 border border-cyan-600/50 hover:bg-cyan-800/60 uppercase tracking-widest font-bold px-8" 
+                                onClick={() => handleOptionClick(selectedOption)}
+                            >
+                                Accept Consequences
+                            </Button>
+                        </div>
                     </div>
                 ) : (
-
                     <>
                         {scenario.options.map((option, index) => (
                             <OptionButton key={index} index={index} gameState={gameState} option={option} onClick={() => handleOptionClick(option)} />
@@ -41,8 +58,6 @@ const OptionSelectWindow = ({ gameState, scenario, onOptionSelect, className }) 
                     </>
                 )
             }
-
-
         </div>
     )
 }
@@ -50,42 +65,65 @@ const OptionSelectWindow = ({ gameState, scenario, onOptionSelect, className }) 
 const OptionButton = ({ index, gameState, option, onClick }) => {
     let failedRequirements = []
     const checkOptionRequirements = () => {
-        // Check if the option has requirements and if they are met
-        if (option.requirements) {
+        // Handle new schema: "requires": { "Capital": { "min": 6, "max": 10 } }
+        if (option.requires) {
+            for (const [key, condition] of Object.entries(option.requires)) {
+                const stateKey = key.toLowerCase();
+                const stateVal = gameState[stateKey] || 0;
+                
+                if (condition.min !== undefined && stateVal < condition.min) {
+                    failedRequirements.push({key, value: `Min ${condition.min}`})
+                }
+                if (condition.max !== undefined && stateVal > condition.max) {
+                    failedRequirements.push({key, value: `Max ${condition.max}`})
+                }
+            }
+        } 
+        // Handle old schema: "requirements": { "entropy": 5 }
+        else if (option.requirements) {
             for (const [key, value] of Object.entries(option.requirements)) {
-                if (gameState[key] < value) {
-                    failedRequirements.push({key, value})
+                const stateKey = key.toLowerCase();
+                if (gameState[stateKey] < value) {
+                    failedRequirements.push({key, value: `Min ${value}`})
                 }
             }
         }
-            return failedRequirements.length === 0 // All requirements met    
-        }
-    const requirmentsMet = checkOptionRequirements()
+        return failedRequirements.length === 0 // All requirements met    
+    }
+    
+    const requirementsMet = checkOptionRequirements()
+    
     return (
         <>
         {
-            requirmentsMet == true ? (
-                <button className="text-sm hover:text-blue-300 hover:text-base w-full" onClick={onClick}>
-                  {index + 1}.  {option.description}
-                </button>
+            requirementsMet ? (
+                <Button variant="ghost" className="text-sm justify-start text-left h-auto whitespace-normal w-full text-gray-300 hover:text-cyan-200 hover:bg-cyan-900/30 border border-transparent hover:border-cyan-800/50 p-3" onClick={onClick}>
+                  <span className="text-cyan-500 mr-2">{index + 1}.</span> {option.description}
+                </Button>
             ) : (
                 <TooltipProvider>
                     <Tooltip>
-                        <TooltipTrigger disabled className='m-0 text-gray-500 text-sm w-full'>
-                            
-                                {index+ 1} .  {option.description}
-                            
+                        <TooltipTrigger asChild>
+                            <div className='w-full cursor-not-allowed'>
+                                <Button variant="ghost" disabled className='text-sm justify-start text-left h-auto whitespace-normal w-full text-gray-600 p-3'>
+                                    <span className="mr-2">{index + 1}.</span> {option.description}
+                                </Button>
+                            </div>
                         </TooltipTrigger>
-                        <TooltipContent>
-                            <p>To select this option you require: {failedRequirements.map(req => `${req.key} (${req.value})`).join(', ')}</p>
+                        <TooltipContent className="bg-red-950/90 border-red-900 text-red-200">
+                            <p className="font-bold mb-1">Requirements not met:</p>
+                            <ul className="list-disc pl-4 text-xs">
+                                {failedRequirements.map((req, i) => (
+                                    <li key={i}>{req.key} ({req.value})</li>
+                                ))}
+                            </ul>
                         </TooltipContent>
                     </Tooltip>
                 </TooltipProvider>
             )
-
         }
         </>
     )
 }
 
-export {OptionSelectWindow, OptionButton};
+export { OptionSelectWindow, OptionButton };
