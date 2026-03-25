@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Button } from './ui/button'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from './ui/dialog'
 import { useGameStore } from '../store/gameStore'
 import { formatCurrency, getEffectColor } from '../lib/utils'
 
@@ -122,11 +123,14 @@ const OptionButton = ({ index, gameState, option, onClick }) => {
   )
 }
 
-const ConsequencePreview = ({ option, onConfirm, onCancel }) => (
-  <div className="flex flex-col gap-6 animate-fade-in w-full mb-4">
-    <div className="p-6 bg-cyan-950/40 border border-cyan-500/50 rounded-lg text-center shadow-[inset_0_0_20px_rgba(0,255,255,0.05)]">
-      <h3 className="text-cyan-300 font-bold mb-6 uppercase tracking-widest">Projected Consequences</h3>
-      <div className="flex flex-wrap justify-center gap-6 mb-8">
+const ConsequenceDialog = ({ option, isOpen, onConfirm, onCancel }) => (
+  <Dialog open={isOpen} onOpenChange={(open) => !open && onCancel()}>
+    <DialogContent showCloseButton={false}>
+      <DialogHeader>
+        <DialogTitle>[ Projected Consequences ]</DialogTitle>
+      </DialogHeader>
+      
+      <div className="flex flex-wrap justify-center gap-6 py-4">
         {Object.entries(option?.effects || option?.consequences?.stat_effects || {})
           .filter(([key]) =>
             ['Capital','Compute','Alignment','Sentiment','Scrutiny','Entropy',
@@ -144,23 +148,24 @@ const ConsequencePreview = ({ option, onConfirm, onCancel }) => (
             )
           })}
       </div>
-      <div className="flex gap-3 justify-center">
+
+      <DialogFooter className="sm:justify-center">
         <Button
           variant="ghost"
-          className="text-gray-400 border border-gray-700 hover:bg-gray-800 px-6"
+          className="text-cyan-600/70 border border-cyan-900/50 hover:bg-cyan-950/50 hover:text-cyan-400 hover:border-cyan-700 transition-all font-mono uppercase text-xs tracking-wider rounded-none px-6"
           onClick={onCancel}
         >
-          Reconsider
+          Abort
         </Button>
         <Button
-          className="bg-cyan-900/40 text-cyan-200 border border-cyan-600/50 hover:bg-cyan-800/60 uppercase tracking-widest font-bold px-8"
+          className="bg-cyan-900/30 text-cyan-300 border border-cyan-500/50 hover:bg-cyan-800/60 hover:border-cyan-400 hover:text-cyan-100 transition-all font-bold uppercase tracking-[0.15em] rounded-none px-8"
           onClick={onConfirm}
         >
-          Accept Consequences
+          Execute
         </Button>
-      </div>
-    </div>
-  </div>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
 )
 
 function OptionsPanel({ options, stats, setPendingOption, onOptionSelect }) {
@@ -192,16 +197,6 @@ function OptionsPanel({ options, stats, setPendingOption, onOptionSelect }) {
 // Main SceneRenderer
 // ─────────────────────────────────────────────
 
-/**
- * SceneRenderer
- *
- * Props:
- *   scene           – the current scene/scenario object
- *   onOptionSelect  – called with the chosen option (or {} for no-option advance)
- *   gameStats       – metrics snapshot for voiceReveal & requirement checks
- *   isEndingScene   – true when scene is a branch ending (no options, epilogue button)
- *   onEpilogueClick – called when the epilogue button is clicked
- */
 export function SceneRenderer({ scene, onOptionSelect, gameStats, isEndingScene = false, onEpilogueClick }) {
   const metrics = useGameStore((state) => state.metrics)
   const stats = gameStats || metrics
@@ -216,22 +211,26 @@ export function SceneRenderer({ scene, onOptionSelect, gameStats, isEndingScene 
   }, [scene])
 
   const hasOptions = scene?.options && scene.options.length > 0
+  const pages = buildPages(scene?.contentBlocks || [])
+  const isLastPage = pageIndex >= pages.length - 1
+  const currentBlocks = pages[pageIndex]?.blocks || []
+  const continueLabel = pages[pageIndex]?.continueLabel
+
+  const confirmOption = () => {
+    const opt = pendingOption;
+    setPendingOption(null);
+    onOptionSelect(opt);
+  }
 
   // ── Fallback: no contentBlocks ────────────────────────────────────────────
   if (!scene?.contentBlocks) {
     return (
-      <div className="flex flex-col h-full w-full">
+      <div className="flex flex-col h-full w-full relative">
         <h2 className="text-2xl font-bold mb-4 text-cyan-300 tracking-widest">{scene?.title}</h2>
         <p className="flex-1 text-gray-300 leading-relaxed">{scene?.description}</p>
 
         <div className="mt-4 shrink-0 border-t border-cyan-900/50 pt-4 animate-fade-in">
-          {pendingOption ? (
-            <ConsequencePreview
-              option={pendingOption}
-              onConfirm={() => { setPendingOption(null); onOptionSelect(pendingOption) }}
-              onCancel={() => setPendingOption(null)}
-            />
-          ) : hasOptions ? (
+          {hasOptions ? (
             <OptionsPanel
               options={scene.options}
               stats={stats}
@@ -252,18 +251,20 @@ export function SceneRenderer({ scene, onOptionSelect, gameStats, isEndingScene 
             </div>
           )}
         </div>
+
+        <ConsequenceDialog
+          isOpen={!!pendingOption}
+          option={pendingOption}
+          onConfirm={confirmOption}
+          onCancel={() => setPendingOption(null)}
+        />
       </div>
     )
   }
 
   // ── Paginated contentBlocks path ──────────────────────────────────────────
-  const pages = buildPages(scene.contentBlocks)
-  const isLastPage = pageIndex >= pages.length - 1
-  const currentBlocks = pages[pageIndex]?.blocks || []
-  const continueLabel = pages[pageIndex]?.continueLabel
-
   return (
-    <div className="flex flex-col h-full w-full overflow-hidden">
+    <div className="flex flex-col h-full w-full overflow-hidden relative">
 
       {/* Title — first page only */}
       {pageIndex === 0 && (
@@ -312,16 +313,10 @@ export function SceneRenderer({ scene, onOptionSelect, gameStats, isEndingScene 
           </div>
         )}
 
-        {/* Last page: consequence preview, options, or advance button */}
+        {/* Last page: options or advance button */}
         {isLastPage && (
           <div className="animate-fade-in">
-            {pendingOption ? (
-              <ConsequencePreview
-                option={pendingOption}
-                onConfirm={() => { setPendingOption(null); onOptionSelect(pendingOption) }}
-                onCancel={() => setPendingOption(null)}
-              />
-            ) : hasOptions ? (
+            {hasOptions ? (
               <OptionsPanel
                 options={scene.options}
                 stats={stats}
@@ -349,6 +344,14 @@ export function SceneRenderer({ scene, onOptionSelect, gameStats, isEndingScene 
           </div>
         )}
       </div>
+
+      {/* Render the consequence dialog overlay */}
+      <ConsequenceDialog
+        isOpen={!!pendingOption}
+        option={pendingOption}
+        onConfirm={confirmOption}
+        onCancel={() => setPendingOption(null)}
+      />
     </div>
   )
 }
