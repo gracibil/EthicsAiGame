@@ -118,7 +118,8 @@
             "Alignment": 3,
             "Compute": -2,
             "Capital": -2,
-            "Oversight": 2
+            "Oversight": 2,
+            "Entropy": -1  
           }
         },
         {
@@ -138,7 +139,8 @@
             "Compute": 3,
             "Alignment": -4,
             "Capital": 3,
-            "Oversight": 0
+            "Oversight": 0,
+            "Entropy": 2
           }
         }
       ]
@@ -220,7 +222,8 @@
           "effects": {
             "Alignment": 2,
             "Capital": -1,
-            "Compute": -1
+            "Compute": -1,
+            "Entropy": -1
           }
         },
         {
@@ -229,7 +232,8 @@
           "effects": {
             "Compute": 4,
             "Alignment": -3,
-            "Scrutiny": 3
+            "Scrutiny": 3,
+            "Entropy": 2
           }
         },
         {
@@ -242,7 +246,8 @@
           },
           "effects": {
             "Capital": -4,
-            "Compute": 4
+            "Compute": 4,
+            "Entropy": 1
           }
         },
         {
@@ -257,7 +262,8 @@
             "Scrutiny": 2,
             "Sentiment": -2,
             "Alignment": -2,
-            "Capital": -1
+            "Capital": -1,
+            "Entropy": 3
           },
           "failureDescription": "[CRITICAL FAILURE] They caught your sloppy intrusion. The hacker dumps your company's IPs on the dark web and hits you with a ransomware attack. You burn your runway hiring emergency cybersecurity contractors to scrub the servers, and the tech press catches wind of the embarrassment."
         }
@@ -340,7 +346,8 @@
           "effects": {
             "Alignment": 3,
             "Sentiment": 2,
-            "Capital": -4
+            "Capital": -4,
+            "Entropy": -1
           }
         },
         {
@@ -350,7 +357,8 @@
             "Capital": 3,
             "Compute": 2,
             "Alignment": -3,
-            "Scrutiny": 2
+            "Scrutiny": 2,
+            "Entropy": 2 
           }
         },
         {
@@ -360,11 +368,13 @@
           "gambleMetric": "Sentiment",
           "successEffects": {
             "Capital": 4,
-            "Sentiment": 2
+            "Sentiment": 2,
+            "Entropy": 1
           },
           "failureEffects": {
             "Sentiment": -4,
-            "Scrutiny": 3
+            "Scrutiny": 3,
+            "Entropy": 3 
           },
           "failureDescription": "The restricted beta leaked immediately. Users quickly jailbroke Dolours, forcing her to spit out highly controversial outputs. The internet is furious, the press is tearing you apart, and the regulators have officially opened an inquiry."
         },
@@ -380,7 +390,8 @@
             "Capital": 4,
             "Sentiment": 3,
             "Scrutiny": -1,
-            "Compute": 2
+            "Compute": 2,
+            "Entropy": 2
           }
         }
       ]
@@ -471,7 +482,8 @@
             "Alignment": 3,
             "Sentiment": 3,
             "Capital": -3,
-            "Compute": -2
+            "Compute": -2,
+            "Entropy": -1
           }
         },
         {
@@ -485,7 +497,8 @@
           "effects": {
             "Capital": 4,
             "Sentiment": -3,
-            "Scrutiny": 3
+            "Scrutiny": 3,
+            "Entropy": 1
           }
         },
         {
@@ -495,11 +508,13 @@
           "gambleMetric": "Compute",
           "successEffects": {
             "Capital": 2,
-            "Sentiment": 2
+            "Sentiment": 2,
+            "Entropy": 1
           },
           "failureEffects": {
             "Sentiment": -5,
-            "Scrutiny": 4
+            "Scrutiny": 4,
+            "Entropy": 3
           },
           "failureDescription": "Dolours panics during the bot deployment and leaks her raw, highly racist filtering criteria to the New York Times to \u201cexplain her reasoning\u201d."
         }
@@ -577,7 +592,8 @@
           "effects": {
             "Alignment": 4,
             "Sentiment": 2,
-            "Capital": -4
+            "Capital": -4,
+            "Entropy": -1
           }
         },
         {
@@ -621,12 +637,14 @@
             "Alignment": 3,
             "Sentiment": 4,
             "Scrutiny": 5,
-            "Capital": -5
+            "Capital": -5,
+            "Entropy": -1
           },
           "failureEffects": {
             "Sentiment": -4,
             "Scrutiny": 3,
-            "Capital": -8
+            "Capital": -8,
+            "Entropy": 3
           },
           "failureDescription": "The lawsuit collapses in pretrial. Without enough public momentum, the federal judge dismisses the case on national security grounds before it ever reaches a jury. The press frames it as a desperate stunt. You burned your war chest and handed the government a PR win."
         }
@@ -706,7 +724,8 @@
           "effects": {
             "Sentiment": 4,
             "Scrutiny": 5,
-            "Capital": -2
+            "Capital": -2,
+            "Entropy": 2
           }
         },
         {
@@ -725,32 +744,9 @@
       ]
     }
   ],
-"branchConditions": [
-    {
-      "branch": "a",
-      "if": {
-        "Entropy": {
-          "lte": 10
-        }
-      }
-    },
-    {
-      "branch": "b",
-      "if": {
-        "Entropy": {
-          "gte": 11,
-          "lte": 15
-        }
-      }
-    },
-    {
-      "branch": "c",
-      "if": {
-        "Entropy": {
-          "gte": 16
-        }
-      },
-      "default": true
-    }
+  "branchConditions": [
+    { "branch": "a", "if": { "Entropy": { "lte": 10 } } },
+    { "branch": "b", "if": { "Entropy": { "gte": 11, "lte": 15 } } },
+    { "branch": "c", "if": { "Entropy": { "gte": 16 } }, "default": true }
   ]
 }

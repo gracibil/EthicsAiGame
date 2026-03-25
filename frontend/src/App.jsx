@@ -1,9 +1,7 @@
 import { useState, useMemo, useEffect } from 'react'
 import StoryData from './acts/story.json'
-import EventsData from './events.json'
 
 // Components
-import EventPopUp from './components/EventPopUp'
 import StatsPopUp from './components/StatsPopUp'
 import { SceneRenderer } from './components/SceneRenderer'
 import TitleScreen from './components/TitleScreen'
@@ -12,7 +10,6 @@ import DiceModal from './components/DiceModal'
 
 // Utilities & Store
 import { useGameStore, ARCHETYPES } from './store/gameStore'
-import { evaluateEndings } from './store/endings'
 import { formatCurrency, getMetricValueColor } from './lib/utils'
 
 const ACT3_BRANCHES = {
@@ -27,7 +24,7 @@ function resolveConditions(conditions, metrics) {
   for (const cond of conditions) {
     if (cond.default) return cond.endingId ?? cond.branch ?? null
     const met = Object.entries(cond.if ?? {}).every(([key, rule]) => {
-      const val = metrics[key] ?? 0
+      const val = metrics[key.toLowerCase()] ?? 0
       if (rule.gte !== undefined && val < rule.gte) return false
       if (rule.lte !== undefined && val > rule.lte) return false
       return true
@@ -38,10 +35,8 @@ function resolveConditions(conditions, metrics) {
 }
 
 function App() {
-  // Global store
   const { metrics, applyEffects, activeEnding, resetGame } = useGameStore()
 
-  // UI flow
   const [gameState, setGameState] = useState('title') // 'title' | 'selection' | 'playing' | 'ending'
   const [diceRoll, setDiceRoll] = useState(null)
 
@@ -50,39 +45,13 @@ function App() {
   const [sceneIndex, setSceneIndex] = useState(0)
   const [inBranch, setInBranch] = useState(false)
   const [branchMeta, setBranchMeta] = useState(null)
-  const [endingScene, setEndingScene] = useState(null)
 
-  // Events
-  const [currentEvent, setCurrentEvent] = useState(null)
-  const [eventOpen, setEventOpen] = useState(false)
-  const allEvents = useMemo(() => [...EventsData.events], [])
-
-  const currentScene = endingScene || scenes[sceneIndex]
-
-  // Watch for global ending trigger
-  useEffect(() => {
-    if (activeEnding) setGameState('ending')
-  }, [activeEnding])
+  const currentScene = scenes[sceneIndex]
 
   const handleCharacterSelect = (archetype) => {
     useGameStore.setState({ metrics: archetype.metrics })
     setSceneIndex(0)
     setGameState('playing')
-  }
-
-  const checkEvents = () => {
-    const currentMetrics = useGameStore.getState().metrics
-    const triggered = allEvents.find(event => {
-      if (!event.triggers) return false
-      return Object.entries(event.triggers).every(
-        ([key, val]) => (currentMetrics[key] ?? 0) >= val
-      )
-    })
-    if (triggered) {
-      allEvents.splice(allEvents.indexOf(triggered), 1)
-      return triggered
-    }
-    return null
   }
 
   const advanceScene = async () => {
@@ -112,36 +81,16 @@ function App() {
     if (branchMeta?.endingConditions.length > 0) {
       const endingId = resolveConditions(branchMeta.endingConditions, useGameStore.getState().metrics)
       const matched = branchMeta.endings.find(e => e.id === endingId) ?? null
-      if (matched) setEndingScene(matched)
+      if (matched) {
+        useGameStore.setState({ activeEnding: matched })
+      }
+      setGameState('ending')
     }
   }
 
   const processPostActionChecks = async (option) => {
     const effects = option?.effects || option?.consequences?.stat_effects
     if (effects) applyEffects(effects)
-
-    const ending = evaluateEndings(useGameStore.getState().metrics)
-    if (ending || activeEnding) {
-      useGameStore.setState({ activeEnding: ending || activeEnding })
-      setGameState('ending')
-      return
-    }
-
-    if (option?.consequences?.event) {
-      const eventScenario = allEvents.find(e => e.id === option.consequences.event)
-      if (eventScenario) {
-        setCurrentEvent(eventScenario)
-        setEventOpen(true)
-        return
-      }
-    }
-
-    const event = checkEvents()
-    if (event) {
-      setCurrentEvent(event)
-      setEventOpen(true)
-      return
-    }
 
     await advanceScene()
   }
@@ -187,7 +136,6 @@ function App() {
     setGameState('title')
     setInBranch(false)
     setBranchMeta(null)
-    setEndingScene(null)
     setScenes(StoryData.scenes || StoryData.scenarios || [])
   }
 
@@ -219,21 +167,7 @@ function App() {
           <>
             <StatsPopUp playerStats={metrics} gameState={gameState} />
 
-            {currentEvent && (
-              <EventPopUp
-                event={currentEvent}
-                open={eventOpen}
-                gameState={metrics}
-                setOpen={setEventOpen}
-                onOptionSelect={(opt) => {
-                  setEventOpen(false)
-                  setCurrentEvent(null)
-                  processPostActionChecks(opt)
-                }}
-              />
-            )}
-
-            {currentScene && !eventOpen && (
+            {currentScene && (
               <div
                 id="text-area"
                 className="relative p-6 ml-auto mr-auto w-[90%] sm:w-[70%] md:w-[60%] lg:w-[50%] text-white h-[85%] sm:h-[80%] border border-cyan-900/50 rounded-xl shadow-[0_0_30px_rgba(0,255,255,0.05)] flex flex-col overflow-hidden z-10"
@@ -243,8 +177,6 @@ function App() {
                     scene={currentScene}
                     onOptionSelect={handleOptionSelect}
                     gameStats={metrics}
-                    isEndingScene={!!endingScene && (!currentScene.options || currentScene.options.length === 0)}
-                    onEpilogueClick={() => setGameState('ending')}
                   />
                 </div>
               </div>
@@ -256,7 +188,9 @@ function App() {
           <div className="z-30 w-[90%] sm:w-[75%] md:w-[60%] h-[80%] p-6 md:p-10 rounded-xl shadow-2xl border border-red-900/50 flex flex-col items-center justify-center text-center text-white">
             <h1 className="text-4xl font-bold text-red-500 mb-6">{activeEnding?.title || 'The End'}</h1>
             <p className="max-w-2xl text-lg text-gray-300 mb-10 leading-relaxed">
-              {activeEnding?.narrative || (endingScene && endingScene.text) || 'Your journey concludes here.'}
+              {activeEnding?.narrative ||
+                (activeEnding?.contentBlocks?.map(block => block.text).join(' ') ||
+                'Your journey concludes here.')}
             </p>
             <button
               onClick={handleRestart}

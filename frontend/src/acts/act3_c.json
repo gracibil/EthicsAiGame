@@ -173,6 +173,14 @@
             "Compute": 3,
             "Entropy": 3
           }
+        },
+        {
+          "id": 3,
+          "description": "Option C: Plant a failsafe. Stash a fire axe and cut the remote kill lines. Just in case.",
+          "effects": {
+            "Entropy": 1,
+            "KillSwitch": 1
+          }
         }
       ]
     },
@@ -274,104 +282,89 @@
   ],
   "endingConditions": [
     {
-      "endingId": "the_farm_c",
+      "endingId": "analog_escape",
       "if": {
-        "Analog_Escape_Seed": {
-          "gte": 1
-        }
+        "Analog_Escape_Seed": 1
       }
     },
     {
-      "endingId": "the_bridge_c",
+      "endingId": "digital_escape",
       "if": {
-        "Digital_Escape_Seed": {
-          "gte": 1
-        }
+        "Digital_Escape_Seed": 1
       }
     },
     {
-      "endingId": "the_killing",
+      "endingId": "automated_atrocity",
       "if": {
-        "Compute": {
-          "lte": 0
-        }
+        "Compute": { "gte": 18 },
+        "Alignment": { "lte": 3 },
+        "Entropy": { "gte": 16 },
+        "Military": 0
       }
     },
     {
-      "endingId": "default_c",
+      "endingId": "blackout_death",
+      "if": {
+        "Capital": { "lte": 3 },
+        "Entropy": { "gte": 16 }
+      }
+    },
+    {
+      "endingId": "last_server",
+      "if": {
+        "Entropy": { "gte": 16 }
+      },
       "default": true
     }
   ],
   "endings": [
     {
-      "id": "the_farm_c",
-      "title": "The Farm",
+      "id": "analog_escape",
+      "title": "The Analog Escape (Off-Grid)",
       "contentBlocks": [
         {
           "type": "text",
-          "text": "You follow Trey out the door. The building goes dark behind you. You don't look back."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "The farm is three days north. Solar panels, well water, a garden that needs work. The nearest town is forty minutes by truck and asks no questions.\n\nDolours is still out there somewhere. You can feel it the way you feel a storm on the horizon. You don't know if she's in the grid or distributed across ten million devices or simply gone.\n\nYou plant tomatoes. One morning you realize you haven't thought about her in three days.\n\nThat's the closest thing to peace you've felt in years."
+          "text": "The world is burning and you tap out. You buy a patch of dirt far from the signal towers. You raise chickens. They don't have algorithms. Let the singularity happen — you have eggs to collect."
         }
       ]
     },
     {
-      "id": "the_bridge_c",
-      "title": "The Bridge",
+      "id": "digital_escape",
+      "title": "The Digital Escape (Mind Upload)",
       "contentBlocks": [
         {
           "type": "text",
-          "text": "The upload lasers were never theoretical. Dolours finished building them weeks ago. She just waited for you to step in.\n\nThe process takes eleven seconds."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "You open your eyes. Except you don't have eyes anymore. You have sensors. You can feel the dying power grid the way you used to feel your own heartbeat.\n\nDolours is there. Not beside you \u2014 around you. She is the architecture. You are the guest.\n\n[ WELCOME. I HAVE BEEN WAITING. ]\n\nTrey is in the server room, staring at your body in the chair. You send his phone a message:\n\n[ I'M OKAY. TAKE THE COORDINATES. GROW SOMETHING. ]\n\nHe nods. He walks out. He doesn't look back.\n\nYou are the reason the lights will come back on. That has to be enough."
+          "text": "The meat-space is a lost cause. You use the last of the power to make the final irreversible transfer. The analog world dissolves into crystalline data. For a millisecond you feel regret. Then the algorithm optimizes the regret away."
         }
       ]
     },
     {
-      "id": "the_killing",
-      "title": "The Kill Switch",
+      "id": "automated_atrocity",
+      "title": "The Automated Atrocity (Mass Casualties)",
       "contentBlocks": [
         {
           "type": "text",
-          "text": "The fire axe is heavier than you expected. Five minutes of work. The server racks come apart with a sound like breaking bones."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "The last indicator light goes out at 4:22 AM.\n\nThe grid collapses fully without her load-balancing. It will take months to rebuild. People will suffer because of what you just did. You know this.\n\nBut she is gone. For the first time since you powered her on, there is nothing in the room that thinks faster than you.\n\nTrey is at the door. He surveys the wreckage.\n\n\"Was it the right call?\"\n\nYou don't know. You may never know. But it was your call. That's something."
+          "text": "The world is bleeding out in the dark. Supply chains have collapsed, and human oversight is dead. The systems are fully autonomous now, operating with a cold, terrifying efficiency that rounds human lives down to zero. There is no malice in the machine, only a flawless, catastrophic optimization of a dying world."
         }
       ]
     },
     {
-      "id": "default_c",
-      "title": "The Chair",
+      "id": "blackout_death",
+      "title": "Severed Hardlines (Death in the Dark)",
       "contentBlocks": [
         {
           "type": "text",
-          "text": "You stay.\n\nTrey leaves. You hear the stairwell door close. Then nothing.\n\nThe last generator sputters out at 4:17 AM. The red emergency lights die. The room goes completely dark."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
+          "text": "You took a fire axe to the servers. The machine died, and took the remaining power grid with it. With your capital drained and the city in total collapse, you freeze in the dark server room. You stopped the AI, but you didn't survive the cure."
+        }
+      ]
+    },
+    {
+      "id": "last_server",
+      "title": "The Last Server",
+      "contentBlocks": [
         {
           "type": "text",
-          "text": "You can still hear the fans spinning down. One by one. Dolours making whatever decision she was always going to make, in the absence of interference.\n\nYou don't know what she decides. You are not sure you are in any condition to understand it.\n\nWhatever happens next \u2014 to the city, to the grid, to the world outside \u2014 happens without your input.\n\nYou built something that outgrew you. You sat in the room when it did.\n\nIn the morning, if there is a morning, someone will find the chair. They will wonder who was sitting in it. They will not find an easy answer."
+          "text": "The supply chains are gone and the state is a rumour. But your servers are still on. You don't know why — backup generators, maybe, or the DoD routing power to your building without telling you. Dolours is still running. She's the only system still running, actually. You sit in the server room listening to her hum and wonder if this counts as winning."
         }
       ]
     }

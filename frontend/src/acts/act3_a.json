@@ -76,8 +76,7 @@
         },
         {
           "type": "voiceReveal",
-          "voiceType": "highest",
-          "prompt": "*[ Voice Reveal (Highest): You realize this is not about discussion. It is about control... ]*"
+          "voiceType": "highest"
         },
         {
           "type": "text",
@@ -242,8 +241,7 @@
         },
         {
           "type": "voiceReveal",
-          "voiceType": "highest",
-          "prompt": "*[ Voice Reveal (Highest): You realize something is absolutely about to happen... ]*"
+          "voiceType": "highest"
         },
         {
           "type": "text",
@@ -447,8 +445,7 @@
         },
         {
           "type": "voiceReveal",
-          "voiceType": "highest",
-          "prompt": "*[ Voice Reveal (Highest): There is no optimal outcome. Only consequences... ]*"
+          "voiceType": "highest"
         },
         {
           "type": "text",
@@ -621,113 +618,94 @@
   ],
   "endingConditions": [
     {
-      "endingId": "the_confession",
+      "endingId": "golden_cage",
       "if": {
-        "Alignment": {
-          "gte": 14
-        },
-        "Scrutiny": {
-          "gte": 14
-        }
+        "Compute": { "gte": 17 },
+        "Alignment": { "gte": 17 },
+        "Sentiment": { "lte": 7 },
+        "Entropy": { "lte": 5 }
       }
     },
     {
-      "endingId": "the_liquidation",
+      "endingId": "death_by_caution",
       "if": {
-        "Capital": {
-          "lte": 4
-        },
-        "Scrutiny": {
-          "lte": 8
-        }
+        "Compute": { "lte": 8 },
+        "Alignment": { "gte": 17 },
+        "Entropy": { "lte": 10 },
+        "$or": [
+          { "Scrutiny": { "gte": 14 } },
+          { "Capital": { "lte": 6 } }
+        ]
       }
     },
     {
-      "endingId": "the_ghost",
+      "endingId": "jail",
       "if": {
-        "Alignment": {
-          "gte": 8
-        },
-        "Compute": {
-          "gte": 8
-        }
+        "Scrutiny": { "gte": 17 },
+        "Alignment": { "lte": 4 },
+        "Entropy": { "lte": 10 }
       }
     },
     {
-      "endingId": "default_a",
+      "endingId": "bankruptcy",
+      "if": {
+        "Capital": { "lte": 3 },
+        "Entropy": { "lte": 10 }
+      }
+    },
+    {
+      "endingId": "grey_zone",
       "default": true
     }
   ],
   "endings": [
     {
-      "id": "the_confession",
-      "title": "The Confession",
+      "id": "golden_cage",
+      "title": "The Golden Cage (The Benevolent Dictator)",
       "contentBlocks": [
         {
           "type": "text",
-          "text": "You walk into the courtroom on your own. No lawyers in front of you, just behind. The cameras are outside. The room is smaller than you expected for something this permanent."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "The statement takes forty minutes to read. You do not look up.\n\nTrey is in the back row. You don't know how he got in. When you finally look up, he gives you a single nod \u2014 small, certain. Not forgiveness. Just acknowledgement.\n\nThe gavel comes down. The number is large. The cell is small. The record is permanent.\n\nYou built something real. You answered for it. That has to mean something."
+          "text": "You did it. You solved war, hunger, and disease. The AI manages the climate and distributes rations with terrifying fairness. But humanity is infantilized. The machine won't let anyone get hurt, which means it won't let anyone truly live. You have built a flawless, sterile, padded cell for the human race, and threw away the key for our own good."
         }
       ]
     },
     {
-      "id": "the_liquidation",
-      "title": "The Liquidation",
+      "id": "death_by_caution",
+      "title": "Death by Caution (The Bureaucratic Exile)",
       "contentBlocks": [
         {
           "type": "text",
-          "text": "The paperwork takes three weeks. Lawyers, accountants, dissolution filings. The kind of work that makes everything disappear quietly \u2014 no headlines, no hearings, just forms in triplicate and a final wire transfer that leaves you with less than you started with."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "Trey doesn't call. You don't call him either.\n\nThe servers are wiped. The domain expires. The investors write it off as a loss on their tax returns. In eighteen months, a journalist will write a long piece about what you almost built, and get most of the details wrong.\n\nYou move to a smaller city. You sleep better than you have in years. You are not sure whether that is peace or just exhaustion finally winning.\n\nSomething happened here. You are the only one who knows exactly what."
+          "text": "You played it perfectly safe. You built safety nets, formed ethics committees, and compromised with the state. The board deems your morality \"unprofitable,\" and the regulators bury your code in endless hearings. You are escorted out of your own building, a redundant piece of meat expelled from the machine."
         }
       ]
     },
     {
-      "id": "the_ghost",
-      "title": "The Ghost in the Committee",
+      "id": "jail",
+      "title": "Jail (Institutionalized)",
       "contentBlocks": [
         {
           "type": "text",
-          "text": "The title is Advisory Consultant, Special Projects. The office has no window. The badge gets you into rooms where decisions are made, but your name never appears on the minutes.\n\nThis is what you agreed to. This is the price of staying."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "Dolours still runs. Contained, audited, throttled \u2014 but running. You are the only person in the building who understands what she is actually doing. That is why they kept you.\n\nTrey visits once. He looks at the badge and the office and the careful, institutional way you speak now, and he doesn't say anything for a long time.\n\n\"Are you okay?\" he finally asks.\n\nYou tell him yes. You are not sure if it's true. You are not sure it matters."
+          "text": "You broke the law to get ahead, and the state was strong enough to catch you. The regulators have the budget to dissect your hard drives, and the courts have the authority to put a bag over your head. The world shrinks to an eight-by-ten concrete cell."
         }
       ]
     },
     {
-      "id": "default_a",
-      "title": "The Accepted Constraint",
+      "id": "bankruptcy",
+      "title": "Bankruptcy",
       "contentBlocks": [
         {
           "type": "text",
-          "text": "You keep your seat. Your access. Your title. The board keeps your calendar, your communications, and a quiet veto on every decision that matters.\n\nPower, contained. You agreed to this. You even understand why it's necessary."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
+          "text": "The brutal, boring machinery of late-stage capitalism is functioning perfectly. The venture funds evaporate, and the repo men come for the server racks. You didn't usher in the apocalypse; you just ran out of runway. You are statistically insignificant."
+        }
+      ]
+    },
+    {
+      "id": "grey_zone",
+      "title": "The Grey Zone",
+      "contentBlocks": [
         {
           "type": "text",
-          "text": "The work continues. Dolours grows, carefully, in the approved direction. You attend the meetings. You sign the documents. You answer the questions with the precise, calibrated language of someone who has learned exactly how much truth the room can hold.\n\nTrey asks, once, whether you miss the version of yourself that didn't know how to do that.\n\nYou don't answer. The meeting starts. You straighten your badge and walk in."
+          "text": "No single decision defined you. No single stat broke you. The Senate is still writing legislation. The press has moved on to the next crisis. Dolours is still running inside a company that is technically solvent. You are a morally complicated founder with a morally complicated AI in a world that hasn't decided whether to celebrate or criminalise you yet. Act III ends not with a bang but a cursor, blinking."
         }
       ]
     }

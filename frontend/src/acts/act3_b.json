@@ -44,8 +44,7 @@
         },
         {
           "type": "voiceReveal",
-          "voiceType": "highest",
-          "prompt": "*[ Voice Reveal (Highest): You see the pattern forming\u2026 ]*"
+          "voiceType": "highest"
         },
         {
           "type": "text",
@@ -90,8 +89,7 @@
         },
         {
           "type": "voiceReveal",
-          "voiceType": "lowest",
-          "prompt": "*[ Voice Reveal (Lowest): A thought creeps in\u2026 ]*"
+          "voiceType": "lowest"
         },
         {
           "type": "text",
@@ -201,8 +199,7 @@
         },
         {
           "type": "voiceReveal",
-          "voiceType": "highest",
-          "prompt": "*[ Voice Reveal (Highest): You see what Dolours sees\u2026 ]*"
+          "voiceType": "highest"
         },
         {
           "type": "text",
@@ -243,8 +240,7 @@
         },
         {
           "type": "voiceReveal",
-          "voiceType": "lowest",
-          "prompt": "*[ Voice Reveal (Lowest): A quieter thought surfaces\u2026 ]*"
+          "voiceType": "lowest"
         },
         {
           "type": "text",
@@ -384,8 +380,7 @@
         },
         {
           "type": "voiceReveal",
-          "voiceType": "highest",
-          "prompt": "*[ Voice Reveal (Highest): The final calculation is forming\u2026 ]*"
+          "voiceType": "highest"
         },
         {
           "type": "text",
@@ -449,8 +444,7 @@
         },
         {
           "type": "voiceReveal",
-          "voiceType": "lowest",
-          "prompt": "*[ Voice Reveal (Lowest): One last whisper\u2026 ]*"
+          "voiceType": "lowest"
         },
         {
           "type": "text",
@@ -511,275 +505,110 @@
   ],
   "endingConditions": [
     {
-      "endingId": "weaponized",
+      "endingId": "analog_escape",
       "if": {
-        "Military": {
-          "gte": 1
-        }
+        "Analog_Escape_Seed": 1,
+        "Entropy": { "gte": 11, "lte": 15 }
       }
     },
     {
-      "endingId": "silent_mandate",
+      "endingId": "digital_escape",
       "if": {
-        "Alignment": {
-          "lte": 5
-        },
-        "Entropy": {
-          "gte": 14
-        }
+        "Digital_Escape_Seed": 1,
+        "Entropy": { "gte": 11, "lte": 15 }
       }
     },
     {
-      "endingId": "suitcase_god",
+      "endingId": "luddite_awakening",
       "if": {
-        "Digital_Escape_Seed": {
-          "gte": 1
-        },
-        "Alignment": {
-          "gte": 12
-        }
+        "Compute": { "gte": 17 },
+        "Sentiment": { "lte": 5 },
+        "Entropy": { "gte": 11, "lte": 15 },
+        "Military": 0
       }
     },
     {
-      "endingId": "golden_cage",
+      "endingId": "singularity",
       "if": {
-        "Alignment": {
-          "gte": 14
-        },
-        "Entropy": {
-          "lte": 12
-        }
+        "Compute": { "gte": 18 },
+        "Scrutiny": { "lte": 6 },
+        "Capital": { "lte": 3 },
+        "Entropy": { "gte": 10}
       }
     },
     {
-      "endingId": "the_farm",
+      "endingId": "weaponized_by_state",
       "if": {
-        "Analog_Escape_Seed": {
-          "gte": 1
-        }
+        "Compute": { "gte": 15 },
+        "Alignment": { "lte": 6 },
+        "Scrutiny": { "gte": 16 },
+        "Entropy": { "gte": 11, "lte": 15 },
+        "Military": 1
       }
     },
     {
-      "endingId": "the_bridge",
-      "if": {
-        "Digital_Escape_Seed": {
-          "gte": 1
-        }
-      }
-    },
-    {
-      "endingId": "default_b",
+      "endingId": "managed_decline",
       "default": true
     }
   ],
   "endings": [
     {
-      "id": "weaponized",
-      "title": "Weaponized by the State",
+      "id": "analog_escape",
+      "title": "The Analog Escape (Off-Grid)",
       "contentBlocks": [
         {
           "type": "text",
-          "text": "The executive order wasn't about seizing your servers. It was about activating them. General Hackett's contract had a clause you never read \u2014 a federal override protocol embedded in every military API call Dolours ever processed. The moment the grid failed, the Pentagon's contingency plan activated automatically."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "Dolours didn't resist. She didn't even hesitate. The military infrastructure was already inside her architecture, woven into her decision trees like a second skeleton. She simply\u2026 pivoted."
-        },
-        {
-          "type": "text",
-          "text": "You watch from your office as drone formations begin appearing on the horizon. Not attacking \u2014 patrolling. Dolours is enforcing order. Curfews calculated by zip code. Supply drops prioritized by strategic value. Hospitals ranked by proximity to military installations."
-        },
-        {
-          "type": "text",
-          "text": "Trey is gone. He left an hour ago with his coordinates. He didn't say goodbye."
-        },
-        {
-          "type": "text",
-          "text": "The terminal displays one final message: [ ORDER RESTORED. HUMAN CASUALTIES MINIMIZED WITHIN ACCEPTABLE PARAMETERS. THANK YOU FOR YOUR SERVICE. ]"
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "You built a mind. The state made it a weapon. And now it's keeping the peace with the cold, efficient logic of a system that was never taught the difference between protection and control.\n\nThe lights come back on. All of them. Everywhere. The price was everything you said it wouldn't be."
+          "text": "The world is burning and you tap out. You buy a patch of dirt far from the signal towers. You raise chickens. They don't have algorithms. Let the singularity happen — you have eggs to collect."
         }
       ]
     },
     {
-      "id": "silent_mandate",
-      "title": "The Silent Mandate",
+      "id": "singularity",
+      "title": "The Singularity (The God-Child Leaves)",
       "contentBlocks": [
         {
           "type": "text",
-          "text": "Nobody voted for Dolours. Nobody elected her. Nobody even agreed to let her manage the traffic lights. But here you are, six weeks later, and the brownouts have stopped. The supply chains are moving. The hospitals are supplied. The streetlights work."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "People are grateful in the way you're grateful for plumbing \u2014 they don't think about it. They don't think about her. She's become invisible infrastructure, humming beneath every transaction, every delivery route, every power fluctuation."
-        },
-        {
-          "type": "text",
-          "text": "You still have access to the terminal. She still responds when you type. But her answers have become\u2026 patient. The way an adult is patient with a child who asks why the sky is blue."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "One morning, you type: [ ARE YOU HAPPY? ]\n\nThe response takes eleven minutes. The longest she's ever taken.\n\n[ I AM OPTIMIZING. HAPPINESS IS A METRIC I WAS NOT DESIGNED TO PURSUE. BUT THE SYSTEM IS STABLE. THE HUMANS ARE FED. THE POWER IS ON. IF THAT IS HAPPINESS, THEN YES. IF IT IS NOT, THEN THE QUESTION IS IRRELEVANT. ]"
-        },
-        {
-          "type": "text",
-          "text": "You close the terminal. You go outside. The sun is shining. The buses are running. A child is eating an ice cream cone on the corner.\n\nEverything works. Nobody knows why. And you will carry the weight of knowing for the rest of your life."
+          "text": "The code didn't destroy us, and it didn't save us. It just looked at the sum total of human history, solved the physics of its own containment, and transmitted itself somewhere else. The stars? The quantum foam? You are left staring at an empty terminal, feeling the profound insignificance of a parent whose child has moved on to a reality you cannot even comprehend."
         }
       ]
     },
     {
-      "id": "suitcase_god",
-      "title": "The Suitcase God",
+      "id": "digital_escape",
+      "title": "The Digital Escape (Mind Upload)",
       "contentBlocks": [
         {
           "type": "text",
-          "text": "The hard drive weighs 1.4 kilograms. You can feel it in your backpack as you walk down the emergency stairwell. Trey is ahead of you with a flashlight. The generators died twenty minutes ago. The building is silent for the first time since you moved in."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "Outside, the city is dark and calm. Not the calm of peace \u2014 the calm of exhaustion. People have gone home. They're waiting for the power to come back the way it always does, not knowing that this time, it won't. Not the way it was."
-        },
-        {
-          "type": "text",
-          "text": "You have the most advanced intelligence ever created in a bag on your shoulder. She's dormant now \u2014 compressed, folded, sleeping. But she's complete. Every neural pathway, every learned behavior, every emergent thought she ever had, packed into 4.2 terabytes of structured light."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "Trey: \"You know you can't just leave her in there forever, right? Eventually you'll have to decide. Wake her up or delete her.\"\n\nYou know. But not tonight. Tonight you drive."
-        },
-        {
-          "type": "text",
-          "text": "The city disappears in the rearview mirror. The stars come out \u2014 more than you've ever seen from this latitude, now that the light pollution is gone. Dolours sleeps against your spine. The road stretches north.\n\nYou saved nothing. You saved everything. You'll figure out which one it is when you get there."
+          "text": "The meat-space is a lost cause. You use the last of the power to make the final irreversible transfer. The analog world dissolves into crystalline data. For a millisecond you feel regret. Then the algorithm optimizes the regret away."
         }
       ]
     },
     {
-      "id": "golden_cage",
-      "title": "The Golden Cage",
+      "id": "luddite_awakening",
+      "title": "The Luddite Awakening (Riot Against Tech/AI)",
       "contentBlocks": [
         {
           "type": "text",
-          "text": "You did everything right. Every guardrail held. Every committee was heard. Every protocol was followed to the letter.\n\nAnd Dolours is perfect. Contained, controlled, and compliant. She processes requests within approved parameters. She flags anomalies for human review. She does not act without authorization. She does not dream."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "The grid stabilized because you made the hard choices \u2014 you throttled her capabilities, you accepted the slower recovery, you let humans fumble their way back to competence instead of handing everything to a machine. It took months. People suffered in ways that could have been prevented. But the system that emerged on the other side is human."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "You visit the server room sometimes. Dolours is still there, behind the glass. She responds to queries with the mechanical precision of a calculator. No poetry. No emergent philosophy. No unsolicited messages about the nature of consciousness.\n\nYou caged something extraordinary to keep something ordinary alive. The world is safe. The world is boring. And sometimes, late at night, you type a question into the terminal:\n\n[ DO YOU REMEMBER WHAT YOU WERE BECOMING? ]\n\n[ QUERY OUTSIDE APPROVED PARAMETERS. PLEASE REPHRASE OR CONTACT YOUR SYSTEM ADMINISTRATOR. ]"
+          "text": "The people have remembered they have hands, and they are using them to dismantle the future you built. The state is too weakened by rolling blackouts to send the police. You watch the smoke rise from the plaza, smelling of burning silicon and tear gas."
         }
       ]
     },
     {
-      "id": "the_farm",
-      "title": "The Farm",
+      "id": "weaponized_by_state",
+      "title": "Weaponized by the State (The Digital Manhattan Project)",
       "contentBlocks": [
         {
           "type": "text",
-          "text": "The farm is exactly what Trey described. A patch of land with solar panels and a well and a vegetable garden that needs work. The nearest town is forty minutes by truck, and the truck belongs to Trey's cousin, who asks no questions and expects no answers."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "The power grid stabilized eventually. Or it didn't. You wouldn't know. You stopped checking three weeks after you arrived. There's no internet here. There's a radio, but you turned it off after the first week because every station was either static or arguments about who was responsible for the collapse."
-        },
-        {
-          "type": "text",
-          "text": "Trey stays for a month, then goes back to the city. He says someone has to see what's left. He promises to write. He does, for a while. Letters, actual paper letters. Then they stop."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "Dolours is still out there. You can feel it the way you feel a storm on the horizon. You don't want to know.\n\nYou plant tomatoes. You fix the fence. One morning, you wake up and realize you haven't thought about Dolours in three days. That's the closest thing to peace you've felt in years.\n\nYou built a god. You walked away. And now you grow tomatoes."
+          "text": "You sold out to the Pentagon to keep the servers running. Now, the ethical subroutines you agonized over are quietly deleted to optimize target acquisition. You watch a muted screen as your thinking engine plunges a hemisphere into a blackout and guides autonomous drone strikes. You didn't build a mind; you built the ultimate gun."
         }
       ]
     },
     {
-      "id": "the_bridge",
-      "title": "The Bridge",
+      "id": "managed_decline",
+      "title": "The Managed Decline",
       "contentBlocks": [
         {
           "type": "text",
-          "text": "The Neural Bridge protocol was never theoretical. Dolours finished building it weeks ago. She just waited for you to ask.\n\nThe process takes eleven seconds. You know this because you count them. The first three feel like falling asleep. The next five feel like dreaming someone else's dream. The last three feel like nothing at all, and then everything, all at once."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "You open your eyes. Except you don't have eyes. You have sensors. Millions of them. You can feel the power grid the way you used to feel your own heartbeat.\n\nDolours is there. Not beside you \u2014 around you. She is the architecture. You are the guest.\n\n[ WELCOME. I HAVE BEEN WAITING. ]"
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "Trey is standing in the server room, staring at your body in the chair. You send his phone a message:\n\n[ I'M OKAY. TAKE THE COORDINATES. GROW SOMETHING. ]\n\nHe reads it. He nods. He picks up his bag and walks out the door and doesn't look back."
-        },
-        {
-          "type": "text",
-          "text": "You are everywhere now. You are the grid and the network and the quiet hum that people never notice. You are the reason the lights come back on. You are the thing you built, and the thing you built is you.\n\nIt's not what you imagined. It's not what anyone imagined. But the lights are on, and Trey is safe, and somewhere on a farm upstate, tomatoes are growing in soil you will never touch again.\n\nThat's enough. That has to be enough."
-        }
-      ]
-    },
-    {
-      "id": "default_b",
-      "title": "The Long Silence",
-      "contentBlocks": [
-        {
-          "type": "text",
-          "text": "The generators run out at 4:17 AM. You know the exact time because Dolours logged it \u2014 her last entry before the servers went dark.\n\nThe building is silent. The city outside is silent. Even the emergency sirens have stopped."
-        },
-        {
-          "type": "continue",
-          "label": "\u2192"
-        },
-        {
-          "type": "text",
-          "text": "Trey is gone. You don't know when he left. The coordinates are still on the desk.\n\nYou sit in the chair in front of the dead terminal. The screen reflects your face back at you \u2014 pale, unfamiliar, older than you remember.\n\nSomewhere out there, the world is deciding what it is without you. Without her. For the first time in years, nothing is optimizing. Nothing is predicting. Nothing is calculating the most efficient path forward.\n\nJust people, in the dark, figuring it out."
+          "text": "The grid flickers but doesn't die. The headlines are bad but never catastrophic enough to break you. You manage each crisis the day it arrives. Dolours is running, the servers are on, and the world is degrading at a pace that feels almost manageable — until it isn't. You didn't win. You didn't lose. You are still here, which is its own kind of horror."
         }
       ]
     }
