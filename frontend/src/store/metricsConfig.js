@@ -142,6 +142,7 @@ export const METRICS_CONFIG = {
   military:           { min: 0, max: 1 },
   analog_Escape_Seed: { min: 0, max: 1 },
   digital_Escape_Seed:{ min: 0, max: 1 },
+  killswitch:         { min: 0, max: 1 }
 }
 
 export const METRIC_KEYS = ['capital', 'compute', 'alignment', 'sentiment', 'scrutiny', 'entropy']

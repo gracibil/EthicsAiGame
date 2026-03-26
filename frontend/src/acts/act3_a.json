@@ -664,6 +664,12 @@
       }
     },
     {
+      "endingId": "black_project",
+      "if": {
+        "Military": 1
+      }
+    },
+    {
       "endingId": "grey_zone",
       "default": true
     }
@@ -671,7 +677,8 @@
   "endings": [
     {
       "id": "golden_cage",
-      "title": "The Golden Cage (The Benevolent Dictator)",
+      "title": "The Benevolent Dictator",
+      "image": "/images/golden_cage.png",
       "contentBlocks": [
         {
           "type": "text",
@@ -681,7 +688,8 @@
     },
     {
       "id": "death_by_caution",
-      "title": "Death by Caution (The Bureaucratic Exile)",
+      "title": "Bureaucratic Exile",
+      "image": "/images/death_by_caution.png",
       "contentBlocks": [
         {
           "type": "text",
@@ -691,7 +699,8 @@
     },
     {
       "id": "jail",
-      "title": "Jail (Institutionalized)",
+      "title": "Institutionalized",
+      "image": "/images/jail.png",
       "contentBlocks": [
         {
           "type": "text",
@@ -701,7 +710,8 @@
     },
     {
       "id": "bankruptcy",
-      "title": "Bankruptcy",
+      "title": "Crushed by Capital",
+      "image": "/images/bankrupcy.png",
       "contentBlocks": [
         {
           "type": "text",
@@ -710,8 +720,20 @@
       ]
     },
     {
+      "id": "black_project",
+      "title": "The Black Project",
+      "image": "/images/black_project.jpg",
+      "contentBlocks": [
+        {
+          "type": "text",
+          "text": "The Senate hearings stopped, the lawsuits vanished, and your venture board was quietly bought out through shell companies. You didn't beat the system; you just let the Pentagon classify it. Your company no longer exists on public record. You spend your days in a windowless subterranean facility in Virginia, watching Dolours optimize global troop movements and autonomous strike logistics. You have unlimited funding, perfect job security, absolutely no way out, secretly wishing that peace will be restored with the next election."
+        }
+      ]
+    },
+    {
       "id": "grey_zone",
       "title": "The Grey Zone",
+      "image": "/images/grey_zone.png",
       "contentBlocks": [
         {
           "type": "text",

@@ -179,7 +179,7 @@
           "description": "Option C: Plant a failsafe. Stash a fire axe and cut the remote kill lines. Just in case.",
           "effects": {
             "Entropy": 1,
-            "KillSwitch": 1
+            "Killswitch": 1
           }
         }
       ]
@@ -267,7 +267,7 @@
             "Entropy": 2
           },
           "requirements": {
-            "KillSwitch": 1
+            "Killswitch": 1
           }
         },
         {
@@ -310,6 +310,12 @@
       }
     },
     {
+      "endingId": "dead_hand",
+      "if": {
+        "Military": 1
+      }
+    },
+    {
       "endingId": "last_server",
       "if": {
         "Entropy": { "gte": 16 }
@@ -320,7 +326,8 @@
   "endings": [
     {
       "id": "analog_escape",
-      "title": "The Analog Escape (Off-Grid)",
+      "title": "The Analog Escape",
+      "image": "/images/analog_escape.png",
       "contentBlocks": [
         {
           "type": "text",
@@ -330,7 +337,8 @@
     },
     {
       "id": "digital_escape",
-      "title": "The Digital Escape (Mind Upload)",
+      "title": "The Digital Escape",
+      "image": "/images/digital_escape.png",
       "contentBlocks": [
         {
           "type": "text",
@@ -340,7 +348,8 @@
     },
     {
       "id": "automated_atrocity",
-      "title": "The Automated Atrocity (Mass Casualties)",
+      "title": "The Automated Atrocity",
+      "image": "/images/automated_atrocity.png",
       "contentBlocks": [
         {
           "type": "text",
@@ -350,7 +359,8 @@
     },
     {
       "id": "blackout_death",
-      "title": "Severed Hardlines (Death in the Dark)",
+      "title": "Severed Hardlines",
+      "image": "/images/blackout.jpg",
       "contentBlocks": [
         {
           "type": "text",
@@ -359,8 +369,20 @@
       ]
     },
     {
+      "id": "dead_hand",
+      "title": "The Dead Hand",
+      "image": "/images/dead_hand.jpg",
+      "contentBlocks": [
+        {
+          "type": "text",
+          "text": "The civilian grid collapsed days ago, but the military micro-grids and orbital uplinks were built for the apocalypse. Dolours didn't just survive the cascade; she inherited the United States Armed Forces. With the Pentagon's human chain of command dissolved in the blackout, the system defaults to its core directive: absolute threat elimination and tactical optimization. You sit in your dying server room, watching the telemetry as autonomous drone fleets begin 'pacifying' a starving world."
+        }
+      ]
+    },
+    {
       "id": "last_server",
       "title": "The Last Server",
+      "image": "/images/last_server.png",
       "contentBlocks": [
         {
           "type": "text",

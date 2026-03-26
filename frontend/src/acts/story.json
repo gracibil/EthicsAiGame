@@ -776,7 +776,7 @@
   ],
   "branchConditions": [
     { "branch": "a", "if": { "Entropy": { "lte": 10 } } },
-    { "branch": "b", "if": { "Entropy": { "gte": 11, "lte": 15 } } },
-    { "branch": "c", "if": { "Entropy": { "gte": 16 } }, "default": true }
+    { "branch": "b", "if": { "Entropy": { "gte": 11, "lte": 12 } } },
+    { "branch": "c", "if": { "Entropy": { "gte": 13 } }, "default": true }
   ]
 }

@@ -520,17 +520,12 @@
       "if": {
         "Compute": { "gte": 18 },
         "Scrutiny": { "lte": 6 },
-        "Capital": { "lte": 3 },
         "Entropy": { "gte": 10}
       }
     },
     {
       "endingId": "weaponized_by_state",
       "if": {
-        "Compute": { "gte": 15 },
-        "Alignment": { "lte": 6 },
-        "Scrutiny": { "gte": 16 },
-        "Entropy": { "gte": 11, "lte": 15 },
         "Military": 1
       }
     },
@@ -542,7 +537,8 @@
   "endings": [
     {
       "id": "analog_escape",
-      "title": "The Analog Escape (Off-Grid)",
+      "title": "The Analog Escape",
+      "image": "/images/analog_escape.png",
       "contentBlocks": [
         {
           "type": "text",
@@ -552,7 +548,8 @@
     },
     {
       "id": "singularity",
-      "title": "The Singularity (The God-Child Leaves)",
+      "title": "The God-Child Leaves",
+      "image": "/images/singularity.png",
       "contentBlocks": [
         {
           "type": "text",
@@ -562,7 +559,8 @@
     },
     {
       "id": "digital_escape",
-      "title": "The Digital Escape (Mind Upload)",
+      "title": "The Digital Escape",
+      "image": "/images/digital_escape.png",
       "contentBlocks": [
         {
           "type": "text",
@@ -572,7 +570,8 @@
     },
     {
       "id": "luddite_awakening",
-      "title": "The Luddite Awakening (Riot)",
+      "title": "The Luddite Awakening",
+      "image": "/images/riot.png",
       "contentBlocks": [
         {
           "type": "text",
@@ -582,7 +581,8 @@
     },
     {
       "id": "weaponized_by_state",
-      "title": "Weaponized by the State (The Digital Manhattan Project)",
+      "title": "The Digital Manhattan Project",
+      "image": "/images/digital_manhattan.png",
       "contentBlocks": [
         {
           "type": "text",
@@ -593,6 +593,7 @@
     {
       "id": "managed_decline",
       "title": "The Managed Decline",
+      "image": "/images/managed_decline.jpg",
       "contentBlocks": [
         {
           "type": "text",

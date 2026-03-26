@@ -7,6 +7,7 @@ import { SceneRenderer } from './components/SceneRenderer'
 import TitleScreen from './components/TitleScreen'
 import CharacterSelectionScreen from './components/CharacterSelectionScreen'
 import DiceModal from './components/DiceModal'
+import EventPopUp from './components/EventPopUp'
 
 // Utilities & Store
 import { useGameStore, ARCHETYPES } from './store/gameStore'
@@ -25,6 +26,10 @@ function resolveConditions(conditions, metrics) {
     if (cond.default) return cond.endingId ?? cond.branch ?? null
     const met = Object.entries(cond.if ?? {}).every(([key, rule]) => {
       const val = metrics[key.toLowerCase()] ?? 0
+
+      // Handle exact value match e.g. "Analog_Escape_Seed": 1 or "Military": 0
+      if (typeof rule !== 'object' || rule === null) return val === rule
+
       if (rule.gte !== undefined && val < rule.gte) return false
       if (rule.lte !== undefined && val > rule.lte) return false
       return true
@@ -46,6 +51,8 @@ function App() {
   const [inBranch, setInBranch] = useState(false)
   const [branchMeta, setBranchMeta] = useState(null)
 
+  // Ending as event popup
+  const [endingPopupOpen, setEndingPopupOpen] = useState(false)
   const currentScene = scenes[sceneIndex]
 
   const handleCharacterSelect = (archetype) => {
@@ -85,6 +92,7 @@ function App() {
         useGameStore.setState({ activeEnding: matched })
       }
       setGameState('ending')
+      setEndingPopupOpen(true)
     }
   }
 
@@ -97,7 +105,7 @@ function App() {
 
 const handleOptionSelect = (option) => {
     if (option.isGamble) {
-      const gambleMetric = option.gambleMetric || 'Compute';
+      const gambleMetric = option.gambleMetric;
       const stateKey = gambleMetric.toLowerCase(); 
       const currentMetricValue = useGameStore.getState().metrics[stateKey] || 0;
 
@@ -203,21 +211,21 @@ const handleOptionSelect = (option) => {
           </>
         )}
 
-        {gameState === 'ending' && (
-          <div className="z-30 w-[90%] sm:w-[75%] md:w-[60%] h-[80%] p-6 md:p-10 rounded-xl shadow-2xl border border-red-900/50 flex flex-col items-center justify-center text-center text-white">
-            <h1 className="text-4xl font-bold text-red-500 mb-6">{activeEnding?.title || 'The End'}</h1>
-            <p className="max-w-2xl text-lg text-gray-300 mb-10 leading-relaxed">
-              {activeEnding?.narrative ||
-                (activeEnding?.contentBlocks?.map(block => block.text).join(' ') ||
-                'Your journey concludes here.')}
-            </p>
-            <button
-              onClick={handleRestart}
-              className="border border-red-500 text-red-500 px-8 py-3 hover:bg-red-500 hover:text-black transition rounded font-bold tracking-widest uppercase"
-            >
-              Initialize New Seed
-            </button>
-          </div>
+        {gameState === 'ending' && activeEnding && (
+          <EventPopUp
+            open={endingPopupOpen}
+            setOpen={setEndingPopupOpen}
+            gameState={gameState}
+            onOptionSelect={() => {}}
+            footerAction={{ label: 'Initialize New Seed', onClick: handleRestart }}
+            finalStats={metrics}
+            event={{
+              title: activeEnding.title,
+              description: activeEnding.contentBlocks?.map(b => b.text).join(' ') ?? '',
+              image: activeEnding.image ?? '',
+              options: [],
+            }}
+          />
         )}
       </div>
     </>
